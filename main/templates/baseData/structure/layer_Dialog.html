@@ -1,0 +1,182 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增区域</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post" style="padding-top: 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">层位编号</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            <select name="Layer" lay-verify="name" {% if currentLayer %}
+            disabled="disabled"
+            {% endif %} id="Layer" lay-search>
+                <option value="">可搜索</option>
+                {% for item in LAYER %}
+                    <option value="{{ item.code }}" {% if item.code == currentLayer.layerCode %}selected="selected"{% endif %}  {% if item.disable == 'true' %}disabled{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <label class="layui-form-label">材料名称</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="materialName" id="materialName" placeholder="请输入" autocomplete="off"
+                  class="layui-input" value="{{ currentLayer.materialName }}" lay-verify="name" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">厚度</label>
+        <div class="layui-input-inline" style="width: 120px;">
+            <input type="text" name="thickness" id="thickness" placeholder="请输入" autocomplete="off"
+                  class="layui-input" value="{{ currentLayer.thickness }}" lay-verify="Integer" required>
+        </div>
+        <div  class="layui-form-mid layui-word-aux">cm</div>
+
+        <label class="layui-form-label">弹性模量</label>
+        <div class="layui-input-inline" style="width: 110px;">
+            <input type="text" name="elasticModulus" id="elasticModulus" placeholder="请输入" autocomplete="off"
+                  class="layui-input"  value="{{ currentLayer.elasticModulus }}" lay-verify="Integer" required>
+        </div>
+        <div  class="layui-form-mid layui-word-aux">Mpa</div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">CBR</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            <input type="text" name="CBR" id="CBR" placeholder="请输入" autocomplete="off"
+                  class="layui-input" value="{{ currentLayer.CBR }}" lay-verify="Integer" required>
+        </div>
+
+        <label class="layui-form-label">泊松比</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            <input type="text" name="poissonRatio" id="poissonRatio" placeholder="请输入" autocomplete="off"
+                  class="layui-input" value="{{ currentLayer.poissonRatio }}"  lay-verify="Integer" required>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">记录日期</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            <input type="text" name="recordingTime" id="recordingTime" placeholder="请输入" autocomplete="off"
+                  value="{{ currentLayer.recordingTime }}" class="layui-input"  required>
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            {% if currentLayer %}
+                <button class="layui-btn layui-btn-primary" lay-submit lay-filter="alterStructureSubmit" id="alterStructureSubmit" name="alterStructureSubmit">修改</button>
+            {% else %}
+                <button class="layui-btn layui-btn-primary" lay-submit lay-filter="addStructureSubmit" id="addStructureSubmit" name="addStructureSubmit">添加</button>
+            {% endif %}
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['form'], function(){
+        var layer = layui.layer
+        var $ = layui.jquery
+        var form = layui.form;
+
+        form.verify({
+            name: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                  return '不能为空且特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                  return '首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                  return '不能全为数字';
+                }
+            }
+            ,Integer:[
+                /^([1-9][0-9]*|0)(\.[0-9]+)?$/
+                ,'此处应为数字。'
+            ]
+            ,decimal:[
+                /^(-?\\d+)(\\.\\d+)?$/,
+                '此处需填浮点数'
+            ]
+            ,required:[
+                /^\S$/,
+                '此处必填'
+            ]
+        });
+
+        form.on('submit(addStructureSubmit)',function(data){
+           return false
+        });
+        form.on('submit(alterStructureSubmit)',function(data){
+           return false
+        });
+
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+
+        $("button[name='addStructureSubmit']").on('click',function(){
+            {% if structureCode %}var structureCode='{{ structureCode }}'{% endif %}
+            var Layer = $("#Layer").val();
+            var materialName = $("#materialName").val();
+            var thickness = $("#thickness").val();
+            var elasticModulus = $("#elasticModulus").val();
+            var CBR = $("#CBR").val();
+            var poissonRatio = $("#poissonRatio").val();
+            var recordingTime = $("#recordingTime").val();
+
+            var post_data_dict = {structureCode:structureCode,Layer:Layer, materialName:materialName,
+            thickness:thickness,elasticModulus:elasticModulus, CBR:CBR,
+            poissonRatio:poissonRatio,recordingTime:recordingTime};
+
+            var post_data_str = JSON.stringify(post_data_dict);
+             $.ajax({
+                url: '{% url 'sysManage:addStructureSubmit' %}',
+                type: 'POST',
+                data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                dataType: 'json',
+                 success: function (arg) {
+                     if(arg.status){
+                         parent.layer.close(frameindex)
+                         parent.document.getElementById("searchLayer").click()
+                     }
+                 },
+            })
+        });
+
+        $("button[name='alterStructureSubmit']").on('click',function(){
+            {% if currentLayer %}var layerId='{{ currentLayer.id }}'{% endif %}
+            var materialName = $("#materialName").val();
+            var thickness = $("#thickness").val();
+            var elasticModulus = $("#elasticModulus").val();
+            var CBR = $("#CBR").val();
+            var poissonRatio = $("#poissonRatio").val();
+            var recordingTime = $("#recordingTime").val();
+
+            var post_data_dict = {layerId:layerId, materialName:materialName,
+            thickness:thickness,elasticModulus:elasticModulus, CBR:CBR,
+            poissonRatio:poissonRatio,recordingTime:recordingTime};
+
+            var post_data_str = JSON.stringify(post_data_dict);
+             $.ajax({
+                url: '{% url 'sysManage:alterStructureSubmit' %}',
+                type: 'POST',
+                data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                dataType: 'json',
+                 success: function (arg) {
+                     if(arg.status){
+                         parent.layer.close(frameindex)
+                         parent.document.getElementById("searchLayer").click()
+                     }
+                 },
+            })
+        });
+
+    });
+</script>
+</body>
+</html>

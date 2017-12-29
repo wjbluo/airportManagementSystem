@@ -1,0 +1,140 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增单元</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post" style="padding-top: 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">单元编号</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="cellCode" id="cellCode" placeholder="请输入" autocomplete="off"
+                 class="layui-input" value="{{ currentCell.cellCode }}"  lay-verify="required" required>
+        </div>
+
+        <label class="layui-form-label">所属区域</label>
+        <div class="layui-input-inline" style="width: 150px;">
+
+           <input type="text" name="area" id="area" placeholder="请输入" autocomplete="off"
+                  class="layui-input" value="{% if currentArea %}{{ currentArea.areaCode }}({{ currentArea.areaDis }}){% endif %}{% if currentCell %}{{ currentCell.area.areaCode }}({{ currentCell.area.areaDis }}){% endif %}" required lay-verify="required" disabled>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属部位</label>
+        <div class="layui-input-inline" style="width: 150px;">
+
+            <input type="text" name="partName" id="partName" placeholder="请输入" autocomplete="off"
+              class="layui-input" value="{% if currentArea %}{{ currentArea.part.airCode }}({{ currentArea.part.partName }}){% endif %}{% if currentCell %}{{ currentCell.area.part.airCode }}({{ currentCell.area.part.partName }}){% endif %}" required lay-verify="required" disabled>
+        </div>
+
+        <label class="layui-form-label">记录日期</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="recordingTime" id="recordingTime" placeholder="请输入"
+                 autocomplete="off" value="{{ currentCell.recordingTime }}" class="layui-input" lay-verify="required" required>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            {% if currentCell %}
+                <div class="layui-btn layui-btn-primary" lay-filter="alterCellSubmit" id="alterCellSubmit" name="alterCellSubmit">更新</div>
+                {% else %}
+                <button class="layui-btn layui-btn-primary" lay-submit lay-filter="addCellSubmit" id="addCellSubmit" name="addCellSubmit">添加</button>
+            {% endif %}
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['form'], function(){
+        var layer = layui.layer
+        var $ = layui.jquery
+        var form = layui.form;
+
+        form.verify({
+            name: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                  return '用户名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                  return '用户名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                  return '用户名不能全为数字';
+                }
+            }
+            ,Integer:[
+                /^[\d]+$/
+                ,'此处应为整数。'
+            ]
+        });
+
+        form.on('submit(addCellSubmit)', function(data){
+            return false;
+         });
+
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+
+        $("button[name='addCellSubmit']").on('click',function(){
+                var cellCode = $("#cellCode").val();
+                {% if currentArea %}var area_id = {{ currentArea.id }}{% endif %}
+                var recordingTime = $("#recordingTime").val();
+
+
+                var post_data_dict = {cellCode:cellCode, area_id:area_id,
+                    recordingTime:recordingTime};
+
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:addCellSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+{#                             parent.location.reload()#}
+                             parent.document.getElementById('searchCell').click()
+
+{#                             if(arg.flash){#}
+{#                                 parent.location.reload()#}
+{#                             }#}
+                         }
+                     },
+                })
+            });
+
+        $("div[id='alterCellSubmit']").on('click',function(){
+                {% if currentCell %}var cellId = {{ currentCell.id }}{% endif %}
+                var cellCode = $("#cellCode").val();
+                var recordingTime = $("#recordingTime").val();
+
+                var post_data_dict = {cellId:cellId,cellCode:cellCode, recordingTime:recordingTime};
+
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:alterCellSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+{#                             parent.location.reload()#}
+                             parent.document.getElementById('searchCell').click()
+
+
+                         }
+
+                     },
+                })
+            });
+    });
+</script>
+</body>
+</html>

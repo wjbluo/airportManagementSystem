@@ -1,0 +1,42 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>平整度框架</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+</head>
+<body class="x-body">
+	<div class="container" style="padding-left: 0px">
+		<div class="content">
+                <div class="layui-row">
+                    <div class="layui-col-xs2">
+                        <iframe frameborder="0" src="{% url 'sysManage:evaluationManagement:damageMenu' '3' %}" id="planenessMenu" name="planenessMenu" title="planenessMenu" width="98%" height="560px"></iframe>
+                    </div>
+                    <div class="layui-col-xs10">
+                        <iframe frameborder="" id="planenessContent" src="{% url 'sysManage:evaluationManagement:planenessData' firstOperArea.surveyPlan.surveyPlanCode firstOperArea.area.part.id %}" name="planenessContent" title="planenessContent" width="98%" height="560px"></iframe>
+                    </div>
+                </div>
+        </div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+
+     layui.use(['layer'], function() {
+         var $ = layui.jquery
+         var layer = layui.layer;
+
+
+
+    });
+</script>

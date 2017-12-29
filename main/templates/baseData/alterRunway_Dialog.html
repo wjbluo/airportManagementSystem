@@ -1,0 +1,246 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>修改机场基本信息</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post" style="padding-top: 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">跑道标志码</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="runwayCode" id="runwayCode" placeholder="请输入" autocomplete="off"
+                 class="layui-input" value="{{ currentRunway.runwayCode }}" required lay-verify="required">
+        </div>
+
+        <label class="layui-form-label">跑道名称</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="runwayName" id="runwayName" placeholder="请输入" autocomplete="off"
+                  class="layui-input" value="{{ currentRunway.runwayName }}" required lay-verify="required">
+        </div>
+
+        <label class="layui-form-label">所属机场</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="airport" id="airport" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.airport.airportName }}" class="layui-input"
+                 disabled>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">跑道尺寸</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="sizeOfRunway" id="sizeOfRunway" placeholder="请输入" autocomplete="off"
+                  value="{{ currentRunway.sizeOfRunway }}" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">升降带尺寸</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="sizeOfLiftingBelt" id="sizeOfLiftingBelt" placeholder="请输入" autocomplete="off"
+                  value="{{ currentRunway.sizeOfLiftingBelt }}" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">防吹坪尺寸</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="sizeOfBlastPad" id="sizeOfBlastPad" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.sizeOfBlastPad }}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">道肩宽度</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="widthOfShoulder" id="widthOfShoulder" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.widthOfShoulder }}" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">端安全区尺寸</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="sizeOfSafetyZone" id="sizeOfSafetyZone" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.sizeOfSafetyZone }}" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">运行类别Ⅰ</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="operationCategory1" id="operationCategory1" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.operationCategory1 }}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">运行类别Ⅱ</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="operationCategory2" id="operationCategory2" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.operationCategory2 }}" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">可用起飞距离</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="takeoffDistance" id="takeoffDistance" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.takeoffDistance }}" class="layui-input">
+        </div>
+        <label class="layui-form-label">可用起飞滑跑距离</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="takeoffRunDistance" id="takeoffRunDistance" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.takeoffRunDistance }}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">摩擦系数</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="runwayFrictionCoefficient" id="runwayFrictionCoefficient" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.runwayFrictionCoefficient }}" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">可用着陆距离</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="landingDistance" id="landingDistance" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.landingDistance }}" class="layui-input">
+        </div>
+        <label class="layui-form-label">可用加速停止距离</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="accelerateStopDistance" id="accelerateStopDistance" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.accelerateStopDistance }}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">横坡</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="crossSlope" id="crossSlope" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.crossSlope }}" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">有效纵坡</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="effectiveLongitudinalSlope" id="effectiveLongitudinalSlope" placeholder="请输入"
+                 autocomplete="off"  value="{{ currentRunway.effectiveLongitudinalSlope }}" class="layui-input">
+        </div>
+        <label class="layui-form-label">通报PCN</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="bulletinPCN" id="bulletinPCN" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.bulletinPCN }}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">通航时间</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="shippingTime" id="shippingTime" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.shippingTime }}" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">记录时间</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="recordingTime" id="recordingTime" placeholder="请输入"
+                 autocomplete="off" value="{{ currentRunway.recordingTime }}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn layui-btn-primary" lay-submit lay-filter="addRunwayDataSubmit" id="addRunwayDataSubmit" name="addRunwayDataSubmit">更新</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['form'], function(){
+        var layer = layui.layer
+        var $ = layui.jquery
+        var form = layui.form;
+
+        form.verify({
+            name: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                  return '用户名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                  return '用户名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                  return '用户名不能全为数字';
+                }
+            }
+            ,Integer:[
+                /^[\d]+$/
+                ,'此处应为整数。'
+            ]
+        });
+
+        form.on('submit(addRunwayDataSubmit)', function(data){
+            return false;
+         });
+
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+
+        $("button[name='addRunwayDataSubmit']").on('click',function(){
+                var runwayId = {{ currentRunway.id }}
+                var runwayCode = $("#runwayCode").val();
+                var runwayName = $("#runwayName").val();
+                var sizeOfRunway = $("#sizeOfRunway").val();
+                var sizeOfLiftingBelt = $("#sizeOfLiftingBelt").val();
+                var sizeOfBlastPad = $("#sizeOfBlastPad").val();
+                var widthOfShoulder = $("#widthOfShoulder").val();
+                var sizeOfSafetyZone = $("#sizeOfSafetyZone").val();
+                var operationCategory1 = $("#operationCategory1").val();
+                var operationCategory2 = $("#operationCategory2").val();
+                var takeoffDistance = $("#takeoffDistance").val();
+                var takeoffRunDistance = $("#takeoffRunDistance").val();
+                var runwayFrictionCoefficient = $("#runwayFrictionCoefficient").val();
+                var landingDistance = $("#landingDistance").val();
+                var accelerateStopDistance = $("#accelerateStopDistance").val();
+
+                var crossSlope = $("#crossSlope").val();
+                var effectiveLongitudinalSlope = $("#effectiveLongitudinalSlope").val();
+                var bulletinPCN = $("#bulletinPCN").val();
+                var shippingTime = $("#shippingTime").val();
+                var recordingTime = $("#recordingTime").val();
+
+                var post_data_dict = {runwayCode:runwayCode, runwayName:runwayName,runwayId:runwayId,
+                    sizeOfRunway:sizeOfRunway,sizeOfLiftingBelt:sizeOfLiftingBelt, sizeOfBlastPad:sizeOfBlastPad,
+                    widthOfShoulder:widthOfShoulder, sizeOfSafetyZone:sizeOfSafetyZone,operationCategory1:operationCategory1,
+                    operationCategory2:operationCategory2,takeoffDistance:takeoffDistance,takeoffRunDistance:takeoffRunDistance,
+                    runwayFrictionCoefficient:runwayFrictionCoefficient,landingDistance:landingDistance,accelerateStopDistance:accelerateStopDistance,
+                    crossSlope:crossSlope,effectiveLongitudinalSlope:effectiveLongitudinalSlope,bulletinPCN:bulletinPCN,
+                    shippingTime:shippingTime,recordingTime:recordingTime};
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:alterRunwayDataSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+{#                             parent.location.reload()#}
+                             var runwayBaseData_Tab = parent.document.getElementById('runwayBaseData_Tab'+arg.id)
+                             runwayBaseData_Tab.innerHTML = "";
+
+                             for(var i=0;i<7;i++){
+                                 var tr = document.createElement('tr');
+                                 for(var j=0;j<6;j++){
+                                     var td = document.createElement('td');
+                                     if ((6*i+j)%2==0){
+                                         td.className="kv-label"
+                                     }else{
+                                         td.className="kv-content"
+                                     }
+                                    td.innerHTML = arg.data[6*i+j]
+
+                                     tr.appendChild(td)
+                                 }
+                                 runwayBaseData_Tab.appendChild(tr);
+                             }
+
+                             layer.msg(arg.message+"[3s后自动关闭]", {
+                                time: 3000, //3s后自动关闭
+                                btn: [ '知道了']
+                             });
+                         }
+
+
+                     },
+                })
+            });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增区域</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post" style="padding-top: 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">结构类目</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="structureClass" id="structureClass" placeholder="请输入" autocomplete="off"
+                 class="layui-input" required lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">结构编号</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="structureCode" id="structureCode" placeholder="请输入" autocomplete="off"
+                  class="layui-input" required lay-verify="required">
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <div class="layui-btn layui-btn-primary" lay-filter="addClassSubmit" id="addClassSubmit" name="addClassSubmit">添加</div>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['form'], function(){
+        var layer = layui.layer
+        var $ = layui.jquery
+        var form = layui.form;
+
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+
+        $("div[name='addClassSubmit']").on('click',function(){
+                var structureClass = $("#structureClass").val();
+                var structureCode = $("#structureCode").val();
+
+                var post_data_dict = {structureClass:structureClass, structureCode:structureCode};
+
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:addClassSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+                             parent.document.getElementById('StructrueMenu').src='{% url 'sysManage:initStructrueMenu' %}'
+                         }
+                     },
+                })
+            });
+
+    });
+</script>
+</body>
+</html>

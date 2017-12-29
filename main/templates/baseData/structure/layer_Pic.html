@@ -1,0 +1,80 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>层位示意图</title>
+</head>
+
+<body>
+    <div id="chartmain" style="width:600px; height: 400px;"></div>
+</body>
+<script type="text/javascript" src="{% static 'darkgrey/js/echarts.min.js' %}"></script>
+<script type="text/javascript">
+        var option = {
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            legend: {
+                data: [{% for item in data %}
+                            '{{ item.name }}',
+{#                        {% if forloop.last %}{{ item.name }}{% endif %}#}
+                        {% endfor %}
+                    ]
+            },
+            grid: {
+                left: '8%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            yAxis:  {
+                inverse:true,
+                name:'厚度（cm）',
+                nameLocation:'middle',
+                nameGap:30,
+                nametextStyle:{
+                    fontFamily:'Times NewRoman',
+                    fontSize:15
+                },
+                axisTick:{
+                    alignWithLabel:true,
+                    inside:true,
+                },
+                type: 'value'
+            },
+            xAxis: {
+                position:'top',
+                axisTick:{
+                    show:false
+                },
+                type: 'category',
+                data: ['{{ structureCode }}']
+            },
+            series: [
+                {% for item in data %}
+                    {
+                        name:'{{ item.name }}',
+                        type: 'bar',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                            }
+                        },
+                        data: ['{{ item.value }}']
+                    },
+                {% endfor %}
+            ]
+        };
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chartmain'));
+
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(option);
+    </script>
+</html>

@@ -1,0 +1,45 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>结构组合列表</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+	<div class="container" style="padding-left: 0px">
+		<div class="content">
+
+            <ul class="easyui-tree" id="areaList">
+                {% for year in allyear %}
+
+                    <li data-options="state:'open'">
+                        <span>{{ year.year }}</span>
+                        <ul>
+                            {% for plan in allplan %}
+                                {% if plan.year == year.year %}
+                                    <li><a href="{% url 'sysManage:evaluationManagement:showPlan' plan.surveyPlanCode %}" target="PlanContent">
+                                            <span>{{ plan.surveyPlanCode }}</span>
+                                        </a>
+                                    </li>
+
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+		</div>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+
+

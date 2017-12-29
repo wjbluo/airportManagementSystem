@@ -1,0 +1,266 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>结构评价</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+</head>
+<body class="x-body">
+	<div class="container" style="padding-left: 10px; width: 98%">
+		<div class="content">
+            <div class="layui-tab layui-tab-card" lay-filter="IRI_cal">
+                  <ul class="layui-tab-title">
+                      <li class="layui-this">IRI评价</li>
+                      <li>统计图</li>
+                  </ul>
+                  <div class="layui-tab-content" style="height: 450px;">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-table" id="iri_tab" lay-filter='iri_tab'></table>
+                        </div>
+                        <div class="layui-tab-item">
+                                <div id="iriChart" name="iriChart" style="width:95%; height: 450px;" ></div>
+                      </div>
+                  </div>
+            </div>
+		</div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/echarts.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/Highcharts-6.0.3/code/highcharts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/Highcharts-6.0.3/code/modules/exporting.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+    layui.use(['table','form','layer','element'], function() {
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+        var element = layui.element;
+
+        //执行渲染  表格
+        var iri_tab = table.render({
+            elem: '#iri_tab' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:420
+             ,cols: [[
+                {field: 'partName',title:'部位名称',width:180,fixed:'left',sort: true}
+                ,{field: 'lineCode',title:'测线名称',width:210}
+                 ,{field: 'avg_iri',title:'iri均值',width:210}
+                 ,{field: 'cv',title:'变异系数',width:210}
+                 ,{field: 'level',title:'评价等级',width:210}
+              ]]
+            ,limits: [8,10,20,30,40,50]
+            ,limit: 8
+            ,size: 'sm'
+            ,data:{{ iri_json | safe }}
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+
+        element.on('tab(IRI_cal)', function(data){
+            if(data.index==0){
+                iri_tab.reload({
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                })
+            }else if(data.index==1){
+            }
+        });
+
+    });
+</script>
+<script type="text/javascript">
+
+    var dashStyles = [
+        'Dash',
+        'Solid',
+        'LongDash',
+        'Dot',
+        'LongDashDot',
+        'ShortDash',
+        'DashDot',
+        'LongDashDot',
+        'ShortDashDotDot',
+        'ShortDot',
+        'ShortDashDotDot'
+    ];
+    Highcharts.chart('iriChart', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: '平整度状况-{{ currentPart.partCode }}({{ currentPart.airCode }})',
+            y: 35
+        },
+        credits: {
+                    enabled:false
+        },
+        lang: {
+            noData: "无数据" //真正显示的文本
+        },
+        legend: {
+            symbolWidth: 50
+        },
+        exporting: {
+                filename:'平整度状况-{{ currentPlan.surveyPlanCode}}({{ currentPart.partCode }})',//导出的文件名
+                type:'image/png',//导出的文件类型
+                width:900,   //导出的文件宽度
+              },
+        xAxis: {
+            categories: [{{ chart_data.0.2 }}],
+            title: {
+                text: '距离',
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Times NewRoman'
+                },
+
+            },
+             labels: {
+                rotation: -90,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Times NewRoman'
+                }
+            },
+            tickPosition: 'inside',
+            tickmarkPlacement: 'on',
+            lineColor: '#000000',
+            tickColor:'#000000',
+            lineWidth: 2
+        },
+        yAxis: {
+            tickPosition: 'inside',
+            tickColor:'#000000',
+            lineColor: '#000000',
+            lineWidth: 2,
+            title: {
+                text: 'IRI值（m/Km）',
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Times NewRoman'
+                },
+
+            },
+            lineWidth: 1,
+            gridLineWidth: 0,
+            labels : {
+                formatter : function () {
+                    var strVal = this.value + '';
+                    if (strVal.indexOf('.') == -1) {
+                        return strVal + '.00';
+                    } else {
+                        var arr = strVal.split('.');
+                        if (arr[1].length == 2) {
+                            return strVal;
+                        } else {
+                            return strVal + '0';
+                        }
+                    }
+                },
+             style: {
+                fontSize: '13px',
+                fontFamily: 'Times NewRoman'
+            }
+            },
+            plotLines:[{
+                color:'red',           //线的颜色，定义为红色
+                dashStyle:'solid',     //默认值，这里定义为实线
+                value:4,               //定义在那个值上显示标示线，这里是在x轴上刻度为3的值处垂直化一条线
+                width:2                //标示线的宽度，2px
+            },{
+                color:'green',           //线的颜色，定义为绿色
+                dashStyle:'solid',     //默认值，这里定义为实线
+                value:2,               //定义在那个值上显示标示线，这里是在x轴上刻度为3的值处垂直化一条线
+                width:2                //标示线的宽度，2px
+            }
+            ],
+            plotBands:[{
+                from: 2,
+                to: 4,
+                color: 'rgba(0, 0, 0, 0)',
+                label: {
+    {#                            text: '中',#}
+                    align: 'right',
+                    style: {
+                        color: '#606060',
+                        fontSize: '18px',
+                        fontFamily: 'Times NewRoman',
+                    }
+                }
+            },{
+                from: 0,
+                to: 2,
+                color: 'rgba(68, 180, 113, 0.1)',
+                label: {
+    {#                            text: '好',#}
+                    align: 'right',
+                    style: {
+                        color: '#606060',
+                        fontSize: '18px',
+                        fontFamily: 'Times NewRoman'
+                    }
+                }
+            },{
+                from: 4,
+                to: 100,
+                color: 'rgba(188, 70, 163, 0.1)',
+                label: {
+    {#                            text: '差',#}
+                    align: 'right',
+                    style: {
+                        color: '#606060',
+                        fontSize: '18px',
+                        fontFamily: 'Times NewRoman',
+                        frontWight:14
+                    }
+                }
+            }]
+        },
+    {#                colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],#}
+        plotOptions: {
+            series: {
+                marker: {
+                    radius:3,
+                    fillColor: '#FFFFFF',
+                    lineWidth: 1,
+                    lineColor: null, // inherit from series
+
+                },
+                color: '#000000'
+            },
+            line: {
+                dataLabels: {
+                    enabled: false          // 开启数据标签
+                },
+                lineWidth:1,
+                enableMouseTracking: false // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+            },
+
+        },
+        series: [
+
+            {% for item in chart_data %}
+            {
+                name:'{{ item.1 }}',
+                data: [{{ item.3 |safe }}],
+                dashStyle:dashStyles[{{ item.0 }}]
+            },
+            {% endfor %}
+
+
+        ]
+    });
+
+</script>

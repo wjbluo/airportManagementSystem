@@ -1,0 +1,148 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>角色列表</title>
+
+<link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+
+<body class="x-body">
+<div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+
+        <form class="layui-form" style="display: inline-block;position: relative;margin-bottom: 0;width: 100%;" action="">
+            <div class="layui-form-item">
+              <div class="layui-input-block"  style="vertical-align: middle">
+                        <div class="layui-btn layui-anim-scale layui-btn-primary" lay-submit lay-filter="addGroup" name="addGroup" id="addGroup">
+                            <i class="layui-icon">&#xe61f;</i> 添加角色
+                        </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">
+                  <input type="text" value="" name="groupName" id="groupName"  lay-verify="value" placeholder="角色名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block"  style="vertical-align: middle">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="searchGroup" name="searchGroup" id="searchGroup">
+                            <i class="layui-icon">&#xe615;</i> 查询
+                        </button>
+                </div>
+            </div>
+            <blockquote class="layui-elem-quote layui-quote-nm">TIPS:角色可理解为部门。</blockquote>
+{#            <label class="layui-form-label" style="float: right;width: 500px;">TIPS:角色可理解为部门。</label>#}
+        </form>
+        <table class="layui-table" id="groupTab" lay-filter='groupTab'></table>
+    </div>
+</div>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+    <script>
+    layui.use(['table','form','layer'], function(){
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+
+        form.on('submit(searchGroup)', function(data){
+            return false;
+         });
+        form.on('submit(addGroup)', function(data){
+            return false;
+         });
+
+        //执行渲染
+        var groupTab = table.render({
+            elem: '#groupTab' //指定原始表格元素选择器（推荐id选择器）
+             ,height: 'full-180' //容器高度
+             ,cols: [[
+                {field: 'id',title:'编号',width:120,fixed:'left',sort: true} //其它参数在此省略
+                ,{field: 'roleName',title:'角色名称',width:150}
+                ,{field: 'roleDis',title:'角色描述',width:900}
+                ,{field: 'opera',title:'操作',toolbar: '#rolebars',align:'center',width:150,fixed:'right'}
+              ]]
+            ,limits: [1,10,20,30,40,50]
+            ,limit: 10
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+            ,url: '{% url 'sysManage:searchGroup' %}'
+            ,method: 'post'
+              //request: {} //如果无需自定义请求参数，可不加该参数
+                //response: {} //如果无需自定义数据响应名称，可不加该参数
+        });
+        $("button[name='searchGroup']").on('click',function(){
+            var serchStr = $("#groupName").val();
+            groupTab.reload({
+              where: { //设定异步数据接口的额外参数，任意设
+                searchStr:serchStr
+              }
+            });
+        });
+
+        $("div[name='addGroup']").on('click',function(){
+            layer.open({
+                type: 2,
+                title :'新增角色',
+                area: ['500px', '300px'],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: true,
+                content: 'addGroup/',
+                id:"add-user-dialog",
+            });
+        });
+
+        table.on('tool(groupTab)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'del'){ //删除
+                layer.confirm('此功能暂不提供。并非实际删除', function(index){
+                    var id = data.id
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            } else if(layEvent === 'givePermission') { //权限赋予
+                var roleId = data.id
+                layer.open({
+                    type: 2,
+                    title :'权限赋予',
+                    area: ['620px', '500px'],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+                    maxmin: true,
+                    content: 'givePermission/'+roleId,
+                    id:"give-permission-dialog",
+                });
+            }else if(layEvent === 'lookUsers'){ // 查看该角色下员工
+                var roleId = data.id
+                layer.open({
+                    type: 2,
+                    title :'查看该角色下员工',
+                    area: ['550px', '500px'],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+                    maxmin: true,
+                    content: 'lookUsers/'+roleId,
+                    id:"look-users-dialog",
+                });
+            }
+        });
+
+    });
+    </script>
+
+    <script type="text/html" id="rolebars">
+      <a class="iconfont" style='cursor:pointer' lay-event="del" title="删除">&#xe703;</a>
+      <a class="iconfont" style='cursor:pointer' lay-event="givePermission" title="赋予权限">&#xe6f3;</a>
+      <a class="iconfont" style='cursor:pointer' lay-event="lookUsers" title="查看该角色下员工">&#xe6a9;</a>
+    </script>
+</body> 
+</html>

@@ -1,0 +1,221 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>对象设置</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/demo.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+</head>
+<body>
+<div class="container" style="padding-left: 0px">
+    <div class="content">
+    <div class="layui-row">
+        <div class="layui-col-xs3">
+            <div class="column"><span class="current">分区列表</span>
+                <label style="padding-left: 5px"><span id="msg" class="layui-badge-rim">表观状况调查对象（区域）</span></label>
+            </div>
+            <ul id="groupTree" class="ztree"></ul>
+        </div>
+        <div class="layui-col-xs3">
+            <div class="column">
+                <input type="radio" name="TestObj" id="apparentTestObj" value="1" title="表观状况调查对象（区域）" checked>
+                <label for="apparentTestObj"><span class="current" style="cursor:pointer">表观状况调查对象（区域）</span></label>
+            </div>
+            <ul id="groupTree1" class="ztree"></ul>
+        </div>
+        <div class="layui-col-xs3">
+            <div class="column">
+                 <input type="radio" name="TestObj" id="structureTestObj" value="2" title="结构测试对象（区域）">
+                 <label for="structureTestObj"><span class="current" style="cursor:pointer">结构测试对象（区域）</span></label>
+            </div>
+            <ul id="groupTree2" class="ztree"></ul>
+        </div>
+        <div class="layui-col-xs3">
+            <div class="column">
+                <input type="radio" name="TestObj" id="planenessTestObj" value="3" title="平整度测试对象（区域）">
+                <label for="planenessTestObj"><span class="current" style="cursor:pointer">平整度测试对象（区域）</span></label>
+            </div>
+            <ul id="groupTree3" class="ztree"></ul>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs2 layui-col-xs-offset5" style="padding-top: 10px;padding-left: -50px">
+                <div class="layui-btn layui-anim-scale  layui-btn-primary" lay-filter="saveObj" name="saveObj" id="saveObj">
+                    <i class="layui-icon">&#xe609;</i>保存其调查对象
+                </div>
+            </div>
+        </div>
+</div>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery-1.4.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.core.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.excheck.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.exedit.js' %}"></script>
+<script>
+    function onCheck(){
+        var treeObj=$.fn.zTree.getZTreeObj("groupTree")
+        var nodes=treeObj.getCheckedNodes(true)
+        var checkData = []
+        for(var i=0;i<nodes.length;i++){
+            checkData.push({"id": nodes[i].id, "pId": nodes[i].pId,"id_true":nodes[i].id_true, "name": nodes[i].name, "open": true,
+                 })
+        }
+        var currentVal = $("input[name='TestObj']:checked").val()
+        if(currentVal==1){
+             $.fn.zTree.init($("#groupTree1"), setting2, checkData);
+        }else if(currentVal==2){
+             $.fn.zTree.init($("#groupTree2"), setting2, checkData);
+        }else if(currentVal==3){
+            for(var i=0;i<nodes.length;i++){
+                var nodechild=nodes[i].children;
+                for(var j=0;j<nodechild.length;j++) {
+                    checkData.push({
+                        "id": nodechild[j].id,
+                        "pId": nodechild[j].pId,
+                        "id_true": nodechild[j].id_true,
+                        "name": nodechild[j].name,
+                        "open": true,
+                    })
+                }
+            }
+             $.fn.zTree.init($("#groupTree3"), setting2, checkData);
+        }
+
+    }
+    var setting = {
+        check:{
+            enable:true
+        },
+        data:    {
+            simpleData:{
+                enable:true
+            }
+        },
+        callback: {
+            onCheck: onCheck
+        },
+
+    };
+    function setRemoveTitle(treeId, treeNode) {
+        return treeNode.isParent ? "删除部位":"删除区域";
+    }
+    function beforeDrag(treeId, treeNodes) {
+        return false;
+    }
+    var setting2 = {
+            data:    {
+                simpleData:{
+                    enable:true
+                }
+            },
+            edit: {
+                enable: true,
+                showRemoveBtn: true,
+                showRenameBtn:false,
+                removeTitle: setRemoveTitle
+            },
+            callback: {
+                beforeDrag: beforeDrag
+            },
+        };
+
+    var zNodes ={{ Nodes | safe }};
+
+    var zNodesParent={{ parentNodes | safe }};
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#groupTree"), setting, zNodes);
+    });
+
+    function filter(node) {
+        return (node.level == 1);
+    }
+    var  frameindex= parent.layer.getFrameIndex(window.name);
+    $("div[name='saveObj']").click(function(){
+        if($.fn.zTree.getZTreeObj("groupTree1")){
+            var treeObj1=$.fn.zTree.getZTreeObj("groupTree1")
+            var nodesForSurface=treeObj1.getNodesByFilter(filter);
+        }
+        if($.fn.zTree.getZTreeObj("groupTree2")){
+            var treeObj2=$.fn.zTree.getZTreeObj("groupTree2")
+            var nodesForStruct=treeObj2.getNodesByFilter(filter);
+        }
+        if($.fn.zTree.getZTreeObj("groupTree3")){
+            var treeObj3=$.fn.zTree.getZTreeObj("groupTree3")
+            var nodesForPlaneness=treeObj3.getNodesByFilter(filter);
+        }
+        var data1=[],data2=[],data3=[],allareadata=[]
+
+        if(nodesForSurface){
+            for(var i=0;i<nodesForSurface.length;i++){
+                data1.push(nodesForSurface[i].id)
+                allareadata.push(nodesForSurface[i].id)
+            }
+        }
+        if(nodesForStruct){
+            for(var i=0;i<nodesForStruct.length;i++){
+                data2.push(nodesForStruct[i].id)
+                allareadata.push(nodesForStruct[i].id)
+            }
+        }
+        if(nodesForPlaneness){
+            for(var i=0;i<nodesForPlaneness.length;i++){
+                data3.push(nodesForPlaneness[i].id)
+                allareadata.push(nodesForPlaneness[i].id)
+            }
+        }
+        var post_data_dict = {data1:data1, data2:data2,data3:data3,allareadata:allareadata};
+
+        var post_data_str = JSON.stringify(post_data_dict);
+
+         $.ajax({
+            url: '{% url 'sysManage:evaluationManagement:setObject' %}',
+            type: 'POST',
+            data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+            dataType: 'json',
+             success: function (arg) {
+                 if(arg.status){
+
+                     parent.Areadata=arg.data
+                     parent.layer.close(frameindex)
+                     parent.document.getElementById('partNum').value=arg.partNum
+                     parent.document.getElementById('areaNum').value=arg.areaNum
+                     parent.document.getElementById('cellNum').value=arg.cellNum
+                     parent.document.getElementById('EvaArea').value=arg.totalArea
+
+
+                 }
+             },
+        })
+    })
+
+    $("input[name='TestObj']").click(function(){
+        var currentVal = $(this).val()
+        var str = ''
+        document.getElementById('msg').innerHTML=''
+        if(currentVal==1){
+            str = '表观状况调查对象（区域）'
+            $.fn.zTree.init($("#groupTree"), setting, zNodes);
+        }else if(currentVal==2){
+            str = '结构测试对象（区域）'
+            $.fn.zTree.init($("#groupTree"), setting, zNodes);
+        }else if(currentVal==3){
+            str = '平整度测试对象（区域）'
+            $.fn.zTree.init($("#groupTree"), setting, zNodesParent);
+        }
+        document.getElementById('msg').innerHTML=str
+    });
+
+
+</script>
+</body>
+</html>

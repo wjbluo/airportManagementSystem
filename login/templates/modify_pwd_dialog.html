@@ -1,0 +1,91 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>修改密码</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post" style="padding-top: 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+          <input type="text" name="zcEmail" id="zcEmail" placeholder="请输入注册时邮箱" lay-verify="email" autocomplete="off" class="layui-input" required>
+        </div>
+    </div>
+{#    <div class="layui-form-item">#}
+{#        <label class="layui-form-label">原始密码</label>#}
+{#        <div class="layui-input-block">#}
+{#          <input type="text" name="OranPsd" id="OranPsd" placeholder="请输入原始密码" autocomplete="off" class="layui-input" required>#}
+{#        </div>#}
+{#    </div>#}
+    <div class="layui-form-item">
+        <label class="layui-form-label">新密码</label>
+        <div class="layui-input-block">
+          <input type="password" name="NewPsd" id="NewPsd" placeholder="请输入新密码" autocomplete="off" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">确认新密码</label>
+        <div class="layui-input-block">
+          <input type="password" name="QrNewPsd" id="QrNewPsd" placeholder="请输入新密码" autocomplete="off" class="layui-input" required>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="modifyPsdSubmit" id="modifyPsdSubmit" name="modifyPsdSubmit">修改密码</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['form','layer'], function(){
+        var layer = layui.layer
+        var $ = layui.jquery
+        var form = layui.form;
+
+        form.on('submit(modifyPsdSubmit)', function(data){
+            return false;
+         });
+
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+        $("button[name='modifyPsdSubmit']").on('click',function(){
+                var zcEmail = $("#zcEmail").val();
+{#                var OranPsd = $("#OranPsd").val();#}
+                var NewPsd = $("#NewPsd").val();
+                var QrNewPsd = $("#QrNewPsd").val();
+                if(QrNewPsd!=NewPsd){
+                    layer.msg("两次密码不一致，请检查。"+"[3s后自动关闭]", {
+                            time: 3000, //3s后自动关闭
+                            btn: [ '知道了']
+                    });
+                    return
+                }
+                var post_data_dict = {zcEmail:zcEmail,NewPsd:NewPsd,QrNewPsd:QrNewPsd};
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'account:modifyPsdSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                    success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+                             parent.window.location.href = '/account/logout/';
+
+                        }
+                        layer.msg(arg.message+"[3s后自动关闭]", {
+                            time: 3000, //3s后自动关闭
+                            btn: [ '知道了']
+                        });
+
+                    },
+                })
+            });
+    });
+</script>
+</body>
+</html>

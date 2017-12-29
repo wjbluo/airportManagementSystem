@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>机场基本信息</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+	<div class="container" style="padding-left: 0px">
+		<div class="content">
+             <div class="column"><span class="current">跑道</span>
+                 <a id="addRunwayBaseData" name="addRunwayBaseData" class="layui-icon"
+                   style='cursor:pointer;padding-left: 10px' title="新增跑道">&#xe654;</a>
+            </div>
+            <iframe frameborder="0" id="runwayFrame" width="95%" height="550px" src="{% url 'sysManage:initRunwayiFrame' %}"></iframe>
+		</div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+
+    layui.use(['table','form','layer'], function() {
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+
+        $("a[name='addRunwayBaseData']").on('click',function(){
+            layer.open({
+                type: 2,
+                title :'新增跑道基本信息',
+                area: ['850px', '550px'],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: false,
+                content: 'addRunwayData/',
+                id:"add-runway-dialog",
+            });
+        });
+    });
+</script>

@@ -1,0 +1,111 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>弯沉原始数据</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body class="x-body" style="padding-top: 10px">
+	<div class="container" style="padding-left: 0px;width: 98%">
+		<div class="content">
+            <div class="column"><span class="current">任务概要</span>
+                <span class="layui-badge-rim">当前计划编号：{{ currentPlan.surveyPlanCode }}</span>
+            </div>
+            <table class="kv-table" >
+                <tbody id="airportBaseData_Tab">
+                    <tr>
+                        <td class="kv-label">项目编号</td>
+                        <td class="kv-content">{{ currentPlan.surveyPlanCode }}</td>
+                        <td class="kv-label">日期</td>
+                        <td class="kv-content">{{ AssessmentItems.Date_2 }}</td>
+                        <td class="kv-label">记录人</td>
+                        <td class="kv-content">{{ AssessmentItems.oper_2 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">部位名称</td>
+                        <td class="kv-content">{{ currentArea.part.partName }}</td>
+                        <td class="kv-label">区域名称</td>
+                        <td class="kv-content">{{ currentArea.areaCode }}({{ currentArea.areaDis }})</td>
+                        <td class="kv-label">结构类型</td>
+                        <td class="kv-content"><span style="padding-right: 10px">{{ currentCom.structureClass }}</span><a id="showStruct" style="cursor:pointer;">{{ currentArea.structCode }}</a></td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">地表温度</td>
+                        <td class="kv-content">{{ AssessmentItems.suface_Tem_2 }}</td>
+                        <td class="kv-label">承载板半径</td>
+                        <td class="kv-content">{{ AssessmentItems.bearingplate_radius_2 }}</td>
+                        <td class="kv-label">测点间距</td>
+                        <td class="kv-content">{{ AssessmentItems.distance_2 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="column"><span class="current">弯沉数据</span></div>
+
+		    <table class="layui-table" id="deflectDataTab" lay-filter='deflectDataTab'></table>
+        </div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+
+    layui.use(['table','form','layer','upload'], function() {
+        var $ = layui.jquery,
+             form = layui.form,
+             table = layui.table,
+             layer = layui.layer,
+             upload = layui.upload;
+
+
+        var deflectDataTab = table.render({
+            elem: '#deflectDataTab' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:330
+             ,cols: [[
+                {field: 'plateCode',title:'板编号',width:100,fixed:'left',sort: true}
+                ,{field: 'loadPosition',title:'荷位',width:80}
+                ,{field: 'D1',title:'D1',width:80}
+                ,{field: 'D2',title:'D2',width:80}
+                ,{field: 'D3',title:'D3',width:80}
+                ,{field: 'D4',title:'D4',width:80}
+                ,{field: 'D5',title:'D5',width:80}
+                ,{field: 'D6',title:'D6',width:80}
+                ,{field: 'D7',title:'D7',width:80}
+                ,{field: 'D8',title:'D8',width:80}
+                ,{field: 'D9',title:'D9',width:80}
+                ,{field: 'load',title:'荷载/Kn',width:140}
+              ]]
+            ,limits: [8,10,20,30,40,50]
+            ,limit: 8
+            ,size: 'sm'
+            ,data:{{ data | safe }}
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+
+        $("#showStruct").on('click',function(){
+            var classType = $(this).prev().html();
+            var Code =  $(this).html();
+            var height = $(window).height()+'px'
+            layer.open({
+                type: 2,
+                title :Code+'结构详细',
+                area: ['650px', '500px'],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                anim: 2,
+                content: '/component/sysManage/baseData/pavementStructureType/initStructrueContent/'+classType+'/'+Code+'/showLayerPic/',
+                id:"show-structure-dialog",
+            });
+        });
+
+    });
+</script>

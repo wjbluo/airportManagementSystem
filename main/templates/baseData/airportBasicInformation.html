@@ -1,0 +1,88 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>机场基本信息</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+	<div class="container" style="padding-left: 0px">
+		<div class="content">
+                <div title="基本信息" data-options="closable:false" class="basic-info">
+                    <div class="column"><span class="current">机场基本信息</span>
+                        <a id="alterAirBaseData" name="alterAirBaseData" class="iconfont"
+                           style='cursor:pointer;padding-left: 10px' title="修改机场基本信息">&#xe611;</a>
+                    </div>
+                    <table class="kv-table" >
+                        <tbody id="airportBaseData_Tab">
+                            <tr>
+                                <td class="kv-label">机场名称</td>
+                                <td class="kv-content">{{ airportBaseData.airportName }}</td>
+                                <td class="kv-label">机场编码</td>
+                                <td class="kv-content">{{ airportBaseData.airportCode }}</td>
+                                <td class="kv-label">管理机构</td>
+                                <td class="kv-content">{{ airportBaseData.manageInstitution }}</td>
+                            </tr>
+                            <tr>
+                                <td class="kv-label">机场等级</td>
+                                <td class="kv-content">{{ airportBaseData.airportLevel }}</td>
+                                <td class="kv-label">跑道数量</td>
+                                <td class="kv-content">{{ airportBaseData.runwayNum }}</td>
+                                <td class="kv-label">平滑道数量</td>
+                                <td class="kv-content">{{ airportBaseData.smoothRoadNum }}</td>
+                            </tr>
+                            <tr>
+                                <td class="kv-label">道面面积</td>
+                                <td class="kv-content">{{ airportBaseData.roadSurfaceArea }}KM&sup2;</td>
+                                <td class="kv-label">土面面积</td>
+                                <td class="kv-content">{{ airportBaseData.soilSurfaceArea }}KM&sup2;</td>
+                                <td class="kv-label">机位数量</td>
+                                <td class="kv-content">{{ airportBaseData.seatOfPlaneNum }}</td>
+                            </tr>
+                            <tr>
+                                <td class="kv-label">通航时间</td>
+                                <td class="kv-content">{{ airportBaseData.shippingTime }}</td>
+                                <td class="kv-label">记录时间</td>
+                                <td class="kv-content">{{ airportBaseData.recordingTime }}</td>
+                                <td class="kv-label">更新时间</td>
+                                <td class="kv-content">{{ airportBaseData.updateTime }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+		    </div>
+		</div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+
+    layui.use(['table','form','layer'], function() {
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+
+        $("a[name='alterAirBaseData']").on('click',function(){
+            layer.open({
+                type: 2,
+                title :'修改机场基本信息',
+                area: ['900px', '350px'],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: false,
+                content: 'alterAirportData/',
+                id:"alter-airport-dialog",
+            });
+        });
+
+    });
+</script>

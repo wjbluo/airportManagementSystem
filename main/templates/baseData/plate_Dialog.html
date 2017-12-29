@@ -1,0 +1,177 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增板块</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post" style="padding-top: 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属单元</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="cell" id="cell" placeholder="请输入" autocomplete="off"
+                 class="layui-input" value="{% if currentCell %}{{ currentCell.cellCode }}{% endif %}{% if currentPlate %}{{ currentPlate.cell.cellCode }}{% endif %}"  lay-verify="required" disabled>
+        </div>
+
+        <label class="layui-form-label">记录日期</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            <input type="text" name="recordingTime" id="recordingTime" placeholder="请输入"
+                 autocomplete="off" value="{{ currentPlate.recordingTime }}" class="layui-input" lay-verify="required" required>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">行编号</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            <input type="text" name="rowNo" id="rowNo" placeholder="请输入" autocomplete="off"
+              class="layui-input" value="{{ currentPlate.rowNo }}" required lay-verify="required">
+        </div>
+
+        <label class="layui-form-label">列编号</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="colNo" id="colNo" placeholder="请输入"
+                 autocomplete="off" value="{{ currentPlate.colNo }}" class="layui-input" lay-verify="required" required>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">长</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            <input type="text" name="platelength" id="platelength" placeholder="请输入" autocomplete="off"
+              class="layui-input" value="{{ currentPlate.platelength }}" required lay-verify="required">
+        </div>
+
+        <label class="layui-form-label">宽</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="width" id="width" placeholder="请输入"
+                 autocomplete="off" value="{{ currentPlate.width }}" class="layui-input" lay-verify="required" required>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">面积</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            <input type="text" name="area" id="area" placeholder="请输入" autocomplete="off"
+              class="layui-input" value="{{ currentPlate.width }}" required lay-verify="required">
+        </div>
+
+        <label class="layui-form-label">形状</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="shape" id="shape" placeholder="请输入"
+                 autocomplete="off" value="{{ currentPlate.shape }}" class="layui-input" lay-verify="required" required>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            {% if currentPlate %}
+                <div class="layui-btn layui-btn-primary" lay-filter="alterPlateSubmit" id="alterPlateSubmit" name="alterPlateSubmit">更新</div>
+                {% else %}
+                <button class="layui-btn layui-btn-primary" lay-submit lay-filter="addPlateSubmit" id="addPlateSubmit" name="addPlateSubmit">添加</button>
+            {% endif %}
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['form'], function(){
+        var layer = layui.layer
+        var $ = layui.jquery
+        var form = layui.form;
+
+        form.verify({
+            name: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                  return '用户名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                  return '用户名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                  return '用户名不能全为数字';
+                }
+            }
+            ,Integer:[
+                /^[\d]+$/
+                ,'此处应为整数。'
+            ]
+        });
+
+        form.on('submit(addPlateSubmit)', function(data){
+            return false;
+         });
+
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+
+        $("button[name='addPlateSubmit']").on('click',function(){
+
+                {% if currentCell %}var cellId = {{ currentCell.id }}{% endif %}
+                var recordingTime = $("#recordingTime").val();
+                var rowNo = $("#rowNo").val();
+                var colNo = $("#colNo").val();
+                var platelength = $("#platelength").val();
+                var width = $("#width").val();
+                var area = $("#area").val();
+                var shape = $("#shape").val();
+
+                var post_data_dict = {cellId:cellId,rowNo:rowNo, colNo:colNo,platelength:platelength, width:width,area:area, shape:shape,
+                    recordingTime:recordingTime};
+
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:addPlateSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+{#                             parent.location.reload()#}
+                             parent.document.getElementById('searchPlate').click()
+
+{#                             if(arg.flash){#}
+{#                                 parent.location.reload()#}
+{#                             }#}
+                         }
+                     },
+                })
+            });
+
+        $("div[id='alterPlateSubmit']").on('click',function(){
+                {% if currentPlate %}var plateId = {{ currentPlate.id }}{% endif %}
+                var recordingTime = $("#recordingTime").val();
+                var rowNo = $("#rowNo").val();
+                var colNo = $("#colNo").val();
+                var platelength = $("#platelength").val();
+                var width = $("#width").val();
+                var area = $("#area").val();
+                var shape = $("#shape").val();
+
+                var post_data_dict = {plateId:plateId,rowNo:rowNo, colNo:colNo,platelength:platelength, width:width,area:area, shape:shape,
+                    recordingTime:recordingTime};
+
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:alterPlateSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+{#                             parent.location.reload()#}
+                             parent.document.getElementById('searchPlate').click()
+
+
+                         }
+
+                     },
+                })
+            });
+    });
+</script>
+</body>
+</html>

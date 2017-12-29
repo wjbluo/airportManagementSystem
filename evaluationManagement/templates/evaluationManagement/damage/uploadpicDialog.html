@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>上传图片</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+
+<div class="layui-upload" style="width: 95%;padding-left: 10px">
+    <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
+    <span class="layui-badge layui-bg-gray">绑定单元请填规范图片名称，格式为：单元名称_行编号_列编号，上传后系统将自动一一对应</span>
+    <div class="layui-upload-list">
+
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <th>文件名</th>
+                    <th>大小</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                    <th>预览</th>
+                </tr>
+            </thead>
+            <tbody id="demoList"></tbody>
+        </table>
+    </div>
+    <button type="button" class="layui-btn" id="testListAction">开始上传</button>
+</div>
+
+</body>
+</html>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['upload'], function(){
+        var $ = layui.jquery
+        ,upload = layui.upload;
+         //多文件列表示例
+    var  frameindex= parent.layer.getFrameIndex(window.name);
+    var demoListView = $('#demoList')
+    ,uploadListIns = upload.render({
+        elem: '#testList'
+        ,url: 'receivePic/'
+        ,multiple: true
+        ,auto: false
+        ,bindAction: '#testListAction'
+        ,choose: function(obj){
+        var files = obj.pushFile(); //将每次选择的文件追加到文件队列
+      //读取本地文件
+        obj.preview(function(index, file, result){
+            var tr = $(['<tr id="upload-'+ index +'">'
+              ,'<td>'+ file.name +'</td>'
+              ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
+              ,'<td>等待上传</td>'
+              ,'<td>'
+                ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+                ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+              ,'</td>'
+              ,'<td><img class="layui-upload-img" id="yl"></td>'
+            ,'</tr>'].join(''));
+
+            //单个重传
+            tr.find('.demo-reload').on('click', function(){
+              obj.upload(index, file);
+            });
+
+            //删除
+            tr.find('.demo-delete').on('click', function(){
+              delete files[index]; //删除对应的文件
+              tr.remove();
+            });
+             //预览
+            tr.find('#yl').attr('src', result);
+
+            demoListView.append(tr);
+         });
+    }
+    ,done: function(res, index, upload){
+        if(res.code == 0){ //上传成功
+            var tr = demoListView.find('tr#upload-'+ index)
+            ,tds = tr.children();
+            tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+            tds.eq(3).html(''); //清空操作
+            delete files[index]; //删除文件队列已经上传成功的文件
+            return;
+        }
+        this.error(index, upload,res);
+    }
+    ,error: function(index, upload,res){
+        var tr = demoListView.find('tr#upload-'+ index)
+         ,tds = tr.children();
+        tds.eq(2).html('<span style="color: #FF5722;">'+res.msg+'</span>');
+        tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+    }
+  });
+
+    });
+</script>

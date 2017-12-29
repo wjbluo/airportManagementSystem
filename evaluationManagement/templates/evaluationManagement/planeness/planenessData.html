@@ -1,0 +1,86 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>平整度原始数据</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body class="x-body" style="padding-top: 10px">
+	<div class="container" style="padding-left: 0px;width: 98%">
+		<div class="content">
+            <div class="column"><span class="current">任务概要</span>
+                <span class="layui-badge-rim">当前计划编号：{{ currentPlan.surveyPlanCode }}</span>
+            </div>
+            <table class="kv-table" >
+                <tbody id="airportBaseData_Tab">
+                    <tr>
+                        <td class="kv-label">项目编号</td>
+                        <td class="kv-content">{{ currentPlan.surveyPlanCode }}</td>
+                        <td class="kv-label">日期</td>
+                        <td class="kv-content">{{ AssessmentItems.Date_3 }}</td>
+                        <td class="kv-label">记录人</td>
+                        <td class="kv-content">{{ AssessmentItems.oper_3 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">部位名称</td>
+                        <td class="kv-content">{{ currentPart.partName }}</td>
+                        <td class="kv-label">测线长度</td>
+                        <td class="kv-content">{{ AssessmentItems.measuringLine_length_3 }}</td>
+                        <td class="kv-label">采样间距</td>
+                        <td class="kv-content">{{ AssessmentItems.samplingDistance_3 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">测试描述</td>
+                        <td class="kv-content" colspan="5">{{ AssessmentItems.testDesc_3 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="column"><span class="current">平整度数据</span></div>
+
+		    <table class="layui-table" id="planenessDataTab" lay-filter='planenessDataTab'></table>
+        </div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+
+    layui.use(['table','form','layer','upload'], function() {
+        var $ = layui.jquery,
+             form = layui.form,
+             table = layui.table,
+             layer = layui.layer,
+             upload = layui.upload;
+
+
+        var planenessDataTab = table.render({
+            elem: '#planenessDataTab' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:330
+             ,cols: [[
+                {field: 'lineCode',title:'测线',width:120,fixed:'left',sort: true}
+                ,{field: 'stakeNo',title:'桩号（间距/m）',width:150}
+                ,{field: 'left_iri',title:'左IRI',width:150}
+                ,{field: 'left_variance',title:'左方差',width:150}
+                ,{field: 'right_iri',title:'右IRI',width:150}
+                ,{field: 'right_variance',title:'右方差',width:150}
+                ,{field: 'iri_avg',title:'IRI均值',width:150}
+              ]]
+            ,limits: [8,10,20,30,40,50]
+            ,limit: 8
+            ,size: 'sm'
+            ,data:{{ data | safe }}
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+
+    });
+</script>

@@ -1,0 +1,87 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>损坏数据菜单</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+</head>
+<body>
+	<div class="layui-tab layui-tab-card" lay-filter="damageMenu">
+        <ul class="layui-tab-title">
+            <li class="layui-this">损坏原始数据</li>
+            <li>PCI计算结果 </li>
+        </ul>
+        <div class="layui-tab-content" style="height: 470px">
+            <div class="layui-tab-item layui-show">
+                <div class="container" style="padding-left: 0px">
+                    <div class="content">
+                        <ul class="easyui-tree" id="areaList_data">
+                            {% for plan in allPlan %}
+                                <li data-options="state:'open'">
+                                    <span>{{ plan.surveyPlanCode }}</span>
+                                    <ul>
+                                        {% for area in allOperArea %}
+                                            {% if area.surveyPlan_id == plan.surveyPlanCode %}
+                                                <li><a href="{% url 'sysManage:evaluationManagement:damageData' area.surveyPlan_id area.area.id  %}" target="damageContent">
+                                                        <span>{{ area.area.areaCode }}({{ area.area.areaDis }})</span>{% if area.flag == 0 %}  <span class="layui-badge-dot layui-bg-orange"></span>{% endif %}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab-item">
+                <div class="container" style="padding-left: 0px">
+                    <div class="content">
+                        <ul class="easyui-tree" id="areaList_pci">
+                            {% for plan in allPlan %}
+                                <li data-options="state:'open'">
+                                    <span>{{ plan.surveyPlanCode }}</span>
+                                    <ul>
+                                        {% for area in allOperArea %}
+                                            {% if area.surveyPlan_id == plan.surveyPlanCode %}
+                                                <li><a href="{% url 'sysManage:evaluationManagement:pciCalData' area.surveyPlan_id area.area.id  %}" target="damageContent">
+                                                        <span>{{ area.area.areaCode }}({{ area.area.areaDis }})</span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+
+        element.on('tab(damageMenu)', function(data){
+            if(data.index==0){
+                parent.document.getElementById('damageContent').src='{% url 'sysManage:evaluationManagement:damageData' firstPlan.surveyPlanCode firstOperArea.area.id  %}'
+            }else if(data.index==1){
+                parent.document.getElementById('damageContent').src='{% url 'sysManage:evaluationManagement:pciCalData' firstPlan.surveyPlanCode firstOperArea.area.id  %}'
+            }
+
+        });
+    });
+</script>

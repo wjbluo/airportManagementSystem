@@ -1,0 +1,319 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>弯沉数据</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body class="x-body" style="padding-top: 10px">
+	<div class="container" style="padding-left: 0px;width: 98%">
+		<div class="content">
+
+            <div class="column"><span class="current">任务概要</span>
+                <span class="layui-badge-rim">当前计划编号：{{ currentPlan.surveyPlanCode }}</span>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">项目编号</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="surveyPlanCode" id="surveyPlanCode" placeholder="请输入" autocomplete="off"
+                         class="layui-input" value="{{ currentPlan.surveyPlanCode }}" required lay-verify="required" disabled>
+                </div>
+
+                <label class="layui-form-label">日期</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                    <input type="text" name="Date" id="Date" placeholder="请输入" autocomplete="off"
+                          class="layui-input" value=""  required lay-verify="required">
+                </div>
+
+                <label class="layui-form-label">记录人</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                    <input type="text" name="operUser" id="operUser" placeholder="请输入" autocomplete="off"
+                          class="layui-input" value=""  required lay-verify="required">
+                </div>
+{##}
+{#                <label class="layui-form-label">结束时间</label>#}
+{#                <div class="layui-input-inline" style="width: 100px;">#}
+{#                    <input type="text" name="endTime" id="endTime" placeholder="请输入" autocomplete="off"#}
+{#                          class="layui-input" value="">#}
+{#                </div>#}
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">部位名称</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="partName" id="partName" placeholder="请输入" autocomplete="off"
+                         class="layui-input" value="{{ currentArea.part.partName }}" required lay-verify="required" disabled>
+                </div>
+
+                <label class="layui-form-label">区域名称</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="areaCode" id="areaCode" placeholder="请输入" autocomplete="off"
+                          class="layui-input" value="{{ currentArea.areaCode }}({{ currentArea.areaDis }})"  required lay-verify="required" disabled>
+                </div>
+
+                <label class="layui-form-label">结构类型</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="structCode" id="structCode" placeholder="请输入" autocomplete="off"
+                          class="layui-input" value="{{ currentArea.structCode }}"  required lay-verify="required" disabled>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">地表温度</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="surfaceTemperature" id="surfaceTemperature" placeholder="请输入" autocomplete="off"
+                         class="layui-input" value="" required lay-verify="required">
+                </div>
+
+                <label class="layui-form-label">承载板半径</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="bearingPlateRadius" id="bearingPlateRadius" placeholder="请输入" autocomplete="off"
+                          class="layui-input" value=""  required lay-verify="required">
+                </div>
+
+                <label class="layui-form-label">测点间距</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="distance" id="distance" placeholder="请输入" autocomplete="off"
+                          class="layui-input" value=""  required lay-verify="required">
+                </div>
+
+            </div>
+            <div class="column"><span class="current" >弯沉数据</span></div>
+
+{#                <div class="layui-form-item">#}
+{#                  <div class="layui-input-block"  style="vertical-align: middle">#}
+{#                        <div class="layui-btn layui-anim-scale  layui-btn-primary" lay-submit lay-filter="addDamageData" name="addDamageData" id="addDamageData">#}
+{#                            <i class="layui-icon">&#xe608;</i> 添加记录#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="layui-form-item">#}
+{#                    <div class="layui-input-block"  style="vertical-align: middle">#}
+{#                        <div class="layui-btn layui-anim-scale  layui-btn-primary" lay-submit lay-filter="addDamageData" name="addDamageData" id="addDamageData">#}
+{#                            <i class="layui-icon">&#xe640;</i> 清空记录#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+            <form class="layui-form" style="display: inline-block;position: relative;margin-bottom: 0;width: 100%;" action="">
+                <button type="button" class="layui-btn layui-btn-primary" id="importDeflectData" name="importDeflectData"><i class="layui-icon"></i>Excel导入</button>
+{#                <button type="button" class="layui-btn layui-btn-primary" id="downloadDamageData">Excel导出</button>#}
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">
+                      <input type="text" value="" name="searchStr" id="searchStr"  lay-verify="value" placeholder="板块编号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block"  style="vertical-align: middle">
+                            <div class="layui-btn layui-btn-normal" lay-filter="searchDamageData" name="searchDeflectData" id="searchDeflectData">
+                                <i class="layui-icon">&#xe615;</i> 查询
+                            </div>
+                    </div>
+                </div>
+                <button type="button" class="layui-btn layui-btn-primary" onclick="window.location.href='{% url 'sysManage:evaluationManagement:downloadStaticFile' 'deflectData' %}'"><i class="layui-icon"></i>Excel模板</button>
+            </form>
+		    <table class="layui-table" id="deflectDataTab" lay-filter='deflectDataTab'></table>
+            <div class="layui-form-item" style="width: 100%;vertical-align: middle;horiz-align: center">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="sure_deflectData" id="sure_deflectData" name="sure_deflectData">保存</button>
+{#                    <button class="layui-btn layui-btn-primary" lay-submit lay-filter="addPlanBtn" id="addPlanBtn" name="addPlanBtn">暂存</button>#}
+                    <span class="layui-badge layui-bg-gray">保存：保存所有原始数据，之后不可修改，可计算脱空评价参数。直接返回则是保留上次操作数据，可修改，不可计算PCI参数。</span>
+                </div>
+            </div>
+        </div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+
+    layui.use(['table','form','layer','upload','laydate'], function() {
+        var $ = layui.jquery,
+             form = layui.form,
+             table = layui.table,
+             layer = layui.layer,
+             upload = layui.upload,
+             laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#Date', //指定元素
+                        theme: 'grid'
+        });
+
+        form.on('submit(sure_deflectData)', function(data){
+            return false;
+         });
+
+         form.verify({
+            name: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                  return '用户名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                  return '用户名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                  return '用户名不能全为数字';
+                }
+            }
+            ,Integer:[
+                /^[\d]+$/
+                ,'此处应为整数。'
+            ]
+        });
+{#        laydate.render({#}
+{#            elem: '#endTime' //指定元素#}
+{#        });#}
+
+        var deflectDataTab = table.render({
+            elem: '#deflectDataTab' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:250
+             ,cols: [[
+                {field: 'plateCode',title:'板编号',width:150,fixed:'left',sort: true}
+                ,{field: 'loadPosition',title:'荷位',width:80}
+                ,{field: 'D1',title:'D1',width:80,edit: 'text'}
+                ,{field: 'D2',title:'D2',width:80,edit: 'text'}
+                ,{field: 'D3',title:'D3',width:80,edit: 'text'}
+                ,{field: 'D4',title:'D4',width:80,edit: 'text'}
+                ,{field: 'D5',title:'D5',width:80,edit: 'text'}
+                ,{field: 'D6',title:'D6',width:80,edit: 'text'}
+                ,{field: 'D7',title:'D7',width:80,edit: 'text'}
+                ,{field: 'D8',title:'D8',width:80,edit: 'text'}
+                ,{field: 'D9',title:'D9',width:80,edit: 'text'}
+                ,{field: 'load',title:'荷载/Kn',width:150}
+                ,{field: 'opera',title:'操作',toolbar: '#operBars',align:'center',width:150,fixed:'right'}
+              ]]
+            ,limits: [5,10,20,30,40,50]
+            ,limit: 5
+            ,size: 'sm'
+            ,loading: true
+            ,page:true
+            ,url: '{% url 'sysManage:evaluationManagement:searchDeflectData' currentPlan.surveyPlanCode currentArea.id %}'
+            ,method: 'post'
+            ,where: {csrf_token: '{{ csrf_token }}'}
+
+        });
+
+        $("div[name='searchDeflectData']").on('click',function(){
+            var serchStr = $("#searchStr").val();
+            deflectDataTab.reload({
+              where: { //设定异步数据接口的额外参数，任意设
+                  searchStr:serchStr
+                  ,csrf_token: '{{ csrf_token }}'
+              }
+            });
+        });
+
+        $("button[name='sure_deflectData']").on('click',function(){
+            var index = layer.load(2);
+            var date = $("#Date").val()
+            var oper = $("#operUser").val()
+            var planCode = {{ currentPlan.surveyPlanCode }}
+            var areaId = {{ currentArea.id }}
+            var surfaceTemperature =  $("#surfaceTemperature").val()
+            var bearingPlateRadius =  $("#bearingPlateRadius").val()
+            var distance =  $("#distance").val()
+            var post_data_dict = {date:date,planCode:planCode,areaId:areaId,oper:oper,surfaceTemperature:surfaceTemperature,
+                                    bearingPlateRadius:bearingPlateRadius,distance:distance};
+
+            var post_data_str = JSON.stringify(post_data_dict);
+            $.ajax({
+                    url: '{% url 'sysManage:evaluationManagement:sureDeflectData' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                        if(arg.status){
+                            parent.location.reload()
+                            layer.close(index);
+                        }else{
+                            layer.msg(arg.message+"[3s后自动关闭]", {
+                                time: 3000, //3s后自动关闭
+                                btn: [ '知道了']
+                            });
+                        }
+                     },
+                })
+        });
+
+        upload.render({
+            elem: '#importDeflectData'
+            ,url: 'uploadDeflectData/'
+            ,accept: 'file'
+            ,exts: 'xls|xlsx'
+            ,done: function(res){
+                if (res.flag){
+                    $("#searchDeflectData").click()
+                }else {
+                    layer.msg(res.message+"[3s后自动关闭]", {
+                        time: 3000, //3s后自动关闭
+                        btn: [ '知道了']
+                    });
+                }
+            }
+        });
+        table.on('tool(deflectDataTab)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'del'){ //删除数据
+                layer.confirm('确定需要删除嘛？', function(index){
+                     var id = data.id
+                    var index1 = layer.load(2);
+                    var post_data_dict = {id:id};
+
+                    var post_data_str = JSON.stringify(post_data_dict);
+                    $.ajax({
+                            url: '{% url 'sysManage:evaluationManagement:delDeflectData' %}',
+                            type: 'POST',
+                            data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                            dataType: 'json',
+                             success: function (arg) {
+                                layer.close(index1);
+                                layer.close(index);
+                                $("div[name='searchDeflectData']").click()
+                             },
+                        })
+                });
+
+            }
+        });
+
+          //监听单元格编辑
+        table.on('edit(deflectDataTab)', function(obj){
+            var value = obj.value //得到修改后的值
+            ,data = obj.data //得到所在行所有键值
+            ,field = obj.field //得到字段
+            ,id=data.id;
+            layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value+'并自动保留一位有效数字');
+
+            var index = layer.load(2);
+            var post_data_dict = {editfield:field,value:value,id:id};
+
+            var post_data_str = JSON.stringify(post_data_dict);
+            $.ajax({
+                    url: '{% url 'sysManage:evaluationManagement:editDeflectData' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                        layer.close(index);
+                        $("div[name='searchDeflectData']").click()
+                     },
+                })
+        });
+    });
+</script>
+<script type="text/html" id="operBars">
+{#  <a class="iconfont" style='cursor:pointer;font-size: small' lay-event="uploadPic" title="上传图片">上传图片</a>|#}
+        <a class="iconfont" style='cursor:pointer;font-size: small' lay-event="del" title="删除">删除</a>
+</script>

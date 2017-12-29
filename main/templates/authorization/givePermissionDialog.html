@@ -1,0 +1,117 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>角色赋予</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/demo.css' %}" type="text/css">
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-xs5">
+            <ul id="groupTree" class="ztree"></ul>
+        </div>
+        <div class="layui-col-xs2" style="padding-top: 150px;padding-left: 15px" >
+            <div class="layui-btn layui-anim-scale  layui-btn-primary" lay-filter="givePermission" name="givePermission" id="givePermission">
+                <i class="layui-icon">&#xe602;</i>
+            </div>
+        </div>
+        <div class="layui-col-xs5">
+            <ul id="owen_groupTree" class="ztree"></ul>
+        </div>
+    </div>
+</div>
+<div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs2 layui-col-xs-offset5" style="padding-top: 10px;padding-left: -50px">
+                <div class="layui-btn layui-anim-scale  layui-btn-primary" onclick="give_permission()" lay-filter="givePermissionBtn" name="givePermissionBtn" id="givePermissionBtn">
+                    <i class="layui-icon">&#xe609;</i>赋予
+                </div>
+            </div>
+        </div>
+</div>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery-1.4.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.core.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.excheck.js' %}"></script>
+<script>
+    function onCheck(){
+        var treeObj=$.fn.zTree.getZTreeObj("groupTree")
+        var nodes=treeObj.getCheckedNodes(true)
+        var checkData = []
+        for(var i=0;i<nodes.length;i++){
+            checkData.push({"id": nodes[i].id, "pId": nodes[i].pId,"id_true":nodes[i].id_true, "name": nodes[i].name, "open": true,
+                 })
+        }
+        $.fn.zTree.init($("#owen_groupTree"), setting2, checkData);
+    }
+    var setting = {
+        check:{
+            enable:true
+        },
+        data:    {
+            simpleData:{
+                enable:true
+            }
+        },
+        callback:{
+            onCheck:onCheck
+        }
+
+    };
+    var setting2 = {
+            check:{
+                enable:false
+            },
+            data:    {
+                simpleData:{
+                    enable:true
+                }
+            },
+        };
+
+    var zNodes ={{ data |safe }}
+    var roleId = {{ roleId |safe }}
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#groupTree"), setting, zNodes);
+        onCheck()
+    });
+    var  frameindex= parent.layer.getFrameIndex(window.name);
+
+    function give_permission(){
+        var treeObj=$.fn.zTree.getZTreeObj("groupTree")
+        var nodes=treeObj.getCheckedNodes(true)
+        var post_data=[]
+        for(var i=0;i<nodes.length;i++){
+            post_data.push({"id": nodes[i].id_true})
+        }
+         var post_data_str = JSON.stringify(post_data);
+         $.ajax({
+            url: '{% url 'sysManage:givePermissionSubmit' roleId %}',
+            type: 'POST',
+            data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str},
+            dataType: 'json',
+            success: function (arg) {
+                if(arg.status){
+                     parent.layer.close(frameindex)
+                     parent.document.getElementById('searchGroup').click();
+                }
+                layer.msg(arg.msg+"[3s后自动关闭]", {
+                    time: 3000, //3s后自动关闭
+                    btn: [ '知道了']
+                });
+
+            },
+        })
+    }
+
+
+
+</script>
+</body>
+</html>

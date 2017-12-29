@@ -1,0 +1,398 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>机场信息管理系统</title>
+<link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+<link href="{% static 'darkgrey/css/platform.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <script>
+     var SystemMenu = {{ SystemMenu | safe }}
+    </script>
+</head> 
+<body>
+    <div class="container">
+        <div id="pf-hd">
+            <div class="pf-logo">
+                <img src="{% static 'darkgrey/images/main/main_logo.png' %}" alt="logo">
+            </div>
+            
+            <div class="pf-nav-wrap">
+              <!--<div class="pf-nav-ww">-->
+              <div class="pf-nav-ww">
+               
+                <ul class="pf-nav">
+                  
+                </ul>
+              </div>
+              <!-- </div> -->
+              
+
+              <a href="javascript:;" class="pf-nav-prev disabled iconfont">&#xe606;</a>
+              <a href="javascript:;" class="pf-nav-next iconfont">&#xe607;</a>
+            </div>
+            
+
+            <!--<div class="pf-skin">
+              <i class="iconfont">&#xe708;</i>
+              <ul class="skin-list">
+                <li class="skin-item" data-color="green"></li>
+                <li class="skin-item" data-color="blue"></li>
+                <li class="skin-item" data-color="lightblue"></li>
+                <li class="skin-item" data-color="orange"></li>
+                <li class="skin-item" data-color="red"></li>
+                <li class="skin-item" data-color="darkblue"></li>
+                <li class="skin-item" data-color="black"></li>
+                <li class="skin-item" data-color="darkgrey"></li>
+                <li class="skin-item" data-color="light"></li>
+              </ul>
+            </div>-->
+            
+
+            
+            <div class="pf-user">
+            	<!--<span class="msgts">10</span>-->
+                <div class="pf-user-photo">
+                    <img src="{% static 'darkgrey/images/main/user.png' %}" alt="">
+                </div>
+                <h4 class="pf-user-name ellipsis">{{ username }}</h4>
+                <i class="iconfont xiala">&#xe607;</i>
+
+                <div class="pf-user-panel">
+                    <ul class="pf-user-opt">
+{#                        <li>#}
+{#                            <a href="javascript:;">#}
+{#                                <i class="iconfont">&#xe60d;</i>#}
+{#                                <span class="pf-opt-name">用户信息</span>#}
+{#                            </a>#}
+{#                        </li>#}
+                         <!--<li class="pf-modify-pwd">
+                            <a href="javascript:;">
+                                <i class="iconfont">&#xe6f8;</i>
+                                <span class="pf-opt-name">消息<i class="mailtext">[10]</i></span>
+                            </a>
+                        </li>-->
+                        <li class="pf-modify-pwd">
+                            <a href="javascript:;">
+                                <i class="iconfont">&#xe634;</i>
+                                <span class="pf-opt-name">修改密码</span>
+                            </a>
+                        </li>
+                        <li class="pf-logout">
+                            <a href="javascript:;">
+                                <i class="iconfont">&#xe60e;</i>
+                                <span class="pf-opt-name">退出</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pf-notice">
+                <i class="iconfont">&#xe6f9;</i>
+                <div class="pf-notice-box ellipsis" onmouseout="marqueeInterval[0]=setInterval('startMarquee()',marqueeDelay)" onmouseover="clearInterval(marqueeInterval[0])">
+                    
+                </div>
+<!--
+                <div class="pf-notice-opt">
+                    <a href="javascript:;" class="iconfont pf-notice-up">&#xe602;</a>
+                    <a href="javascript:;" class="iconfont pf-notice-down">&#xe601;</a>
+                </div>-->
+            </div>
+        </div>
+
+        <div id="pf-bd">
+            <div class="pf-sider-wrap">
+              
+            </div>
+            
+
+            <div id="pf-page">
+    
+            </div>
+        </div>
+
+        <div id="pf-ft">
+            <div class="system-name">
+              <i class="iconfont">&#xe6fe;</i>
+              <span>信息管理系统&nbsp;v1.0</span>
+            </div>
+            <div class="copyright-name">
+              <span>CopyRight&nbsp;2017&nbsp;&nbsp;tkjtkj.com&nbsp;版权所有</span>
+              <i class="iconfont" >&#xe6ff;</i>
+            </div>
+        </div>
+    </div>
+
+    <div id="mm" class="easyui-menu tabs-menu" style="width:120px;display:none;">
+         <div id="mm-tabclose">关闭</div>
+         <div id="mm-tabcloseall">关闭所有</div>
+         <div id="mm-tabcloseother">关闭其他</div> 
+    </div>
+
+{#    ################################################################################################################}
+    <div id="dlg" class="easyui-dialog" title="公告" data-options="closed:true,modal:true" style="width:720px;height:490px;padding:10px;display:none;">
+        <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+		<link href="{% static 'darkgrey/css/backend/notice.css' %}" rel="stylesheet">
+      <div class="container">
+        <div id="inner-hd">
+            <div class="crumbs">
+				<i class="crumbs-arrow"></i>
+				<a href="javascript:;" class="crumbs-label">通知公告</a>
+			</div>
+        </div>
+
+        <div id="inner-bd">
+	           
+			<div class="notice-content">
+				<div class="line"></div>
+				<div class="notice-hd">
+					<h1>2016年国家公务员考试南京地区职位分析</h1>
+					<p>发布日期：2016-02-24</p>
+				</div>
+				<div class="notice-bd">
+					<p>中央机关及其直属机构2016年度1212阿打算打算的卡较大当时就氨基酸等安静圣诞节阿克顿阿克苏打开打打瞌睡安静侃大山大啊飒飒大苏打申达股份合法合规返回覆盖订购的丁奉给对方给对方个中央机关及其直属机构2016年度1212阿打算打算的卡较大当时就氨基酸等安静圣诞节阿克顿阿克苏打开打打瞌睡安静侃大山大啊飒飒大苏打申达股份合法合规返回覆盖订购的丁奉给对方给对方个中央机关及其直属机构2016年度1212阿打算打算的卡较大当时就氨基酸等安静圣诞节阿克顿阿克苏打开打打瞌睡安静侃大山大啊飒飒大苏打申达股份合法合规返回覆盖订购的丁奉给对方给对方个</p>
+					<p>此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人此次全国计划招录2.7万人</p>
+					<p>近三年，国考南京区招录人数最多的部门是国家税务局近三年，国考南京区招录人数最多的部门是国家税务局近三年，国考南京区招录人数最多的部门是国家税务局近三年，国考南京区招录人数最多的部门是国家税务局近三年，国考南京区招录人数最多的部门是国家税务局近三年，国考南京区招录人数最多的部门是国家税务局近三年，国考南京区招录人数最多的部门是国家税务局近三年，国考南京区招录人数最多的部门是国家税务局近三年，国考南京区招录人数最多的部门是国家税务局</p>
+				</div>
+				<div class="notice-ft">
+					<p >相关文档：</p>
+					<ul>
+						<li><a href="javascript:;"><i class="rt-icon"></i>2016年南京自治区区公务员考试行测选择</a></li>
+						<li><a href="javascript:;"><i class="rt-icon"></i>2016年南京自治区区公务员考试行测选择</a></li>
+					</ul>
+				</div>
+			</div>		
+        </div>
+
+        <div id="inner-ft">
+            
+        </div>
+       </div>
+    </div>
+{#    ################################################################################################################}
+
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'darkgrey/js/main.js' %}"></script>
+    <!--[if IE 7]>
+      <script type="text/javascript">
+        $(window).resize(function(){
+          $('#pf-bd').height($(window).height()-76);
+        }).resize();
+        
+      </script>
+    <![endif]-->  
+
+    
+    <script type="text/javascript">
+
+    // $('.easyui-tabs1').tabs({
+    //   tabHeight: 44,
+    //   onSelect:function(title,index){
+    //     var currentTab = $('.easyui-tabs1').tabs("getSelected");
+    //     if(currentTab.find("iframe") && currentTab.find("iframe").size()){
+    //         currentTab.find("iframe").attr("src",currentTab.find("iframe").attr("src"));
+    //     }
+    //   }
+    // })
+    $(document).ready(function(){
+        if(SystemMenu.length==0) {
+            $.messager.confirm({
+                title: '对话框',
+                ok: '确定',
+                cancel: '取消',
+                msg: '您暂无拥有的权限，请联系管理员添加。',
+            });
+        }
+    });
+    $(window).resize(function(){
+          $('.tabs-panels').height($("#pf-page").height()-46);
+          $('.panel-body').not('.messager-body').height($(".easyui-dialog").height)
+    }).resize();
+
+    var page = 0,
+        pages = ($('.pf-nav').height() / 70) - 1;
+
+    if(pages === 0){
+      $('.pf-nav-prev,.pf-nav-next').hide();
+    }
+    $(document).on('click', '.pf-nav-prev,.pf-nav-next', function(){
+
+
+      if($(this).hasClass('disabled')) return;
+      if($(this).hasClass('pf-nav-next')){
+        page++;
+        $('.pf-nav').stop().animate({'margin-top': -70*page}, 200);
+        if(page == pages){
+          $(this).addClass('disabled');
+          $('.pf-nav-prev').removeClass('disabled');
+        }else{
+          $('.pf-nav-prev').removeClass('disabled');
+        }
+        
+      }else{
+        page--;
+        $('.pf-nav').stop().animate({'margin-top': -70*page}, 200);
+        if(page == 0){
+          $(this).addClass('disabled');
+          $('.pf-nav-next').removeClass('disabled');
+        }else{
+          $('.pf-nav-next').removeClass('disabled');
+        }
+        
+      }
+    })
+
+    // setTimeout(function(){
+    //    $('.tabs-panels').height($("#pf-page").height()-46);
+    //    $('.panel-body').height($("#pf-page").height()-76)
+    // }, 200)
+    function replace(doc, style) {
+
+
+      $('link', doc).each(function(index, one) {
+
+        var path = $(one).attr('href').replace(/(static\/)\w+(\/css)/g, '$1' + style + '$2').replace(/(custom\/)\w+(\/)/g, '$1' + style + '$2'),
+          sheet;
+
+        if(doc.createStyleSheet) {
+
+          sheet = doc.createStyleSheet(path);
+          setTimeout(function() {
+
+            $(one).remove();
+
+          }, 500)
+
+        } else {
+
+          sheet = $('<link rel="stylesheet" type="text/css" href="' + path + '" />').appendTo($('head', doc));
+          sheet = sheet[0];
+          sheet.onload = function() {
+
+            $(one).remove();
+
+          }
+
+        }
+
+      })
+
+      $('img', doc).each(function(index, one) {
+
+        var path = $(one).attr('src').replace(/(static\/)\w+(\/images)/g, '$1' + style + '$2');
+
+        $(one).attr('src', path);
+
+      })
+
+    }
+    $('.skin-item').click(function() {
+
+      var color = $(this).data('color');
+      replaceAll(color);
+
+    })
+    function replaceAll(style) {
+
+      $('iframe').each(function(index, one) {
+
+        try {
+
+          replace(one.contentWindow.document, style)
+
+        } catch(e) {
+
+          console.warn('origin cross');
+
+        }
+
+      })
+
+      replace(document, style)
+
+    }
+    $(document).on('click', '.pf-notice-item', function() {
+    	try {
+    		var doc = this.document;
+    		this.$('#dlg').dialog('open');
+    	} catch(e) {
+    		$('#dlg').dialog('open');
+    	}
+//          $('#pf-bd').find('iframe').attr('src', 'backend/notice.html')
+    });
+    </script>
+    <script type="text/javascript">
+
+
+        var marqueeContent= [];   //滚动主题
+
+            marqueeContent[0]='<a href="javascript:;" class="pf-notice-item" >新版系统界面正式上线</a>';
+            marqueeContent[1]='<a href="javascript:;" class="pf-notice-item" >欢迎访问uimaker.com</a>';
+            marqueeContent[2]='<a href="javascript:;" class="pf-notice-item" >这里是公告内容</a>';
+            marqueeContent[3]='<a href="javascript:;" class="pf-notice-item" >这里是测试标题</a>';
+            marqueeContent[4]='<a href="javascript:;" class="pf-notice-item" >测试测试测试!</a>';
+
+            var marqueeInterval=[];  //定义一些常用而且要经常用到的变量
+            var marqueeId=0;
+            var marqueeDelay=4000;
+            var marqueeHeight=20;
+            function initMarquee() {
+             var str=marqueeContent[0];
+             $('.pf-notice-box').html('<div>'+str+'</div>');
+             marqueeBox = $('.pf-notice-box')[0];
+             marqueeId++;
+             marqueeInterval[0]=setInterval(startMarquee,marqueeDelay);
+             }
+            function startMarquee() {
+             var str=marqueeContent[marqueeId];
+              marqueeId++;
+             if(marqueeId>=marqueeContent.length) marqueeId=0;
+             if(marqueeBox.childNodes.length==1) {
+              var nextLine=document.createElement('DIV');
+              nextLine.innerHTML=str;
+              marqueeBox.appendChild(nextLine);
+              }
+             else {
+              marqueeBox.childNodes[0].innerHTML=str;
+              marqueeBox.appendChild(marqueeBox.childNodes[0]);
+              marqueeBox.scrollTop=0;
+              }
+             clearInterval(marqueeInterval[1]);
+             marqueeInterval[1]=setInterval(scrollMarquee,10);
+             }
+            function scrollMarquee() {
+             marqueeBox.scrollTop++;
+             if(marqueeBox.scrollTop%marqueeHeight==marqueeHeight){
+              clearInterval(marqueeInterval[1]);
+              }
+             }
+            initMarquee();
+
+    </script>
+
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+    <script>
+        layui.use(['layer'], function() {
+            var $ = layui.jquery
+            var layer = layui.layer;
+
+            $('.pf-modify-pwd a').on('click', function () {
+                layer.open({
+                    type: 2,
+                    title :'修改密码',
+                    area: ['500px', '300px'],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+                    maxmin: true,
+                    content: '/account/modifyPwd/',
+                    id:"modify-pwd-dialog",
+                });
+            })
+        });
+    </script>
+</body> 
+</html>

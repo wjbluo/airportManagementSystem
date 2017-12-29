@@ -1,0 +1,126 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>角色赋予</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css' %}" type="text/css">
+{#    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/demo.css' %}" type="text/css">#}
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-xs4">
+            <ul id="groupTree" class="ztree"></ul>
+        </div>
+        <div class="layui-col-xs1" style="padding-top: 150px;">
+            <div class="layui-btn layui-anim-scale  layui-btn-primary" lay-submit lay-filter="giveGroup" name="giveGroup" id="giveGroup" style="padding-right: 10px">
+                <i class="layui-icon">&#xe602;</i>
+            </div>
+        </div>
+        <div class="layui-col-xs7">
+            <table class="layui-table" id="groupTab" lay-filter='groupTab'></table>
+            <div class="layui-input-block"  style="vertical-align: middle">
+                    <div class="layui-btn layui-anim-scale  layui-btn-primary" lay-submit lay-filter="giveGroupBtn" name="giveGroupBtn" id="giveGroupBtn">
+                        保存其赋予角色
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery-1.4.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.core.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.excheck.js' %}"></script>
+<script>
+    function onCheck(){
+            var treeObj=$.fn.zTree.getZTreeObj("groupTree")
+            var nodes=treeObj.getCheckedNodes(true)
+            checkData = []
+            for(var i=0;i<nodes.length;i++){
+                checkData.push({id:nodes[i].id,roleName:nodes[i].name,roleDis:nodes[i].value})
+            }
+            $("div[name='giveGroup']").click();
+        }
+        var setting = {
+            check:{
+                enable:true
+            },
+            data:    {
+                simpleData:{
+                    enable:true
+                }
+            },
+            callback:{
+                onCheck:onCheck
+            }
+
+        };
+
+        var zNodes ={{ data |safe }}
+        var userId = {{ userId |safe }}
+        var checkData = {{ checkedData |safe }}
+
+        $(document).ready(function(){
+            $.fn.zTree.init($("#groupTree"), setting, zNodes);
+        });
+
+    layui.use(['table'], function(){
+        var $ = layui.jquery
+        var table = layui.table;
+
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+
+        //执行渲染
+        var groupTable = table.render({
+            elem: '#groupTab' //指定原始表格元素选择器（推荐id选择器）
+             ,height: 'full-80' //容器高度
+             ,cols: [[
+                {field: 'roleName',title:'角色名称',width:100} //其它参数在此省略
+                ,{field: 'roleDis',title:'角色描述',width:315}
+              ]]
+            ,size: 'sm'
+            ,data: [] //赋值数据
+            ,loading: true
+              //request: {} //如果无需自定义请求参数，可不加该参数
+                //response: {} //如果无需自定义数据响应名称，可不加该参数
+        });
+
+        $("div[name='giveGroup']").on('click',function(){
+            groupTable.reload({
+                data: checkData
+            });
+        });
+
+        $("div[name='giveGroupBtn']").on('click',function(){
+             var post_data_str = JSON.stringify(checkData);
+             $.ajax({
+                url: '{% url 'sysManage:giveRoleSubmit' %}',
+                type: 'POST',
+                data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str ,'userId':userId},
+                dataType: 'json',
+                success: function (arg) {
+                    if(arg.status){
+                         parent.layer.close(frameindex)
+                        parent.document.getElementById('searchUser').click();
+                    }
+                    layer.msg(arg.msg+"[3s后自动关闭]", {
+                        time: 3000, //3s后自动关闭
+                        btn: [ '知道了']
+                    });
+
+                },
+            })
+        });
+        $(document).ready(function(){
+            groupTable.reload({
+                data: checkData
+            });
+        });
+    });
+
+</script>
+</body>
+</html>

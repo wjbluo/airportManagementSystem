@@ -1,0 +1,425 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>跑道基本信息</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+{#    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css' %}" type="text/css">#}
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+{#    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/demo.css' %}" type="text/css">#}
+</head>
+<body class="x-body">
+	<div class="container" style="padding-left: 0px">
+		<div class="content">
+            <div class="easyui-tabs1" style="width:100%;" id="part">
+                    <div title="道面部位" data-options="closable:false" class="basic-info">
+{#                        道面部位内侧#}
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+
+                                <form class="layui-form" style="display: inline-block;position: relative;margin-bottom: 0;width: 100%;" action="">
+                                    <div class="layui-form-item">
+                                      <div class="layui-input-block"  style="vertical-align: middle">
+                                                <div class="layui-btn  layui-btn-primary" lay-submit lay-filter="addPart" name="addPart" id="addPart">
+                                                    <i class="layui-icon">&#xe608;</i> 添加部位
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="layui-btn layui-btn-primary" id="importBaseData" name="importBaseData"><i class="layui-icon"></i>Excel导入</button>
+                                    <button type="button" class="layui-btn layui-btn-primary" onclick="window.location.href='{% url 'sysManage:evaluationManagement:downloadStaticFile' 'damageData' %}'" id="importDamageData"><i class="layui-icon"></i>Excel模板</button>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">
+                                          <input type="text" value="" name="PartName" id="PartName"  lay-verify="value" placeholder="部位名称" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block"  style="vertical-align: middle">
+                                                <div class="layui-btn layui-btn-normal" lay-submit lay-filter="searchPart" name="searchPart" id="searchPart">
+                                                    <i class="layui-icon">&#xe615;</i> 查询
+                                                </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <table class="layui-table" id="partTable" lay-filter='partTable'></table>
+                            </div>
+                        </div>
+                    </div>{#                        道面部位内侧  结束#}
+                    {% if parts %}
+                    <div title="道面区域" data-options="closable:false" class="basic-info">
+{#                        道面区域内侧#}
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+
+                                <form class="layui-form" style="display: inline-block;position: relative;margin-bottom: 0;width: 100%;" action="">
+                                    <div class="layui-form-item">
+                                      <div class="layui-input-block"  style="vertical-align: middle">
+                                                <div class="layui-btn  layui-btn-primary" lay-submit lay-filter="addArea" name="addArea" id="addArea">
+                                                    <i class="layui-icon">&#xe608;</i> 添加区域
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">
+                                          <input type="text" value="" name="AreaName" id="AreaName"  lay-verify="value" placeholder="区域编号" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block"  style="vertical-align: middle">
+                                                <div class="layui-btn layui-btn-normal" lay-filter="searchArea" name="searchArea" id="searchArea">
+                                                    <i class="layui-icon">&#xe615;</i> 查询
+                                                </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <table class="layui-table" id="areaTable" lay-filter='areaTable'></table>
+                            </div>
+                        </div>
+                    </div>                 {# 道面区域内侧  结束#}
+                    {% endif %}
+                    {% if areas %}
+                    <div title="道面单元" data-options="closable:false" class="basic-info">
+{#                        道面单元内侧#}
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+{#                                <div class="layui-container">#}
+                                    <div class="layui-row">
+                                        <div class="layui-col-xs2">
+{#                                            <div class="left-tree" >#}
+                                            <div class="column"><span class="current">道面区域列表</span>
+                                                <a id="updateList" name="updateList" class="iconfont"
+                                                   style='cursor:pointer;padding-left: 10px' title="刷新列表">&#xe657;</a>
+                                            </div>
+                                            <iframe frameborder="0" src="{% url 'sysManage:initleftMenu' %}" id="leftMenu" name="leftMenu" title="leftMenu" width="95%" height="500px"></iframe>
+                                        </div>
+                                        <div class="layui-col-xs10">
+                                            <iframe frameborder="0" id="content" src="{% url 'sysManage:initContent' firstArea.id %}" name="content" title="content" width="95%" height="500px"></iframe>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>                 {# 道面单元内侧  结束#}
+                    {% endif %}
+
+                    {% if cells %}
+                    <div title="道面板块" data-options="closable:false" class="basic-info">
+{#                        道面单元内侧#}
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+{#                                <div class="layui-container">#}
+                                    <div class="layui-row">
+                                        <div class="layui-col-xs2">
+{#                                            <div class="left-tree" >#}
+                                            <div class="column"><span class="current">道面区域列表</span>
+                                                <a id="updateList_plate" name="updateList_plate" class="iconfont"
+                                                   style='cursor:pointer;padding-left: 10px' title="刷新列表">&#xe657;</a>
+                                            </div>
+                                            <iframe frameborder="0" src="{% url 'sysManage:initleftMenu_plate' %}" id="leftMenu_plate" name="leftMenu_plate" title="leftMenu_plate" width="95%" height="500px"></iframe>
+                                        </div>
+                                        <div class="layui-col-xs10">
+                                            <iframe frameborder="0" id="content_plate" src="{% url 'sysManage:initContent_plate' firstCell.id %}" name="content_plate" title="content_plate" width="95%" height="500px"></iframe>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>                 {# 道面单元内侧  结束#}
+                    {% endif %}
+            </div>
+		</div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+{#    <script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.core.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.excheck.js' %}"></script>#}
+<script type="text/javascript">
+    $('#part').tabs({
+        tabHeight: 36,
+        onSelect: function(title) {
+          if(title=='道面部位'){
+              $("div[name='searchPart']").click()
+          }
+          if(title=='道面区域'){
+              $("div[name='searchArea']").click()
+          }
+      	setTimeout(function() {
+    		resizeTabs();
+    	},100)
+      }
+    });
+    $(window).resize(function(){
+    	$('.easyui-tabs1').tabs("resize");
+    	setTimeout(function() {
+    		resizeTabs();
+    	},100)
+    }).resize();
+    function resizeTabs() {
+		var $body = $('body'),
+			$window = $(window);
+
+		if($window.height() > $body.height()) {
+
+			$('.panel-body').height($window.height() - 80);
+
+		}
+    }
+    layui.use(['table','form','layer'], function() {
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+
+        var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+        //执行渲染  部位表格
+        var partTable = table.render({
+            elem: '#partTable' //指定原始表格元素选择器（推荐id选择器）
+             ,height: 'full-200' //容器高度
+             ,cols: [[
+                {field: 'partCode',title:'部位编号',width:120,fixed:'left',sort: true} //其它参数在此省略
+                ,{field: 'partName',title:'部位名称',width:100}
+                ,{field: 'partDis',title:'功能',width:200}
+                ,{field: 'airCode',title:'机场编号',width:100}
+                ,{field: 'containsAreaNum',title:'包含区域',width:100}
+                ,{field: 'containsStructureNum',title:'包含结构',width:150}
+                ,{field: 'Area',title:'面积/m&sup2;',width:100}
+                ,{field: 'partLevel',title:'重要等级',width:100}
+                ,{field: 'recordingTime',title:'记录日期',width:120}
+                ,{field: 'updateTime',title:'更新日期',width:200}
+                ,{field: 'opera',title:'操作',toolbar: '#bars',align:'center',width:100,fixed:'right'}
+              ]]
+            ,limits: [5,10,15,20,25]
+            ,limit: 5
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+            ,url: '{% url 'sysManage:searchPart' %}'
+            ,method: 'post'
+              //request: {} //如果无需自定义请求参数，可不加该参数
+                //response: {} //如果无需自定义数据响应名称，可不加该参数
+        });
+        var areaTable = table.render({
+            elem: '#areaTable' //指定原始表格元素选择器（推荐id选择器）
+             ,height: 'full-200' //容器高度
+             ,cols: [[
+                {field: 'areaCode',title:'区域编号',width:120,fixed:'left',sort: true} //其它参数在此省略
+                ,{field: 'areaDis',title:'区域位置',width:150}
+                ,{field: 'partName',title:'所属部位',width:200}
+                ,{field: 'cellNum',title:'单元数量',width:100}
+                ,{field: 'area',title:'面积/m&sup2;',width:100}
+                ,{field: 'areaStruct',title:'结构类型',width:200}
+                ,{field: 'structCode',title:'结构组合',width:120}
+                ,{field: 'recordingTime',title:'记录日期',width:120}
+                ,{field: 'updateTime',title:'更新日期',width:200}
+                ,{field: 'opera2',title:'操作',toolbar: '#bars',align:'center',width:100,fixed:'right'}
+              ]]
+            ,limits: [5,10,15,20,25]
+            ,limit: 5
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+            ,url: '{% url 'sysManage:searchArea' %}'
+            ,method: 'post'
+              //request: {} //如果无需自定义请求参数，可不加该参数
+                //response: {} //如果无需自定义数据响应名称，可不加该参数
+        });
+        layer.close(index)
+        $("div[name='searchPart']").on('click',function(){
+            var serchStr = $("#PartName").val();
+            partTable.reload({
+              where: { //设定异步数据接口的额外参数，任意设
+                searchStr:serchStr
+              }
+              ,method: 'post'
+            });
+        });
+
+        $("div[name='searchArea']").on('click',function(){
+            var serchStr = $("#AreaName").val();
+            areaTable.reload({
+              where: { //设定异步数据接口的额外参数，任意设
+                searchStr:serchStr
+              }
+              ,method: 'post'
+            });
+        });
+
+        $("div[name='addPart']").on('click',function(){
+            layer.open({
+                type: 2,
+                title :'新增部位信息',
+                area: ['600px', '300px'],
+                anim:2,
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: true,
+                content: 'addPart/',
+                id:"add-part-dialog",
+            });
+        });
+
+        $("div[name='addArea']").on('click',function(){
+            layer.open({
+                type: 2,
+                title :'新增区域信息',
+                area: ['600px', '300px'],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: true,
+                content: 'addArea/',
+                id:"add-area-dialog",
+            });
+        });
+
+        $("a[name='updateList']").on('click',function(){
+            document.getElementById('leftMenu').src='{% url 'sysManage:initleftMenu' %}'
+        });
+        $("a[name='updateList_plate']").on('click',function(){
+            document.getElementById('leftMenu_plate').src='{% url 'sysManage:initleftMenu_plate' %}'
+        });
+        $(document).on('click','table tbody tr td a[name="structCode"]',function(){
+            var classType =  $(this).prev().prev().html();
+            var Code =  $(this).prev().html();
+            var height = $(window).height()+'px'
+            layer.open({
+                type: 2,
+                title :Code+'结构详细',
+                area: ['900px', height],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: true,
+                offset: 'lb',
+                anim: 2,
+                content: '/component/sysManage/baseData/pavementStructureType/initStructrueContent/'+classType+'/'+Code+'/',
+                id:"show-structure-dialog",
+            });
+        });
+
+        table.on('tool(partTable)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'del'){ //删除
+                layer.confirm('确定需要删除吗？', function(index){
+                    var partId = data.id
+{#                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存#}
+{#                    layer.close(index);#}
+                    //向服务端发送删除指令
+
+                    var post_data_dict = {partId:partId};
+
+                    var post_data_str = JSON.stringify(post_data_dict);
+                     $.ajax({
+                        url: '{% url 'sysManage:delPartSubmit' %}',
+                        type: 'POST',
+                        data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                        dataType: 'json',
+                         success: function (arg) {
+                             if(arg.status){
+                                 document.getElementById('searchPart').click()
+                                 layer.msg(arg.message+"[3s后自动关闭]", {
+                                    time: 3000, //3s后自动关闭
+                                    btn: [ '知道了']
+                                 });
+                                 if(arg.flash){
+                                     location.reload()
+                                 }
+                             }else{
+                                 layer.msg(arg.message+"[3s后自动关闭]", {
+                                    time: 3000, //3s后自动关闭
+                                    btn: [ '知道了']
+                                 });
+                             }
+                         },
+                    })
+                });
+            }else if(layEvent === 'alter'){
+                var partId = data.id
+                layer.open({
+                    type: 2,
+                    title :'修改部位信息',
+                    area:['600px', '350px'],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+                    maxmin: true,
+                    content: 'alterPart/'+partId+'/',
+                    id:"alter-part-dialog",
+                });
+            }
+        });
+
+
+        table.on('tool(areaTable)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'del'){ //删除
+                layer.confirm('确定需要删除吗？', function(index){
+                    var areaId = data.id
+{#                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存#}
+{#                    layer.close(index);#}
+                    //向服务端发送删除指令
+
+                    var post_data_dict = {areaId:areaId};
+
+                    var post_data_str = JSON.stringify(post_data_dict);
+                     $.ajax({
+                        url: '{% url 'sysManage:delAreaSubmit' %}',
+                        type: 'POST',
+                        data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                        dataType: 'json',
+                         success: function (arg) {
+                             if(arg.status){
+                                 document.getElementById('searchArea').click()
+                                 layer.msg(arg.message+"[3s后自动关闭]", {
+                                    time: 3000, //3s后自动关闭
+                                    btn: [ '知道了']
+                                 });
+{#                                 # TOOD 暂时先不处理 板块刷新#}
+                                 if(arg.flash){
+                                     location.reload()
+                                 }
+                             }else{
+                                  layer.msg(arg.message+"[3s后自动关闭]", {
+                                    time: 3000, //3s后自动关闭
+                                    btn: [ '知道了']
+                                 });
+                             }
+
+
+                         },
+                    })
+                });
+            }else if(layEvent === 'alter'){
+                var areaId = data.id
+                layer.open({
+                    type: 2,
+                    title :'修改部位信息',
+                    area:['600px', '300px'],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+                    maxmin: true,
+                    content: 'alterArea/'+areaId+'/',
+                    id:"alter-area-dialog",
+                });
+            }
+        });
+
+    });
+
+
+</script>
+<script type="text/html" id="bars">
+  <a class="iconfont" style='cursor:pointer' lay-event="del" title="删除">&#xe60f;</a>
+  <a class="iconfont" style='cursor:pointer' lay-event="alter" title="修改">&#xe611;</a>
+</script>

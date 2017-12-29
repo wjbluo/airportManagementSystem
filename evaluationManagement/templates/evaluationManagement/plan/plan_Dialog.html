@@ -1,0 +1,224 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>修改机场基本信息</title>
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+</head>
+<body>
+<div class="container" style="padding-left: 0px">
+    <div class="content">
+        <form class="layui-form" method="post" style="padding-top: 20px;width: 100%" >
+            <div class="column" style="width: 95%"><span class="current">项目计划基本信息</span></div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">项目编号</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="surveyPlanCode" id="surveyPlanCode" placeholder="请输入" autocomplete="off"
+                         class="layui-input" value="{{ define_PPID }}" required lay-verify="required" disabled>
+                </div>
+
+                <label class="layui-form-label">开始时间</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="startTime" id="startTime" placeholder="请输入" autocomplete="off"
+                          class="layui-input"  required lay-verify="required">
+                </div>
+
+                <label class="layui-form-label">结束时间</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="endTime" id="endTime" placeholder="请输入" autocomplete="off"
+                          class="layui-input"  required lay-verify="required">
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">部位数量</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="partNum" id="partNum"  autocomplete="off"
+                          class="layui-input" placeholder="设置调查对象后自动计算" required lay-verify="required" disabled>
+                </div>
+
+                <label class="layui-form-label">区域数量</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="areaNum" id="areaNum" autocomplete="off"
+                         class="layui-input" placeholder="设置调查对象后自动计算" disabled>
+                </div>
+
+                <label class="layui-form-label">单元数量</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="cellNum" id="cellNum" autocomplete="off"
+                         class="layui-input" placeholder="设置调查对象后自动计算" disabled>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">评估面积</label>
+                <div class="layui-input-inline" style="width: 180px;">
+                  <input type="text" name="EvaArea" id="EvaArea" autocomplete="off"
+                         class="layui-input" placeholder="设置调查对象后自动计算" disabled>
+                </div>
+                <div class="layui-form-mid">m&sup2;</div>
+
+                <label class="layui-form-label">评估单位</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="EvaUnit" id="EvaUnit" autocomplete="off"
+                         class="layui-input" placeholder="请输入" required lay-verify="required">
+                </div>
+
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">备注说明</label>
+                <div class="layui-input-block" style="width: 880px;">
+                  <textarea id="desc" name="desc" placeholder="请输入内容" class="layui-textarea" required lay-verify="required"></textarea>
+                </div>
+            </div>
+            <div class="column" style="width: 95%"><span class="current">调查对象</span>
+                <a id="selectObject" name="selectObject" class="iconfont"
+                               style='cursor:pointer;padding-left: 10px' title="设置调查对象">&#xe6ed;</a>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">评估内容</label>
+                <div class="layui-input-block" style="width: 880px;">
+                    <blockquote class="layui-elem-quote layui-quote-nm"><span>1、道面表观状况（全面调查）</span><span style="padding-left: 100px">2、道面结构性能（HWD法）</span><span style="padding-left: 100px">3、道面平整度（激光平整度法）</span></blockquote>
+                </div>
+            </div>
+            <div class="layui-form-item" style="padding-left: 30px">
+                <table class="layui-table" id="contentTab" lay-filter='contentTab'></table>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-primary" lay-submit lay-filter="addPlanBtn" id="addPlanBtn" name="addPlanBtn">添加为计划</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    var Areadata=[]
+    layui.use(['form','laydate','table'], function(){
+        var layer = layui.layer,
+         $ = layui.jquery,
+         form = layui.form,
+         table = layui.table,
+         laydate = layui.laydate;
+
+        form.on('submit(addPlanBtn)', function(data){
+            return false;
+         });
+
+        laydate.render({
+            elem: '#startTime' //指定元素
+        });
+
+        laydate.render({
+            elem: '#endTime' //指定元素
+        });
+
+        form.verify({
+            name: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                  return '用户名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                  return '用户名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                  return '用户名不能全为数字';
+                }
+            }
+            ,Integer:[
+                /^[\d]+$/
+                ,'此处应为整数。'
+            ]
+        });
+
+        var contentTab = table.render({
+            elem: '#contentTab' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:250
+             ,width: 960
+             ,cols: [[
+                {field: 'areaName',title:'区域名称',width:150,fixed:'left',sort: true}
+                ,{field: 'partName',title:'所属部位',width:150}
+                ,{field: 'cellNum',title:'包含单元数',width:150}
+                ,{field: 'area',title:'面积/m&sup2;',width:150}
+                ,{field: 'structure',title:'结构类型',width:150}
+                ,{field: 'EvaContent',title:'评估内容',width:190}
+              ]]
+            ,limits: [5,10,20,30,40,50]
+            ,limit: 5
+            ,size: 'sm'
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+
+{#            ,url: '{% url 'sysManage:searchGroup' %}'#}
+{#            ,method: 'post'#}
+              //request: {} //如果无需自定义请求参数，可不加该参数
+                //response: {} //如果无需自定义数据响应名称，可不加该参数
+        });
+
+        $("button[name='addPlanBtn']").on('click',function(){
+            var planId = $('#surveyPlanCode').val()
+            var startTime = $('#startTime').val()
+            var endTime = $('#endTime').val()
+            var partNum = $('#partNum').val()
+            var areaNum = $('#areaNum').val()
+            var cellNum = $('#cellNum').val()
+            var EvaArea = $('#EvaArea').val()
+            var EvaUnit = $('#EvaUnit').val()
+            var desc = $('#desc').val()
+            var gridData = Areadata
+
+            var post_data_dict = {planId:planId,startTime:startTime,endTime:endTime,partNum:partNum,areaNum:areaNum,
+                cellNum:cellNum,EvaArea:EvaArea,EvaUnit:EvaUnit,desc:desc,gridData:gridData};
+            var post_data_str = JSON.stringify(post_data_dict);
+             $.ajax({
+                url: '{% url 'sysManage:evaluationManagement:addPlanSubmit' %}',
+                type: 'POST',
+                data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                dataType: 'json',
+                 success: function (arg) {
+                     if(arg.status){
+                         parent.location.href="/component/evaluationManagement/damage/surveyPlan/"
+{#                         location.href="/component/evaluationManagement/damage/surveyPlan/showPlan/"+arg.planId+"/"#}
+{#                         location.replace("/component/evaluationManagement/damage/surveyPlan/showPlan/"+arg.planId+"/")#}
+                         layer.msg(arg.message+"[3s后自动关闭]", {
+                            time: 3000, //3s后自动关闭
+                            btn: [ '知道了']
+                         });
+                     }
+                 },
+            })
+        });
+        $("a[name='selectObject']").on('click',function(){
+{#            var width = this.parent.width()+'px'#}
+            layer.open({
+                type: 2,
+                title :'调查对象',
+                area: ['1024px', '512px'],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: true,
+                content: 'selectObject/',
+                id:"select-object-dialog",
+                end: function(){
+                    var data_=[]
+                    for(var i=0;i<Areadata.length;i++){
+                        data_.push({'structure': Areadata[i].structure, 'areaName': Areadata[i].areaName, 'partName':Areadata[i].partName, 'cellNum': Areadata[i].cellNum, 'EvaContent': Areadata[i].EvaContent, 'area': Areadata[i].area+'m&sup2;'})
+                    }
+                    contentTab.reload({
+                        data:data_
+                    });
+                }
+            });
+        })
+
+    });
+</script>
+</body>
+</html>

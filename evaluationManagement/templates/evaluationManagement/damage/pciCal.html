@@ -1,0 +1,144 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PCI计算</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+</head>
+<body class="x-body">
+	<div class="container" style="padding-left: 0px">
+		<div class="content">
+            <div class="layui-tab layui-tab-card" lay-filter="PCI_cal">
+                  <ul class="layui-tab-title">
+                        <li class="layui-this">单元PCI</li>
+                        <li>区域PCI</li>
+                        <li>部位PCI</li>
+                  </ul>
+                  <div class="layui-tab-content" style="height: 450px;">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-table" id="cell_PCI" lay-filter='cell_PCI'></table>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-table" id="area_PCI" lay-filter='area_PCI'></table>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-table" id="part_PCI" lay-filter='part_PCI'></table>
+                        </div>
+                  </div>
+            </div>
+		</div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+    layui.use(['table','form','layer','element'], function() {
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+        var element = layui.element;
+
+        //执行渲染  部位表格
+        var area_PCI_Tab = table.render({
+            elem: '#area_PCI' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:400
+             ,cols: [[
+                {field: 'areaName',title:'区域名称',width:150,fixed:'left',sort: true}
+                ,{field: 'area_PCI',title:'区域PCI',width:150}
+                ,{field: 'area_SCI',title:'区域SCI',width:100}
+                ,{field: 'min_cell_PCI',title:'最小单元PCI',width:100}
+                ,{field: 'max_cell_PCI',title:'最大单元PCI',width:100}
+                ,{field: 'level',title:'评价等级',width:100}
+                ,{field: 'PCI_coefficient',title:'PCI变异系数',width:100}
+                ,{field: 'Date',title:'日期',width:100}
+                ,{field: 'opera',title:'病害统计',width:150,toolbar: '#pciBars',align:'center',fixed:'right'}
+              ]]
+            ,limits: [8,10,20,30,40,50]
+            ,limit: 8
+            ,size: 'sm'
+            ,data:{{ data | safe }}
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+        var cell_PCI_Tab = table.render({
+            elem: '#cell_PCI' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:400
+             ,cols: [[
+                {field: 'cellName',title:'单元名称',width:150,fixed:'left',sort: true}
+                ,{field: 'cell_PCI',title:'单元PCI',width:150}
+                ,{field: 'cell_SCI',title:'单元SCI',width:100}
+                ,{field: 'dominant_damage_type',title:'主导损坏类型',width:200}
+                ,{field: 'level',title:'评价等级',width:100}
+                ,{field: 'PCI_coefficient',title:'PCI变异系数',width:100}
+                ,{field: 'Date',title:'日期',width:100}
+                ,{field: 'opera',title:'病害统计',width:150,toolbar: '#pciBars',align:'center',fixed:'right'}
+              ]]
+            ,limits: [8,10,20,30,40,50]
+            ,limit: 8
+            ,size: 'sm'
+            ,data:[]
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+        var part_PCI_Tab = table.render({
+            elem: '#part_PCI' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:400
+             ,cols: [[
+                {field: 'partName',title:'部位名称',width:150,fixed:'left',sort: true}
+                ,{field: 'part_PCI',title:'部位PCI',width:150}
+                ,{field: 'part_SCI',title:'部位SCI',width:100}
+                ,{field: 'min_cell_PCI',title:'最小单元PCI',width:100}
+                ,{field: 'max_cell_PCI',title:'最大单元PCI',width:100}
+                ,{field: 'level',title:'评价等级',width:100}
+                ,{field: 'PCI_coefficient',title:'PCI变异系数',width:100}
+                ,{field: 'Date',title:'日期',width:100}
+                ,{field: 'opera',title:'病害统计',width:150,toolbar: '#pciBars',align:'center',fixed:'right'}
+              ]]
+            ,limits: [8,10,20,30,40,50]
+            ,limit: 8
+            ,size: 'sm'
+            ,data:[]
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+
+        element.on('tab(PCI_cal)', function(data){
+            if(data.index==0){
+                cell_PCI_Tab.reload({
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                })
+            }else if(data.index==1){
+                area_PCI_Tab.reload({
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                })
+            }else if(data.index==2){
+                part_PCI_Tab.reload({
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                })
+            }
+        });
+
+    });
+</script>
+<script type="text/html" id="pciBars">
+    <a class="iconfont" style='cursor:pointer;font-size: small' lay-event="lookPic" title="查看详细病害统计">详细</a>
+</script>

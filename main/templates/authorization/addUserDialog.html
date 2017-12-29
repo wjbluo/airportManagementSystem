@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增用户</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post" style="padding-top: 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+          <input type="text" name="username" id="username" placeholder="请输入[用于账号登录]" autocomplete="off" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓</label>
+        <div class="layui-input-block">
+          <input type="text" name="firstname" id="firstname" placeholder="请输入真实姓" autocomplete="off" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">名</label>
+        <div class="layui-input-block">
+          <input type="text" name="lastname" id="lastname" placeholder="请输入真实名" autocomplete="off" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">初始密码</label>
+        <div class="layui-input-block">
+          <input type="text" name="psd" id="psd" placeholder="请输入" autocomplete="off" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+          <input type="text" name="email" id="email" placeholder="以便以后找回密码" autocomplete="off" lay-verify="email" class="layui-input" required>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn layui-btn-primary" lay-submit lay-filter="addUserSubmit" id="addUserSubmit" name="addUserSubmit">立即提交</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['form'], function(){
+        var layer = layui.layer
+        var $ = layui.jquery
+        var form = layui.form;
+
+        form.on('submit(addUserSubmit)', function(data){
+            return false;
+         });
+
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+        $("button[name='addUserSubmit']").on('click',function(){
+                var username = $("#username").val();
+                var firstname = $("#firstname").val();
+                var lastname = $("#lastname").val();
+                var psd = $("#psd").val();
+                var email = $("#email").val();
+                var post_data_dict = {username:username, psd:psd,email:email,firstname:firstname,lastname:lastname};
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:addUserSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                    success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+                             parent.document.getElementById('searchUser').click();
+                        }
+                        layer.msg(arg.message+"[3s后自动关闭]", {
+                            time: 3000, //3s后自动关闭
+                            btn: [ '知道了']
+                        });
+
+                    },
+                })
+            });
+    });
+</script>
+</body>
+</html>

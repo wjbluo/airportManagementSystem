@@ -1,0 +1,161 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>单元列表</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+</head>
+<body class="x-body">
+	<div class="container" style="padding-left: 0px">
+		<div class="content">
+            <form class="layui-form" style="display: inline-block;position: relative;margin-bottom: 0;width: 100%;" action="">
+                <div class="layui-form-item">
+                  <div class="layui-input-block"  style="vertical-align: middle">
+                            <div class="layui-btn  layui-btn-primary" lay-submit lay-filter="addCell" name="addCell" id="addCell">
+                                <i class="layui-icon">&#xe608;</i> 添加单元
+                            </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">
+                      <input type="text" value="" name="CellCode" id="CellCode"  lay-verify="value" placeholder="单元编号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block"  style="vertical-align: middle">
+                            <div class="layui-btn layui-btn-normal" lay-submit lay-filter="searchCell" name="searchCell" id="searchCell">
+                                <i class="layui-icon">&#xe615;</i> 查询
+                            </div>
+                    </div>
+                </div>
+                <span class="layui-badge-rim">当前选择：{{ currentArea.areaCode }}({{ currentArea.areaDis }})</span>
+            </form>
+            <table class="layui-table" id="cellTable" lay-filter='cellTable'></table>
+		</div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+    layui.use(['table','form','layer'], function() {
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+
+        //执行渲染  部位表格
+        var cellTable = table.render({
+            elem: '#cellTable' //指定原始表格元素选择器（推荐id选择器）
+             ,height: 'full-100' //容器高度
+             ,cols: [[
+                {field: 'cellCode',title:'单元编号',width:120,fixed:'left',sort: true} //其它参数在此省略
+                ,{field: 'area',title:'所属区域',width:150}
+                ,{field: 'part',title:'所属部位',width:150}
+                ,{field: 'Area_',title:'面积/m&sup2;',width:100}
+                ,{field: 'banNum',title:'板块数量',width:100}
+                ,{field: 'recordingTime',title:'记录日期',width:120}
+                ,{field: 'updateTime',title:'更新日期',width:200}
+                ,{field: 'opera',title:'操作',toolbar: '#bars',align:'center',width:100,fixed:'right'}
+              ]]
+            ,limits: [5,10,15,20,25]
+            ,limit: 5
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}',areaId:'{{currentArea.id}}'}
+            ,url: '{% url 'sysManage:searchCell' %}'
+            ,method: 'post'
+              //request: {} //如果无需自定义请求参数，可不加该参数
+                //response: {} //如果无需自定义数据响应名称，可不加该参数
+        });
+
+        $("div[name='searchCell']").on('click',function(){
+            var serchStr = $("#CellCode").val();
+            cellTable.reload({
+              where: { //设定异步数据接口的额外参数，任意设
+                searchStr:serchStr, csrf_token: '{{ csrf_token }}',areaId:'{{currentArea.id}}'
+              }
+              ,method: 'post'
+            });
+        });
+
+        $("div[name='addCell']").on('click',function(){
+            layer.open({
+                type: 2,
+                title :'新增单元信息',
+                area: ['600px', '250px'],
+                anim:2,
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: true,
+                content: 'addCell/',
+                id:"add-cell-dialog",
+            });
+        });
+
+
+        table.on('tool(cellTable)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'del'){ //删除
+                layer.confirm('确定需要删除吗？', function(index){
+                    var cellId = data.id
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    //向服务端发送删除指令
+
+                    var post_data_dict = {cellId:cellId};
+
+                    var post_data_str = JSON.stringify(post_data_dict);
+                     $.ajax({
+                        url: '{% url 'sysManage:delCellSubmit' %}',
+                        type: 'POST',
+                        data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                        dataType: 'json',
+                         success: function (arg) {
+                             if(arg.status){
+                                 document.getElementById('searchCell').click()
+                                 layer.msg(arg.message+"[3s后自动关闭]", {
+                                    time: 3000, //3s后自动关闭
+                                    btn: [ '知道了']
+                                 });
+                                 if(arg.flash){
+                                     location.reload()
+                                 }
+                             }
+
+
+                         },
+                    })
+                });
+            }else if(layEvent === 'alter'){
+                var cellId = data.id
+                layer.open({
+                    type: 2,
+                    title :'修改单元信息',
+                    area:['600px', '250px'],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+                    maxmin: true,
+                    content: 'alterCell/'+cellId+'/',
+                    id:"alter-cell-dialog",
+                });
+            }
+        });
+    });
+
+
+</script>
+<script type="text/html" id="bars">
+  <a class="iconfont" style='cursor:pointer' lay-event="del" title="删除">&#xe60f;</a>
+  <a class="iconfont" style='cursor:pointer' lay-event="alter" title="修改">&#xe611;</a>
+</script>

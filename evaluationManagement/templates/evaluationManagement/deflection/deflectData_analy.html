@@ -1,0 +1,357 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>结构评价</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+</head>
+<body class="x-body">
+	<div class="container" style="padding-left: 10px; width: 98%">
+		<div class="content">
+            <div class="layui-tab layui-tab-card" lay-filter="PCI_cal">
+                  <ul class="layui-tab-title">
+                      <li class="layui-this">板底脱空</li>
+                      <li>接缝传荷</li>
+                      <li>航空交通量</li>
+                      <li>PCN</li>
+                      <li>统计图</li>
+                  </ul>
+                  <div class="layui-tab-content" style="height: 450px;">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-table" id="void" lay-filter='void'></table>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-table" id="load" lay-filter='load'></table>
+                        </div>
+                        <div class="layui-tab-item">
+{#                            <table class="layui-table" id="air_traffic_volume" lay-filter='air_traffic_volume'></table>#}
+                        </div>
+                      <div class="layui-tab-item">
+                            <table class="layui-table" id="PCN" lay-filter='PCN'></table>
+                      </div>
+                      <div class="layui-tab-item">
+                          <div class="layui-row">
+                            <div class="layui-col-xs6" style="height: 100%">
+                                <div id="voidChart" name="voidChart" style="width:95%; height: 350px;" ></div>
+                            </div>
+                            <div class="layui-col-xs6" style="height: 100%">
+                                <div id="joinChart" name="joinChart" style="width:95%; height: 350px;" ></div>
+{#                                <div id="joinChart" style="width:95%; height: 350px;"></div>#}
+                            </div>
+                        </div>
+
+                      </div>
+                  </div>
+            </div>
+		</div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/echarts.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/Highcharts-6.0.3/code/highcharts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+    layui.use(['table','form','layer','element'], function() {
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+        var element = layui.element;
+
+        //执行渲染  表格
+        var void_Tab = table.render({
+            elem: '#void' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:400
+             ,cols: [[
+                {field: 'areaName',title:'区域名称',width:120,fixed:'left',sort: true}
+                ,{field: 'bian_zhong_avg',title:'板边/板中均值',width:150}
+                 ,{field: 'bian_zhong_max',title:'板边/板中最大值',width:150}
+                 ,{field: 'bian_zhong_min',title:'板边/板中最小值',width:150}
+                 ,{field: 'jiao_zhong_avg',title:'板角/板中均值',width:150}
+                 ,{field: 'jiao_zhong_max',title:'板角/板中最大值',width:150}
+                 ,{field: 'jiao_zhong_min',title:'板角/板中最小值',width:150}
+                 ,{field: 'bian_radio_2_3',title:'板边脱空比例（2,3）%',width:150}
+                 ,{field: 'jiao_radio_2_3',title:'板角脱空比例（2,3）%',width:150}
+                 ,{field: 'radio_2_3',title:'总脱空比例（2,3）%',width:150}
+                 ,{field: 'bian_radio_3_6',title:'板边脱空比例（3.5,6）%',width:180}
+                 ,{field: 'jiao_radio_3_6',title:'板角脱空比例（3.5,6）%',width:180}
+                 ,{field: 'radio_3_6',title:'总脱空比例（3.5,6）%',width:180}
+              ]]
+            ,limits: [8,10,20,30,40,50]
+            ,limit: 8
+            ,size: 'sm'
+            ,data:{{ void_json | safe }}
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+        var load_Tab = table.render({
+            elem: '#load' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:400
+             ,cols: [[
+                {field: 'areaName',title:'区域名称',width:150,fixed:'left',sort: true}
+                ,{field: 'level_avg',title:'均值',width:100}
+                ,{field: 'level_good',title:'好（>80%）',width:200}
+                ,{field: 'level_mid',title:'中（56%-80%）',width:200}
+                ,{field: 'level_ci',title:'次（31%-56%）',width:200}
+                ,{field: 'level_cha',title:'差（<31%）',width:200}
+              ]]
+            ,limits: [8,10,20,30,40,50]
+            ,limit: 8
+            ,size: 'sm'
+            ,data:{{ join_json | safe }}
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+        var PCN_Tab = table.render({
+            elem: '#PCN' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:400
+             ,cols: [[
+                {field: 'areaName',title:'区域名称',width:150,fixed:'left',sort: true}
+                ,{field: 'evaluation_PCN',title:'评价PCN',width:150}
+                ,{field: 'publish_PCN',title:'发布PCN',width:150}
+                ,{field: 'largest_model',title:'最大机型',width:150}
+                ,{field: 'largest_model_ACN',title:'最大机型ACN',width:150}
+                ,{field: 'PCN_ACN',title:'PCN/ACN',width:150}
+                ,{field: 'PCI_coefficient',title:'PCI变异系数',width:100}
+              ]]
+            ,limits: [8,10,20,30,40,50]
+            ,limit: 8
+            ,size: 'sm'
+            ,data:[]
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+
+        element.on('tab(PCI_cal)', function(data){
+            if(data.index==0){
+                void_Tab.reload({
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                })
+            }else if(data.index==1){
+                load_Tab.reload({
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                })
+            }else if(data.index==2){
+                load_Tab.reload({
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                })
+            }else if(data.index==3){
+                PCN_Tab.reload({
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                })
+            }else if(data.index==4){
+                var option = {
+                        noDataLoadingOption: {
+                            text: '暂无数据',
+                            effect: 'bubble',
+                            effectOption: {
+                                effect: {
+                                    n: 10
+                                }
+                            }
+                        },
+                        color: ['#4d6178'],
+                        title:{
+                            text:'区域名称',
+                            bottom:0,
+                            left:'45%',
+                        },
+                        tooltip : {
+                            trigger: 'axis',
+                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            },
+                        },
+                        grid: {
+                            left: '5%',
+                            right: '1%',
+                            bottom: '8%',
+                            containLabel: true
+                        },
+                        xAxis : [
+                            {
+                                type : 'category',
+                                data : {{ chart_data.0 | safe }},
+                                axisTick: {
+                                    alignWithLabel: false,
+                                    inside:true
+                                },
+                                axisLabel:{
+                                    fontSize: '13px',
+                                    fontFamily: '宋体, sans-serif',
+                                },
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value',
+                                axisTick: {
+                                    inside:true
+                                },
+                                name:'脱空率均值',
+                                nameLocation:'middle',
+                                nameGap:40,
+                                axisLabel:{
+                                    fontSize: '13px',
+                                    fontFamily: '宋体, sans-serif',
+                                    formatter: '{value}%'
+                                },
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'脱空率均值',
+                                type:'bar',
+                                barWidth: '18',
+                                data:{{ chart_data.1 |safe }},
+                            }
+                        ]
+                    };
+
+                var option_join = {
+                        noDataLoadingOption: {
+                            text: '暂无数据',
+                            effect: 'bubble',
+                            effectOption: {
+                                effect: {
+                                    n: 10
+                                }
+                            }
+                        },
+                        title:{
+                            text:'区域名称',
+                            bottom:0,
+                            left:'45%',
+                        },
+                        tooltip : {
+                            trigger: 'axis',
+                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            },
+                        },
+                        grid: {
+                            left: '5%',
+                            right: '1%',
+                            bottom: '8%',
+                            containLabel: true
+                        },
+                        xAxis : [
+                            {
+                                type : 'category',
+                                data : {{ chart_data.2 | safe }},
+                                axisTick: {
+                                    alignWithLabel: false,
+                                    inside:true
+                                },
+                                axisLabel:{
+                                    fontSize: '13px',
+                                    fontFamily: '宋体, sans-serif',
+                                },
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value',
+                                axisTick: {
+                                    inside:true
+                                },
+                                name:'弯沉比传递系数均值',
+                                nameLocation:'middle',
+                                nameGap:40,
+                                axisLabel:{
+                                    fontSize: '13px',
+                                    fontFamily: '宋体, sans-serif',
+                                    formatter: '{value}%'
+                                },
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'弯沉比传递系数均值',
+                                type:'bar',
+                                barWidth: '18',
+                                data:{{ chart_data.3 |safe }},
+                                itemStyle:{
+                                    normal:{
+                                        color:function (params) {
+                                            var index_color = params.value;
+                                            if(index_color<31){
+                                                return 'red';
+                                            }else if(index_color<56){
+                                                return 'yellow';
+                                            }else if(index_color<80){
+                                                return '#4d6178';
+                                            }else{
+                                                return 'green';
+                                            }
+                                        }
+                                    }
+                                },
+                                markLine:{
+                                    symbolSize:5,
+                                    lineStyle:{
+                                        mormal:{
+                                            color:function (params) {
+                                                var index_color = params.yAxis;
+                                                if(index_color<=31){
+                                                    return 'red';
+                                                }else if(index_color<=56){
+                                                    return 'yellow';
+                                                }else if(index_color<=80){
+                                                    return '#4d6178';
+                                                }else{
+                                                    return 'green';
+                                                }
+                                            }
+                                        }
+                                    },
+                                    data:[
+                                        {
+                                            name:'差',
+                                            yAxis:31,
+                                        },{
+                                            name:'次',
+                                            yAxis:56
+                                        },{
+                                            name:'中',
+                                            yAxis:80
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    };
+                           //初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('voidChart'));
+                    var joinChart = echarts.init(document.getElementById('joinChart'));
+                    //使用制定的配置项和数据显示图表
+                    myChart.setOption(option);
+                    joinChart.setOption(option_join);
+            }
+        });
+
+    });
+</script>
+<script type="text/html" id="pciBars">
+    <a class="iconfont" style='cursor:pointer;font-size: small' lay-event="lookPic" title="查看详细病害统计">详细</a>
+</script>

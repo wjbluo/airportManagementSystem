@@ -1,0 +1,117 @@
+{% load staticfiles %}
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>机场信息管理系统</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link href="{% static 'darkgrey/css/login/login.css' %}" rel="stylesheet">
+<style>
+        .login-bd .bd-inner .inner-wrap .lg-zone .lg-box .enter input {
+            display: inline-block;
+            text-decoration: none;
+            height: 48px;
+            line-height: 48px;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            width: 142px;
+            font-weight: bold
+        }
+
+        .login-bd .bd-inner .inner-wrap .lg-zone .lg-box .enter input.purchaser {
+            margin-left: 34px;
+            background-color: #f45438;
+            margin-right: 9px
+        }
+
+        .login-bd .bd-inner .inner-wrap .lg-zone .lg-box .enter input.supplier {
+            background-color: #4d6178
+        }
+</style>
+
+</head> 
+<body class="white">
+	<div class="login-hd">
+		<div class="left-bg"></div>
+		<div class="right-bg"></div>
+		<div class="hd-inner">
+			<span class="logo"></span>
+			<!--<span class="split"></span>-->
+			<!--<span class="sys-name">采购协同平台</span>-->
+		</div>
+	</div>
+	<div class="login-bd">
+		<div class="bd-inner">
+			<div class="inner-wrap">
+				<div class="lg-zone">
+					<div class="lg-box">
+						<div class="lg-label"><h4>用户登录</h4></div>
+                        {% if message %}
+						<div class="alert alert-error">
+			              <i class="iconfont">&#xe62e;</i>
+			                <span id="message">{{ message }}</span>
+			            </div>
+                        {% endif %}
+						<form method="post" id="loginForm" action="{% url 'account:login' %}" onsubmit="return user_input()">{% csrf_token %}
+							<div class="lg-username input-item clearfix">
+								<i class="iconfont">&#xe60d;</i>
+								<input type="text" placeholder="账号" name="account" id="account">
+							</div>
+							<div class="lg-password input-item clearfix">
+								<i class="iconfont">&#xe634;</i>
+								<input type="password" placeholder="请输入密码" name="psd" id="psd">
+							</div>
+                            <div class="lg-check clearfix">
+								<div class="input-item">
+									<i class="iconfont">&#xe633;</i>
+                                     <input type="text" class="form-control" name="check_code" id="check_code" placeholder="请输入验证码">
+								</div>
+								<img id="check_code_img" name="check_code_img" src="{% url 'account:create_code_img' %}" onclick="refresh_check_code(this)">
+							</div>
+							<div class="enter">
+                                <input type="submit" class="purchaser" value="登录"/>
+							</div>
+						</form>
+						<div class="line line-y"></div>
+						<div class="line line-g"></div>
+					</div>
+				</div>
+				<div class="lg-poster"></div>
+			</div>
+		</div>
+	</div>
+	<div class="login-ft">
+		<div class="ft-inner">
+			<div class="about-us">
+				<a href="javascript:;">关于我们</a>
+				<a href="javascript:;">法律声明</a>
+				<a href="javascript:;">服务条款</a>
+				<a href="javascript:;">联系方式</a>
+			</div>
+			<div class="address">地址：上海市杨浦区赤峰路65号一号楼&nbsp;邮编：210000&nbsp;&nbsp;Copyright&nbsp;©&nbsp;2018&nbsp;-&nbsp;2020&nbsp;同科交通-专注于道面管理&nbsp;版权所有</div>
+			<div class="other-info">建议使用IE8及以上版本浏览器&nbsp;沪ICP备&nbsp;09003078号&nbsp;E-mail：admin@admin.com</div>
+		</div>
+	</div>
+</body> 
+</html>
+<script type="text/javascript" src="{% static 'darkgrey/js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+<script type="text/javascript">
+   function refresh_check_code(ths) {
+      ths.src += '?';{# src后面加问好会自动刷新验证码img的src#}
+     }
+   function user_input(){
+        var name = document.getElementById('account').value;
+        var password = document.getElementById('psd').value;
+        if(name=="" || password==""){
+            var message = document.getElementById('message');
+            message.innerText = '账号密码不能为空。'
+            return false
+        }else{
+            return true;
+        }
+    }
+</script>

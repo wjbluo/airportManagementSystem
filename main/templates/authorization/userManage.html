@@ -1,0 +1,167 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>员工列表</title>
+
+<link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+
+<body class="x-body">
+<div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+
+        <form class="layui-form" style="display: inline-block;position: relative;margin-bottom: 0;width: 100%;" action="">
+            <div class="layui-form-item">
+              <div class="layui-input-block"  style="vertical-align: middle">
+                        <div class="layui-btn layui-anim-scale  layui-btn-primary" lay-submit lay-filter="addUser" name="addUser" id="addUser">
+                            <i class="layui-icon">&#xe608;</i> 添加用户
+                        </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">
+                  <input type="text" value="" name="userName" id="userName"  lay-verify="value" placeholder="用户登录名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block"  style="vertical-align: middle">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="searchUser" name="searchUser" id="searchUser">
+                            <i class="layui-icon">&#xe615;</i> 查询
+                        </button>
+                </div>
+            </div>
+        </form>
+        <table class="layui-table" id="userTab" lay-filter='userTab'></table>
+    </div>
+</div>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+    <script>
+    layui.use(['table','form','layer'], function(){
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+
+        form.on('submit(searchUser)', function(data){
+            return false;
+         });
+        form.on('submit(addUser)', function(data){
+            return false;
+         });
+
+        //执行渲染
+        var userTable = table.render({
+            elem: '#userTab' //指定原始表格元素选择器（推荐id选择器）
+             ,height: 'full-120' //容器高度
+             ,cols: [[
+                {field: 'id',title:'员工编号',width:120,fixed:'left',sort: true} //其它参数在此省略
+                ,{field: 'username',title:'用户登录名',width:110}
+                ,{field: 'name',title:'姓名',width:100}
+{#                ,{field: 'lastname',title:'名',width:50}#}
+                ,{field: 'email',title:'邮箱',width:150}
+                ,{field: 'date_joined',title:'注册时间',width:200,sort: true}
+                ,{field: 'last_login',title:'最后登录时间',width:200,sort: true}
+                ,{field: 'roleStr',title:'拥有的角色',width:200}
+                ,{field: 'status',title:'账号是否被冻结',width:150}
+                ,{field: 'opera',title:'操作',toolbar: '#bars',align:'center',width:150,fixed:'right'}
+              ]]
+            ,limits: [1,10,20,30,40,50]
+            ,limit: 10
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+            ,url: '{% url 'sysManage:searchUser' %}'
+            ,method: 'post'
+              //request: {} //如果无需自定义请求参数，可不加该参数
+                //response: {} //如果无需自定义数据响应名称，可不加该参数
+        });
+        $("button[name='searchUser']").on('click',function(){
+            var serchStr = $("#userName").val();
+            userTable.reload({
+              where: { //设定异步数据接口的额外参数，任意设
+                searchStr:serchStr
+              }
+            });
+        });
+
+        $("div[name='addUser']").on('click',function(){
+            layer.open({
+                type: 2,
+                title :'新增用户',
+                area: ['500px', '420px'],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: true,
+                content: 'addUser/',
+                id:"add-user-dialog",
+            });
+        });
+
+        table.on('tool(userTab)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'del'){ //删除
+                layer.confirm('此功能暂不提供。并非实际删除', function(index){
+                    var id = data.id
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            } else if(layEvent === 'clock'){ //冻结
+                var str=''
+                var status = data.status
+                if (status=='正常'){
+                    str = '是否将此账户[冻结]处理？'
+                }else{
+                    str = '是否将此账户[解冻]处理？'
+                }
+                layer.confirm(str, function(index){
+                    var id = data.id
+                    var post_data_dict = {id:id};
+                    var post_data_str = JSON.stringify(post_data_dict);
+                     $.ajax({
+                        url: '{% url 'sysManage:frozen' %}',
+                        type: 'POST',
+                        data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                        dataType: 'json',
+                        success: function (arg) {
+                            $("button[name='searchUser']").click()
+                            layer.msg(arg.msg+"[3s后自动关闭]", {
+                                time: 3000, //3s后自动关闭
+                                btn: [ '知道了']
+                            });
+
+                        },
+                    })
+                });
+            }else if(layEvent === 'GiveRole'){
+                var userId = data.id
+                layer.open({
+                    type: 2,
+                    title :'赋予角色',
+                    area: ['800px', '450px'],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+                    maxmin: true,
+                    content: 'giveRole/'+userId,
+                    id:"give-role-dialog",
+                });
+            }
+        });
+
+    });
+    </script>
+
+    <script type="text/html" id="bars">
+      <a class="iconfont" style='cursor:pointer' lay-event="del" title="删除">&#xe703;</a>
+      <a class="iconfont" style='cursor:pointer' lay-event="clock" title="冻结/解冻">&#xe675;</a>
+      <a class="iconfont" style='cursor:pointer' lay-event="GiveRole" title="为其设置角色">&#xe611;</a>
+    </script>
+</body> 
+</html>

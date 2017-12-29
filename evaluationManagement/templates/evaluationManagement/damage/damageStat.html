@@ -1,0 +1,247 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>损坏统计页面</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+</head>
+<body>
+<div class="container" style="padding-top: 10px;padding-left: 10px">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <select name="part" lay-verify=""  lay-filter="partSelect" id="part" lay-search>
+                    <option value="">全部（部位）</option>
+                    {% for item in part %}
+                        <option value="{{ item.partId }}" {% if currentArea.part.id == item.partId  %}selected{% endif %}>{{ item.partCode }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="layui-inline">
+                <select name="area" lay-verify="" lay-filter="areaSelect" id="area" lay-search>
+                    <option value="">全部（区域）</option>
+                    {% for item in area %}
+                        {% if currentArea.part.id == item.partId %}
+                            <option value="{{ item.areaId }}"  {% if currentArea.id == item.areaId  %}selected{% endif %}>{{ item.areaName }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="layui-inline">
+                <select name="cell" lay-verify="" lay-filter="cellSelect" id="cell" lay-search>
+                    <option value="">全部（单元）</option>
+                    {% for item in cells %}
+                        <option value="{{ item.getDisplayCellCode }}" >{{ item.cellCode }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="layui-inline">
+                <select name="damage" lay-verify="" id="damage" lay-filter="damageSelect" lay-search>
+                    <option value="">全部（病害）</option>
+                    {% for item in damagePara %}
+                        <option value="{{ item.parameterCode }}">{{ item.parameterName }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-btn layui-btn-normal" lay-filter="*" name="drawPic">绘图</div>
+                <div class="layui-btn layui-btn-normal" lay-filter="*">下载数据表文件</div>
+            </div>
+        </div>
+    </form>
+    <div id="chartmain" name="chartmain" style="width:90%; height: 450px;" ></div>
+</div>
+
+</body>
+</html>
+<script type="text/javascript" src="{% static 'darkgrey/js/echarts.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/Highcharts-6.0.3/code/highcharts.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use('form', function(){
+       var form = layui.form;
+
+       form.on('select(partSelect)', function(data){
+             var areaSelect = document.getElementById("area");
+             var cellSelect = document.getElementById("cell");
+             areaSelect.options.length = 1;
+             cellSelect.options.length = 1;
+           if(data.elem.selectedIndex!=0){
+                var partId = data.value
+                var post_data_dict = {partId:partId};
+                var post_data_str = JSON.stringify(post_data_dict);
+                $.ajax({
+                    url: '{% url 'sysManage:evaluationManagement:changeSelect' 'part' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                    success: function (arg) {
+
+                         for(var i=0;i<arg.length;i++){
+                             areaSelect.options.add(new Option(arg[i].areaCode,arg[i].id));
+                         }
+                         form.render('select');
+                        $("div[name='drawPic']").click()
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                             alert(XMLHttpRequest.status);
+                             alert(XMLHttpRequest.readyState);
+                             alert(textStatus);
+                             alert(errorThrown)
+                               },
+
+                })
+           }
+           form.render('select');
+           $("div[name='drawPic']").click()
+        });
+        form.on('select(cellSelect)', function(data){
+            form.render('select');
+            $("div[name='drawPic']").click()
+        });
+        form.on('select(damageSelect)', function(data){
+            form.render('select');
+            $("div[name='drawPic']").click()
+        });
+        form.on('select(areaSelect)', function(data){
+            var cellSelect = document.getElementById("cell");
+            cellSelect.options.length = 1;
+           if(data.elem.selectedIndex!=0){
+                var areaId = data.value
+                var post_data_dict = {areaId:areaId};
+                var post_data_str = JSON.stringify(post_data_dict);
+                $.ajax({
+                    url: '{% url 'sysManage:evaluationManagement:changeSelect' 'area' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                    success: function (arg) {
+
+                         for(var i=0;i<arg.length;i++){
+                             cellSelect.options.add(new Option(arg[i].cellCode,arg[i].cellCode));
+                         }
+                        form.render('select');
+                        $("div[name='drawPic']").click()
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                             alert(XMLHttpRequest.status);
+                             alert(XMLHttpRequest.readyState);
+                             alert(textStatus);
+                             alert(errorThrown)
+                               },
+
+                })
+           }
+           form.render('select');
+           $("div[name='drawPic']").click()
+        });
+
+       $("div[name='drawPic']").on('click',function(){
+            var partId = $("#part").val()
+            var areaId = $("#area").val()
+            var cellId = $("#cell").val()
+            var damageId = $("#damage").val()
+            var PlanCode = {{ currentPlan.surveyPlanCode }}
+            var post_data_dict = {partId:partId,areaId:areaId,cellId:cellId,damageId:damageId,PlanCode:PlanCode};
+
+            var post_data_str = JSON.stringify(post_data_dict);
+            $.ajax({
+                    url: '{% url 'sysManage:evaluationManagement:getPicData' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                         var datax = []
+                         var datay = []
+                        for(var i=0;i<arg.data.length;i++){
+                            datax.push(arg.data[i].parameterName)
+                            datay.push(arg.data[i].count)
+                        }
+
+                         option = {
+                            noDataLoadingOption: {
+                                text: '暂无数据',
+                                effect: 'bubble',
+                                effectOption: {
+                                    effect: {
+                                        n: 10
+                                    }
+                                }
+                            },
+                            color: ['#4d6178'],
+                            title:{
+                                text:'病害汇总',
+                                bottom:0,
+                                left:'center',
+                            },
+                            tooltip : {
+                                trigger: 'axis',
+                                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '10%',
+                                containLabel: true
+                            },
+                            xAxis : [
+                                {
+                                    type : 'category',
+                                    data : datax,
+                                    axisTick: {
+                                        alignWithLabel: true,
+                                        inside:true
+                                    },
+                                    axisLabel:{
+                                        fontSize: '13px',
+                                        fontFamily: '宋体, sans-serif',
+                                        rotate:45
+                                    },
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    type : 'value',
+                                    axisTick: {
+                                        inside:true
+                                    },
+                                    name:'数量（处）',
+                                    nameLocation:'end'
+                                }
+                            ],
+                            series : [
+                                {
+                                    name:'病害数量',
+                                    type:'bar',
+                                    barWidth: '20',
+                                    data:datay
+                                }
+                            ]
+                        };
+                               //初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('chartmain'));
+
+                        //使用制定的配置项和数据显示图表
+                        myChart.setOption(option);
+                     },
+                })
+        });
+
+       $(document).ready(function(){
+            $("div[name='drawPic']").click()
+        });
+
+
+    });
+</script>

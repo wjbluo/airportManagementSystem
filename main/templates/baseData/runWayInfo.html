@@ -1,0 +1,167 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>跑道基本信息</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+	<div class="container" style="padding-left: 0px">
+		<div class="content">
+            <div class="easyui-tabs1" style="width:100%;" id="runway">
+                {% for runway in haveRunways  %}
+                    <div title="{{ runway.runwayName }}|{{ runway.runwayCode }}" data-options="closable:false" class="basic-info">
+                        <div class="column"><span class="current">{{ runway.runwayName }}基本信息</span>
+                            <u style="display: none">{{ runway.id }}</u>
+                             <a name="alterRunwayBaseData" class="iconfont"
+                                style='cursor:pointer;padding-left: 10px' title="修改{{ runway.runwayCode }}信息">&#xe611;</a>
+                             <a name="delRunwayBaseData" class="iconfont"
+                                style='cursor:pointer;padding-left: 10px' title="删除{{ runway.runwayCode }}信息">&#xe703;</a>
+                        </div>
+                        <table class="kv-table" >
+                            <tbody id="runwayBaseData_Tab{{ runway.id }}">
+                                <tr>
+                                    <td class="kv-label">跑道标志码</td>
+                                    <td class="kv-content">{{ runway.runwayCode }}</td>
+                                    <td class="kv-label">跑道名称</td>
+                                    <td class="kv-content">{{ runway.runwayName }}</td>
+                                    <td class="kv-label">所属机场</td>
+                                    <td class="kv-content">{{ runway.airport.airportName }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">跑道尺寸</td>
+                                    <td class="kv-content">{{ runway.sizeOfRunway }}</td>
+                                    <td class="kv-label">升降带尺寸</td>
+                                    <td class="kv-content">{{ runway.sizeOfLiftingBelt }}</td>
+                                    <td class="kv-label">防吹坪尺寸</td>
+                                    <td class="kv-content">{{ runway.sizeOfBlastPad }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">道肩宽度</td>
+                                    <td class="kv-content">{{ runway.widthOfShoulder }}</td>
+                                    <td class="kv-label">端安全区尺寸</td>
+                                    <td class="kv-content">{{ runway.sizeOfSafetyZone }}</td>
+                                    <td class="kv-label">运行类别Ⅰ</td>
+                                    <td class="kv-content">{{ runway.operationCategory1 }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">运行类别Ⅱ</td>
+                                    <td class="kv-content">{{ runway.operationCategory2 }}</td>
+                                    <td class="kv-label">可用起飞距离</td>
+                                    <td class="kv-content">{{ runway.takeoffDistance }}</td>
+                                    <td class="kv-label">可用起飞滑跑距离</td>
+                                    <td class="kv-content">{{ runway.takeoffRunDistance }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">摩擦系数</td>
+                                    <td class="kv-content">{{ runway.runwayFrictionCoefficient }}</td>
+                                    <td class="kv-label">可用着陆距离</td>
+                                    <td class="kv-content">{{ runway.landingDistance }}</td>
+                                    <td class="kv-label">可用加速停止距离</td>
+                                    <td class="kv-content">{{ runway.accelerateStopDistance }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">横坡</td>
+                                    <td class="kv-content">{{ runway.crossSlope }}</td>
+                                    <td class="kv-label">有效纵坡</td>
+                                    <td class="kv-content">{{ runway.effectiveLongitudinalSlope }}</td>
+                                    <td class="kv-label">通报PCN</td>
+                                    <td class="kv-content">{{ runway.bulletinPCN }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">通航时间</td>
+                                    <td class="kv-content">{{ runway.shippingTime }}</td>
+                                    <td class="kv-label">记录时间</td>
+                                    <td class="kv-content">{{ runway.recordingTime }}</td>
+                                    <td class="kv-label">更新时间</td>
+                                    <td class="kv-content">{{ runway.updateTime }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+		</div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+	$('#runway').tabs({
+      tabHeight: 36,
+    });
+    $(window).resize(function(){
+    	$('.easyui-tabs1').tabs("resize");
+    	setTimeout(function() {
+    		resizeTabs();
+    	},100)
+    }).resize();
+    function resizeTabs() {
+		var $body = $('body'),
+			$window = $(window);
+
+		if($window.height() > $body.height()) {
+
+			$('.panel-body').height($window.height() - 80);
+
+		}
+    }
+
+    layui.use(['table','form','layer'], function() {
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+
+        $("a[name='alterRunwayBaseData']").on('click',function(){
+            var runwayId = $(this).siblings('u').html()
+            layer.open({
+                type: 2,
+                title :'新增跑道基本信息',
+                area: ['850px', '450px'],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: false,
+                content: 'alterRunwayData/'+runwayId+'/',
+                id:"add-runway-dialog",
+            });
+        });
+
+        $("a[name='delRunwayBaseData']").on('click',function(){
+            var runwayId = $(this).siblings('u').html()
+            var post_data_dict = {runwayId:runwayId};
+            var post_data_str = JSON.stringify(post_data_dict);
+            layer.confirm('确认删除操作？', {
+                  btn: ['确认','取消'] //按钮
+                }, function(){
+                  $.ajax({
+                        url: '{% url 'sysManage:delRunwayBaseData' %}',
+                        type: 'POST',
+                        data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                        dataType: 'json',
+                         success: function (arg) {
+                             if(arg.status){
+                                 location.reload()
+                             }else {
+                                     layer.msg(arg.message + "[3s后自动关闭]", {
+                                         time: 3000, //3s后自动关闭
+                                         btn: ['知道了']
+                                     });
+                             }
+                         },
+                    })
+                }, function(){
+
+                });
+
+        });
+    });
+</script>

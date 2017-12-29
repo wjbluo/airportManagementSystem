@@ -1,0 +1,182 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增区域</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post" style="padding-top: 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">区域编号</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="areaCode" id="areaCode" placeholder="请输入" autocomplete="off"
+                 class="layui-input" value="{{ currentArea.areaCode }}" required lay-verify="required">
+        </div>
+
+
+        <label class="layui-form-label">结构组合</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            <select name="structureCode" id="structureCode" required lay-verify="name" lay-search>
+                <option value="">请选择</option>
+                {% for item in allClass %}
+                    <optgroup label="{{ item.structureClass }}">
+                        {% for struct in structures %}
+                            {% if struct.structureClass == item.structureClass%}
+                                <option value="{{ struct.structureCode }}">{{ struct.structureCode }}</option>
+                            {% endif %}
+
+                        {% endfor %}
+                    </optgroup>
+                {% endfor %}
+             </select>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属部位</label>
+        <div class="layui-input-inline" style="width: 150px;">
+            {% if allPart %}
+            <select name="part" lay-verify="name" id="part" lay-search>
+                <option value="">点击可进行搜索</option>
+                {% for item in allPart %}
+                <option value="{{ item.id }}">{{ item.airCode }}({{ item.partName }}{{ item.partCode }})</option>
+                {% endfor %}
+            </select>
+            {% endif %}
+            {% if currentArea %}
+                <input type="text" name="partName" id="partName" placeholder="请输入" autocomplete="off"
+                  class="layui-input" value="{{ currentArea.part.airCode }}({{ currentArea.part.partName }}{{ currentArea.part.partCode }})" required lay-verify="required" disabled>
+            {% endif %}
+        </div>
+
+        <label class="layui-form-label">位置描述</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="areaDis" id="areaDis" placeholder="请输入" autocomplete="off"
+                  class="layui-input" value="{{ currentArea.areaDis }}" required lay-verify="required">
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">结构类型</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="areaStruct" id="areaStruct" placeholder="请输入" autocomplete="off"
+                  value="{{ currentArea.areaStruct }}" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">记录日期</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="recordingTime" id="recordingTime" placeholder="请输入"
+                 autocomplete="off" value="{{ currentArea.recordingTime }}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            {% if currentArea %}
+                <button class="layui-btn layui-btn-primary" lay-submit lay-filter="alterAreaSubmit" id="alterAreaSubmit" name="alterAreaSubmit">更新</button>
+                {% else %}
+                <button class="layui-btn layui-btn-primary" lay-submit lay-filter="addAreaSubmit" id="addAreaSubmit" name="addAreaSubmit">添加</button>
+            {% endif %}
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['form'], function(){
+        var layer = layui.layer
+        var $ = layui.jquery
+        var form = layui.form;
+
+        form.verify({
+            name: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                  return '不能为空且有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                  return '首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                  return '不能全为数字';
+                }
+            }
+            ,Integer:[
+                /^[\d]+$/
+                ,'此处应为整数。'
+            ]
+        });
+        form.on('submit(alterAreaSubmit)',function(data){
+           return false
+        });
+        form.on('submit(addAreaSubmit)',function(data){
+           return false
+        });
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+
+        $("button[name='addAreaSubmit']").on('click',function(){
+                var areaCode = $("#areaCode").val();
+                var areaDis = $("#areaDis").val();
+                var areaStruct = $("#areaStruct").val();
+                var recordingTime = $("#recordingTime").val();
+                var partId = $("#part").val()
+                var structureCode = $("#structureCode").val()
+
+
+                var post_data_dict = {areaCode:areaCode, areaDis:areaDis,areaStruct:areaStruct,
+                    recordingTime:recordingTime,partId:partId,structureCode:structureCode};
+
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:addAreaSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+{#                             parent.location.reload()#}
+                             parent.document.getElementById('searchArea').click()
+
+                             if(arg.flash){
+                                 parent.location.reload()
+                             }
+                         }
+
+
+
+                     },
+                })
+            });
+
+        $("button[name='alterAreaSubmit']").on('click',function(){
+            {% if currentArea %}var areaId = {{ currentArea.id }}{% endif %}
+                var areaCode = $("#areaCode").val();
+                var areaDis = $("#areaDis").val();
+                var areaStruct = $("#areaStruct").val();
+                var recordingTime = $("#recordingTime").val();
+                var structureCode = $("#structureCode").val()
+                var post_data_dict = {areaId:areaId,areaCode:areaCode, areaDis:areaDis,areaStruct:areaStruct, recordingTime:recordingTime,structureCode:structureCode};
+
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:alterAreaSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+{#                             parent.location.reload()#}
+                             parent.document.getElementById('searchArea').click()
+
+
+                         }
+
+                     },
+                })
+            });
+    });
+</script>
+</body>
+</html>

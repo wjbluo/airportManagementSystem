@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增组别</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post" style="padding-top: 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称</label>
+        <div class="layui-input-block">
+          <input type="text" name="groupname" id="groupname" placeholder="请输入" autocomplete="off" class="layui-input" required lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">请填写描述</label>
+        <div class="layui-input-block">
+          <textarea placeholder="请输入内容" class="layui-textarea" id="groupDis" name="groupDis" required lay-verify="required"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn layui-btn-primary" lay-submit lay-filter="addGroupSubmit" id="addGroupSubmit" name="addGroupSubmit">立即提交</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['form'], function(){
+        var layer = layui.layer
+        var $ = layui.jquery
+        var form = layui.form;
+
+        form.on('submit(addGroupSubmit)', function(data){
+            return false;
+         });
+
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+        $("button[name='addGroupSubmit']").on('click',function(){
+                var groupname = $("#groupname").val();
+                var groupDis = $("#groupDis").val();
+
+                var post_data_dict = {groupname:groupname, groupDis:groupDis};
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:addGroupSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                    success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+                             parent.document.getElementById('searchGroup').click();
+
+                        }else{
+                             if(arg.message!=''){
+                                  layer.msg(arg.message+"[3s后自动关闭]", {
+                                    time: 3000, //3s后自动关闭
+                                    btn: [ '知道了']
+                                });
+                             }
+                         }
+                    },
+                })
+            });
+    });
+</script>
+</body>
+</html>

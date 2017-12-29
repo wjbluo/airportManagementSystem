@@ -1,0 +1,91 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>计划详细</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+	<div class="container" style="padding-left: 0px;width: 98%">
+		<div class="content">
+            <div class="column"><span class="current">项目计划基本信息</span>
+                <span class="layui-badge-rim">当前计划编号：{{ currentPlan.surveyPlanCode }}</span>
+            </div>
+            <table class="kv-table" >
+                <tbody id="airportBaseData_Tab">
+                    <tr>
+                        <td class="kv-label">项目编号</td>
+                        <td class="kv-content">{{ currentPlan.surveyPlanCode }}</td>
+                        <td class="kv-label">开始时间</td>
+                        <td class="kv-content">{{ currentPlan.startTime }}</td>
+                        <td class="kv-label">结束时间</td>
+                        <td class="kv-content">{{ currentPlan.endTime }}</td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">部位数量</td>
+                        <td class="kv-content">{{ partNum }}</td>
+                        <td class="kv-label">区域数量</td>
+                        <td class="kv-content">{{ areaNum }}</td>
+                        <td class="kv-label">单元数量</td>
+                        <td class="kv-content">{{ cellNum }}</td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">评估面积</td>
+                        <td class="kv-content">{{ EvaArea }}m&sup2;</td>
+                        <td class="kv-label">评估单位</td>
+                        <td class="kv-content">{{ currentPlan.evaluationUnit }}</td>
+                        <td class="kv-label"></td>
+                        <td class="kv-content"></td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">备注说明</td>
+                        <td class="kv-content" colspan="5">{{ currentPlan.remark }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="column"><span class="current">调查对象</span>
+            </div>
+            <blockquote class="layui-elem-quote layui-quote-nm"><span>评估内容:</span><span style="padding-left: 20px">1、道面表观状况（全面调查）</span><span style="padding-left: 150px">2、道面结构性能（HWD法）</span><span style="padding-left: 150px">3、道面平整度（激光平整度法）</span></blockquote>
+		    <table class="layui-table" id="planTab" lay-filter='planTab'></table>
+        </div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+
+    layui.use(['table','form','layer'], function() {
+        var $ = layui.jquery
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+
+        var planTab = table.render({
+            elem: '#planTab' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:220
+             ,cols: [[
+                {field: 'areaName',title:'区域名称',width:200,fixed:'left',sort: true}
+                ,{field: 'partName',title:'所属部位',width:200}
+                ,{field: 'cellNum',title:'包含单元数',width:150}
+                ,{field: 'area',title:'面积/m&sup2;',width:150}
+                ,{field: 'structure',title:'结构类型',width:150}
+                ,{field: 'EvaContent',title:'评估内容',width:200}
+              ]]
+            ,limits: [4,10,20,30,40,50]
+            ,limit: 4
+            ,size: 'sm'
+            ,data:{{ data |safe}}
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+    });
+</script>

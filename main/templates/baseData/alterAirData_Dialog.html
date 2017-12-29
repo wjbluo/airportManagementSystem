@@ -1,0 +1,181 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>修改机场基本信息</title>
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post" style="padding-top: 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">机场名称</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="airportName" id="airportName" placeholder="请输入" autocomplete="off"
+                 value="{{ airportBaseData.airportName }}" class="layui-input" lay-verify="name">
+        </div>
+
+        <label class="layui-form-label">机场编码</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="airportCode" id="airportCode" placeholder="请输入" autocomplete="off"
+                 value="{{ airportBaseData.airportCode }}" class="layui-input" required>
+        </div>
+
+        <label class="layui-form-label">管理机构</label>
+        <div class="layui-input-inline" style="width: 200px;">
+          <input type="text" name="manageInstitution" id="manageInstitution" placeholder="请输入"
+                 autocomplete="off" value="{{ airportBaseData.manageInstitution }}" class="layui-input"
+                 >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">机场等级</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="airportLevel" id="airportLevel" placeholder="请输入" autocomplete="off"
+                 value="{{ airportBaseData.airportLevel }}" class="layui-input" required>
+        </div>
+
+        <label class="layui-form-label">跑道数量</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="runwayNum" id="runwayNum" placeholder="请输入" autocomplete="off"
+                 value="{{ airportBaseData.runwayNum }}" class="layui-input" lay-verify="Integer">
+        </div>
+
+        <label class="layui-form-label">平滑道数量</label>
+        <div class="layui-input-inline" style="width: 200px;">
+          <input type="text" name="smoothRoadNum" id="smoothRoadNum" placeholder="请输入"
+                 autocomplete="off" value="{{ airportBaseData.smoothRoadNum }}" class="layui-input" lay-verify="Integer">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">道面面积(KM&sup2;)</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="roadSurfaceArea" id="roadSurfaceArea" placeholder="请输入"
+                 autocomplete="off" value="{{ airportBaseData.roadSurfaceArea }}" class="layui-input" lay-verify="number">
+        </div>
+
+        <label class="layui-form-label">土面面积(KM&sup2;)</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="soilSurfaceArea" id="soilSurfaceArea" placeholder="请输入"
+                 autocomplete="off" value="{{ airportBaseData.soilSurfaceArea }}" class="layui-input" lay-verify="number">
+        </div>
+
+        <label class="layui-form-label">机位数量</label>
+        <div class="layui-input-inline" style="width: 200px;">
+          <input type="text" name="seatOfPlaneNum" id="seatOfPlaneNum" placeholder="请输入"
+                 autocomplete="off" value="{{ airportBaseData.seatOfPlaneNum }}" class="layui-input" lay-verify="Integer">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">通航时间</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="shippingTime" id="shippingTime" placeholder="请输入"
+                 autocomplete="off" value="{{ airportBaseData.shippingTime }}" class="layui-input" required>
+        </div>
+
+        <label class="layui-form-label">记录时间</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="text" name="recordingTime" id="recordingTime" placeholder="请输入"
+                 autocomplete="off" value="{{ airportBaseData.recordingTime }}" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn layui-btn-primary" lay-submit lay-filter="alterDataSubmit" id="alterDataSubmit" name="alterDataSubmit">更新</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['form'], function(){
+        var layer = layui.layer
+        var $ = layui.jquery
+        var form = layui.form;
+
+        form.verify({
+            name: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                  return '用户名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                  return '用户名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                  return '用户名不能全为数字';
+                }
+            }
+            ,Integer:[
+                /^[\d]+$/
+                ,'此处应为整数。'
+            ]
+        });
+
+        form.on('submit(alterDataSubmit)', function(data){
+            return false;
+         });
+
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+
+        $("button[name='alterDataSubmit']").on('click',function(){
+                var airportName = $("#airportName").val();
+                var airportCode = $("#airportCode").val();
+                var manageInstitution = $("#manageInstitution").val();
+                var airportLevel = $("#airportLevel").val();
+                var runwayNum = $("#runwayNum").val();
+                var smoothRoadNum = $("#smoothRoadNum").val();
+                var roadSurfaceArea = $("#roadSurfaceArea").val();
+                var soilSurfaceArea = $("#soilSurfaceArea").val();
+                var seatOfPlaneNum = $("#seatOfPlaneNum").val();
+                var shippingTime = $("#shippingTime").val();
+                var recordingTime = $("#recordingTime").val();
+
+                var post_data_dict = {airportName:airportName, airportCode:airportCode,manageInstitution:manageInstitution,
+                    airportLevel:airportLevel,runwayNum:runwayNum, smoothRoadNum:smoothRoadNum,
+                    roadSurfaceArea:roadSurfaceArea, soilSurfaceArea:soilSurfaceArea,seatOfPlaneNum:seatOfPlaneNum,
+                    shippingTime:shippingTime,recordingTime:recordingTime};
+                var post_data_str = JSON.stringify(post_data_dict);
+                 $.ajax({
+                    url: '{% url 'sysManage:alterDataSubmit' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                         if(arg.status){
+                             parent.layer.close(frameindex)
+{#                             parent.location.reload()#}
+                             var airportBaseData_Tab = parent.document.getElementById('airportBaseData_Tab')
+                             airportBaseData_Tab.innerHTML = "";
+
+                             for(var i=0;i<4;i++){
+                                 var tr = document.createElement('tr');
+                                 for(var j=0;j<6;j++){
+                                     var td = document.createElement('td');
+                                     if ((6*i+j)%2==0){
+                                         td.className="kv-label"
+                                     }else{
+                                         td.className="kv-content"
+                                     }
+                                    td.innerHTML = arg.data[6*i+j]
+
+                                     tr.appendChild(td)
+                                 }
+                                 airportBaseData_Tab.appendChild(tr);
+                             }
+                             layer.msg(arg.message + "[3s后自动关闭]", {
+                                 time: 3000, //3s后自动关闭
+                                 btn: ['知道了']
+                             });
+                         }else {
+{#                             layer.msg(arg.message + "[3s后自动关闭]", {#}
+{#                                 time: 3000, //3s后自动关闭#}
+{#                                 btn: ['知道了']#}
+{#                             });#}
+                         }
+                     },
+                })
+            });
+    });
+</script>
+</body>
+</html>

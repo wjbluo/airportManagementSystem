@@ -1,0 +1,147 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>损坏原始数据</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body class="x-body" style="padding-top: 10px">
+	<div class="container" style="padding-left: 0px;width: 98%">
+		<div class="content">
+            <div class="column"><span class="current">任务概要</span>
+                <span class="layui-badge-rim">当前计划编号：{{ currentPlan.surveyPlanCode }}</span>
+            </div>
+            <table class="kv-table" >
+                <tbody id="airportBaseData_Tab">
+                    <tr>
+                        <td class="kv-label">项目编号</td>
+                        <td class="kv-content">{{ currentPlan.surveyPlanCode }}</td>
+                        <td class="kv-label">日期</td>
+                        <td class="kv-content">{{ AssessmentItems.Date_1 }}</td>
+                        <td class="kv-label">记录人</td>
+                        <td class="kv-content">{{ AssessmentItems.oper_1 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">部位名称</td>
+                        <td class="kv-content">{{ currentArea.part.partName }}</td>
+                        <td class="kv-label">区域名称</td>
+                        <td class="kv-content">{{ currentArea.areaCode }}({{ currentArea.areaDis }})</td>
+                        <td class="kv-label">结构类型</td>
+                        <td class="kv-content"><span style="font-family: Microsoft Yahei;font-size: medium;padding-right: 5px">{{ currentCom.structureClass }}</span><a id="showStruct" style="cursor:pointer;">{{ currentArea.structCode }}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="column"><span class="current">损坏数据</span>
+                <a class="iconfont" style='cursor:pointer;font-size: small;padding-left: 10px' name="lookAllPic" title="查看所有图片"><i class="layui-icon">&#xe64a;</i></a>
+            </div>
+
+		    <table class="layui-table" id="damageDataTab" lay-filter='damageDataTab'></table>
+        </div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+
+    layui.use(['table','form','layer','upload'], function() {
+        var $ = layui.jquery,
+             form = layui.form,
+             table = layui.table,
+             layer = layui.layer,
+             upload = layui.upload;
+
+
+        var damageDataTab = table.render({
+            elem: '#damageDataTab' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:360
+             ,cols: [[
+                {field: 'cellName',title:'单元名称',width:150,fixed:'left',sort: true}
+                ,{field: 'damageType',title:'病害类型',width:150}
+                ,{field: 'damageDegree',title:'病害程度',width:100}
+                ,{field: 'damageNumber',title:'病害数量',width:100}
+                ,{field: 'unit',title:'单位',width:100}
+                ,{field: 'plateRow',title:'板块行编号',width:100}
+                ,{field: 'plateCol',title:'板块列编号',width:100}
+                ,{field: 'plateX',title:'坐标X',width:100}
+                ,{field: 'plateY',title:'坐标Y',width:100}
+                ,{field: 'opera',title:'操作',toolbar: '#picBars',align:'center',width:150,fixed:'right'}
+              ]]
+            ,limits: [8,10,20,30,40,50]
+            ,limit: 8
+            ,size: 'sm'
+            ,data:{{ data | safe }}
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+        });
+
+        $("#showStruct").on('click',function(){
+            var classType = $(this).prev().html();
+            var Code =  $(this).html();
+            var height = $(window).height()+'px'
+            layer.open({
+                type: 2,
+                title :Code+'结构详细',
+                area: ['650px', '500px'],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                anim: 2,
+                content: '/component/sysManage/baseData/pavementStructureType/initStructrueContent/'+classType+'/'+Code+'/showLayerPic/',
+                id:"show-structure-dialog",
+            });
+        });
+
+        $("a[name='lookAllPic']").on('click',function(){
+
+            $.ajax({
+                    url: '{% url 'sysManage:evaluationManagement:lookAllPic' currentPlan.surveyPlanCode currentArea.id%}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}' },
+                    dataType: 'json',
+                     success: function (arg) {
+                          layer.photos({
+                            photos: arg //格式见API文档手册页
+                            ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机
+                          });
+                     },
+                })
+        })
+
+        table.on('tool(damageDataTab)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'lookPic'){ //查看图片
+                    var json = {
+                      "title": "损害图片", //相册标题
+                      "start": 0, //初始显示的图片序号，默认0
+                      "data": [   //相册包含的图片，数组格式
+                        {
+                          "alt": data.cellName+'_'+data.plateRow+'_'+data.plateCol,
+                          "src": '/static/'+data.diseasephoto, //原图地址
+                        }
+                      ]
+                    }
+                  layer.photos({
+                    photos: json
+                    ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机
+                  });
+            }
+        });
+    });
+</script>
+<script type="text/html" id="picBars">
+{#  <a class="iconfont" style='cursor:pointer;font-size: small' lay-event="uploadPic" title="上传图片">上传图片</a>|#}
+{% verbatim %}{{#  if(d.diseasephoto !=''){ }}
+        <a class="iconfont" style='cursor:pointer;font-size: small' lay-event="lookPic" title="查看图片"><i class="layui-icon" name="showPic">&#xe64a;</i></a>
+{{#  } }}{% endverbatim %}
+</script>

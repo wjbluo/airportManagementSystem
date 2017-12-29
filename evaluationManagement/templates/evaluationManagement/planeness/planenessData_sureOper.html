@@ -1,0 +1,259 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>平整度数据</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body class="x-body" style="padding-top: 10px">
+	<div class="container" style="padding-left: 0px;width: 98%">
+		<div class="content">
+
+            <div class="column"><span class="current">任务概要</span>
+                <span class="layui-badge-rim">当前计划编号：{{ currentPlan.surveyPlanCode }}</span>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">项目编号</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="surveyPlanCode" id="surveyPlanCode" placeholder="请输入" autocomplete="off"
+                         class="layui-input" value="{{ currentPlan.surveyPlanCode }}" required lay-verify="required" disabled>
+                </div>
+
+                <label class="layui-form-label">日期</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                    <input type="text" name="Date" id="Date" placeholder="请输入" autocomplete="off"
+                          class="layui-input" value=""  required lay-verify="required">
+                </div>
+
+                <label class="layui-form-label">记录人</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                    <input type="text" name="operUser" id="operUser" placeholder="请输入" autocomplete="off"
+                          class="layui-input" value=""  required lay-verify="required">
+                </div>
+{##}
+{#                <label class="layui-form-label">结束时间</label>#}
+{#                <div class="layui-input-inline" style="width: 100px;">#}
+{#                    <input type="text" name="endTime" id="endTime" placeholder="请输入" autocomplete="off"#}
+{#                          class="layui-input" value="">#}
+{#                </div>#}
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">部位名称</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="partName" id="partName" placeholder="请输入" autocomplete="off"
+                         class="layui-input" value="{{ currentPart.partName }}({{ currentPart.airCode }})" required lay-verify="required" disabled>
+                </div>
+
+                <label class="layui-form-label">测线长度</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="measuringLine_length" id="measuringLine_length" placeholder="请输入" autocomplete="off"
+                          class="layui-input" value=""  required lay-verify="required">
+                </div>
+
+                <label class="layui-form-label">采样间距</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="samplingDistance" id="samplingDistance" placeholder="请输入" autocomplete="off"
+                          class="layui-input" value=""  required lay-verify="required">
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">测试描述</label>
+                <div class="layui-input-inline" style="width: 82%;">
+                    <textarea name="testDesc" id="testDesc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="column"><span class="current" >平整度数据</span></div>
+
+{#                <div class="layui-form-item">#}
+{#                  <div class="layui-input-block"  style="vertical-align: middle">#}
+{#                        <div class="layui-btn layui-anim-scale  layui-btn-primary" lay-submit lay-filter="addDamageData" name="addDamageData" id="addDamageData">#}
+{#                            <i class="layui-icon">&#xe608;</i> 添加记录#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="layui-form-item">#}
+{#                    <div class="layui-input-block"  style="vertical-align: middle">#}
+{#                        <div class="layui-btn layui-anim-scale  layui-btn-primary" lay-submit lay-filter="addDamageData" name="addDamageData" id="addDamageData">#}
+{#                            <i class="layui-icon">&#xe640;</i> 清空记录#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+            <form class="layui-form" style="display: inline-block;position: relative;margin-bottom: 0;width: 100%;" action="">
+                <button type="button" class="layui-btn layui-btn-primary" id="importPlanenessData" name="importPlanenessData"><i class="layui-icon"></i>Excel导入</button>
+{#                <button type="button" class="layui-btn layui-btn-primary" id="downloadDamageData">Excel导出</button>#}
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">
+                       <select name="lineCode" id="lineCode" lay-filter="lineCode" lay-search="">
+                        <option value="">全部测线</option>
+                           {% for item in lineCodeSelect %}
+                               <option value="{{ item.lineCode }}">{{ item.lineCode }}</option>
+                           {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">
+                      <input type="text" value="" name="searchStr" id="searchStr"  lay-verify="value" placeholder="桩号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block"  style="vertical-align: middle">
+                            <div class="layui-btn layui-btn-normal" lay-filter="searchPlanenessData" name="searchPlanenessData" id="searchPlanenessData">
+                                <i class="layui-icon">&#xe615;</i> 查询
+                            </div>
+                    </div>
+                </div>
+                <button type="button" class="layui-btn layui-btn-primary" onclick="window.location.href='{% url 'sysManage:evaluationManagement:downloadStaticFile' 'planenessData' %}'"><i class="layui-icon"></i>Excel模板</button>
+            </form>
+		    <table class="layui-table" id="planenessDataTab" lay-filter='planenessDataTab'></table>
+            <div class="layui-form-item" style="width: 100%;vertical-align: middle;horiz-align: center">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="sure_planenessData" id="sure_planenessData" name="sure_planenessData">保存</button>
+{#                    <button class="layui-btn layui-btn-primary" lay-submit lay-filter="addPlanBtn" id="addPlanBtn" name="addPlanBtn">暂存</button>#}
+                    <span class="layui-badge layui-bg-gray">保存：保存所有原始数据，之后不可修改，可计算脱空评价参数。直接返回则是保留上次操作数据，可修改，不可计算PCI参数。</span>
+                </div>
+            </div>
+        </div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+
+    layui.use(['table','form','layer','upload','laydate'], function() {
+        var $ = layui.jquery,
+             form = layui.form,
+             table = layui.table,
+             layer = layui.layer,
+             upload = layui.upload,
+             laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#Date' //指定元素
+        });
+
+        form.on('submit(sure_planenessData)', function(data){
+            return false;
+         });
+
+        form.on('select(lineCode)', function(data){
+            form.render('select');
+            $("div[name='searchPlanenessData']").click()
+        });
+
+         form.verify({
+            name: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                  return '用户名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                  return '用户名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                  return '用户名不能全为数字';
+                }
+            }
+            ,Integer:[
+                /^[\d]+$/
+                ,'此处应为整数。'
+            ]
+        });
+{#        laydate.render({#}
+{#            elem: '#endTime' //指定元素#}
+{#        });#}
+
+        var planenessDataTab = table.render({
+            elem: '#planenessDataTab' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:250
+             ,cols: [[
+                {field: 'lineCode',title:'测线',width:120,fixed:'left',sort: true}
+                ,{field: 'stakeNo',title:'桩号（间距/m）',width:150}
+                ,{field: 'left_iri',title:'左IRI',width:150}
+                ,{field: 'left_variance',title:'左方差',width:150}
+                ,{field: 'right_iri',title:'右IRI',width:150}
+                ,{field: 'right_variance',title:'右方差',width:150}
+                ,{field: 'iri_avg',title:'IRI均值',width:150}
+              ]]
+            ,limits: [5,10,20,30,40,50]
+            ,limit: 5
+            ,size: 'sm'
+            ,loading: true
+            ,page:true
+            ,url: '{% url 'sysManage:evaluationManagement:searchPlanenessData' currentPlan.surveyPlanCode currentPart.id %}'
+            ,method: 'post'
+            ,where: {csrf_token: '{{ csrf_token }}'}
+
+        });
+
+        $("div[name='searchPlanenessData']").on('click',function(){
+            var lineCode =  $("#lineCode").val();
+            var serchStr = $("#searchStr").val();
+            planenessDataTab.reload({
+              where: { //设定异步数据接口的额外参数，任意设
+                  searchStr:serchStr
+                  , lineCode:lineCode
+                  ,csrf_token: '{{ csrf_token }}'
+              }
+            });
+        });
+
+        $("button[name='sure_planenessData']").on('click',function(){
+            var index = layer.load(2);
+            var date = $("#Date").val()
+            var oper = $("#operUser").val()
+            var measuringLine_length = $("#measuringLine_length").val()
+            var samplingDistance = $("#samplingDistance").val()
+            var testDesc = $("#testDesc").val()
+            var planCode = {{ currentPlan.surveyPlanCode }}
+            var partId = {{ currentPart.id }}
+            var post_data_dict = {date:date,planCode:planCode,partId:partId,oper:oper,testDesc:testDesc,
+                                    samplingDistance:samplingDistance,measuringLine_length:measuringLine_length};
+
+            var post_data_str = JSON.stringify(post_data_dict);
+            $.ajax({
+                    url: '{% url 'sysManage:evaluationManagement:surePlanenessData' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                     success: function (arg) {
+                        if(arg.status){
+                            parent.location.reload()
+                            layer.close(index);
+                        }else{
+                            layer.msg(arg.message+"[3s后自动关闭]", {
+                                time: 3000, //3s后自动关闭
+                                btn: [ '知道了']
+                            });
+                        }
+                     },
+                })
+        });
+
+        upload.render({
+            elem: '#importPlanenessData'
+            ,url: 'uploadPlanenessData/'
+            ,accept: 'file'
+            ,exts: 'xls|xlsx'
+            ,done: function(res){
+                if (res.flag){
+                    $("#searchPlanenessData").click()
+                }else {
+                    layer.msg(res.message+"[3s后自动关闭]", {
+                        time: 3000, //3s后自动关闭
+                        btn: [ '知道了']
+                    });
+                }
+            }
+        });
+    });
+</script>
