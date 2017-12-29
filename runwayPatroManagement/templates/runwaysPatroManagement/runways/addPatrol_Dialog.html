@@ -1,0 +1,185 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增跑滑巡视记录</title>
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+</head>
+<body>
+<div class="container" style="padding-left: 0px">
+    <div class="content">
+        <form class="layui-form" method="post" style="padding-top: 20px;width: 100%" >
+            <div class="column" style="width: 95%"><span class="current">巡视基本信息</span></div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">巡视日期</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="patroDate" id="patroDate" placeholder="请输入" autocomplete="off"
+                         class="layui-input" value="{{ patroDate }}" required lay-verify="required">
+                </div>
+
+                <label class="layui-form-label">天气情况</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="weather" id="weather" placeholder="请输入" autocomplete="off"
+                          class="layui-input">
+                </div>
+
+                <label class="layui-form-label">跑道编号</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                        <select name="runways" lay-verify="required" id="runways" lay-filter='runways'>
+                            {% if allrunways %}
+                                <option value="" otherVal="">请选择</option>
+                            {% else %}
+                                <option value="" otherVal="">请联系管理员添加跑道信息</option>
+                            {% endif %}
+                            {% for item in allrunways %}
+                                <option value="{{ item.id }}" otherVal = '{{ item.runwayName }}'>{{ item.runwayCode }}</option>
+                            {% endfor %}
+
+                        </select>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">巡视类型</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                    <select name="patrolType" lay-verify="required" id="patrolType" lay-filter='patrolType'>
+                        {% if patrolType %}
+                            <option value="">请选择</option>
+                        {% else %}
+                            <option value="">请联系管理员添加参数信息</option>
+                        {% endif %}
+                        {% for item in patrolType %}
+                            <option value="{{ item.parameterCode }}">{{ item.parameterName }}</option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+                <label class="layui-form-label" id="patrolReasonLabel" style="display: none">巡视原因</label>
+                <div class="layui-input-inline" style="width: 210px;display: none" id="patrolReasonInput">
+                  <input type="text" name="patrolReason" id="patrolReason" autocomplete="off"
+                         class="layui-input">
+                </div>
+
+                <label class="layui-form-label">任务编号</label><span id="patrolCount" style="display: none"></span>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="taskNo" id="taskNo" value="{{ patroDate }}" autocomplete="off"
+                         class="layui-input" disabled>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">评估面积</label>
+                <div class="layui-input-inline" style="width: 180px;">
+                  <input type="text" name="EvaArea" id="EvaArea" autocomplete="off"
+                         class="layui-input" placeholder="设置调查对象后自动计算" disabled>
+                </div>
+                <div class="layui-form-mid">m&sup2;</div>
+
+                <label class="layui-form-label">评估单位</label>
+                <div class="layui-input-inline" style="width: 210px;">
+                  <input type="text" name="EvaUnit" id="EvaUnit" autocomplete="off"
+                         class="layui-input" placeholder="请输入" required lay-verify="required">
+                </div>
+
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">备注说明</label>
+                <div class="layui-input-block" style="width: 880px;">
+                  <textarea id="desc" name="desc" placeholder="请输入内容" class="layui-textarea" required lay-verify="required"></textarea>
+                </div>
+            </div>
+            <div class="column" style="width: 95%"><span class="current">调查对象</span>
+                <a id="selectObject" name="selectObject" class="iconfont"
+                               style='cursor:pointer;padding-left: 10px' title="设置调查对象">&#xe6ed;</a>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">评估内容</label>
+                <div class="layui-input-block" style="width: 880px;">
+                    <blockquote class="layui-elem-quote layui-quote-nm"><span>1、道面表观状况（全面调查）</span><span style="padding-left: 100px">2、道面结构性能（HWD法）</span><span style="padding-left: 100px">3、道面平整度（激光平整度法）</span></blockquote>
+                </div>
+            </div>
+            <div class="layui-form-item" style="padding-left: 30px">
+                <table class="layui-table" id="contentTab" lay-filter='contentTab'></table>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    var Areadata=[]
+    layui.use(['form','laydate','table'], function(){
+        var layer = layui.layer,
+         $ = layui.jquery,
+         form = layui.form,
+         table = layui.table,
+         laydate = layui.laydate;
+
+        form.on('submit(addPlanBtn)', function(data){
+            return false;
+         });
+        form.on('select(patrolType)', function(data){
+            changtaskNo()
+            var selectedVal = data.value
+            if(selectedVal=='5' | selectedVal==''){
+                document.getElementById('patrolReasonLabel').style.display='block'
+                document.getElementById('patrolReasonInput').style.display='block'
+            }else{
+                document.getElementById('patrolReasonLabel').style.display='none'
+                document.getElementById('patrolReasonInput').style.display='none'
+            }
+
+        });
+
+        form.on('select(runways)', function(data){
+            changtaskNo()
+        });
+
+        $("#patroDate").keypress(function(event) {
+            changtaskNo()
+
+        });
+
+        function changtaskNo(){
+            var patrolDate = $("#patroDate").val()
+            var selectObj  = document.getElementById('runways')
+            var runways = selectObj.options[selectObj.selectedIndex].getAttribute("otherVal");
+            var patrolType = $("#patrolType").val()
+            var taskNo_ls = patrolDate+runways+patrolType
+            document.getElementById('taskNo').value=taskNo_ls
+{#            $("#taskNo").value=taskNo_ls#}
+        }
+
+        var contentTab = table.render({
+            elem: '#contentTab' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:250
+             ,width: 960
+             ,cols: [[
+                {field: 'areaName',title:'区域名称',width:150,fixed:'left',sort: true}
+                ,{field: 'partName',title:'所属部位',width:150}
+                ,{field: 'cellNum',title:'包含单元数',width:150}
+                ,{field: 'area',title:'面积/m&sup2;',width:150}
+                ,{field: 'structure',title:'结构类型',width:150}
+                ,{field: 'EvaContent',title:'评估内容',width:190}
+              ]]
+            ,limits: [5,10,20,30,40,50]
+            ,limit: 5
+            ,size: 'sm'
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+
+{#            ,url: '{% url 'sysManage:searchGroup' %}'#}
+{#            ,method: 'post'#}
+              //request: {} //如果无需自定义请求参数，可不加该参数
+                //response: {} //如果无需自定义数据响应名称，可不加该参数
+        });
+
+    });
+</script>
+</body>
+</html>
