@@ -47,13 +47,13 @@
                 <label class="layui-form-label">巡视类型</label>
                 <div class="layui-input-inline" style="width: 210px;">
                     <select name="patrolType" lay-verify="required" id="patrolType" lay-filter='patrolType'>
-                        {% if patrolType %}
+                        {% if patrolTypeData %}
                             <option value="">请选择</option>
                         {% else %}
                             <option value="">请联系管理员添加参数信息</option>
                         {% endif %}
-                        {% for item in patrolType %}
-                            <option value="{{ item.parameterCode }}">{{ item.parameterName }}</option>
+                        {% for item in patrolTypeData %}
+                            <option value="{{ item.code }}" {% if item.flag == 'false' %}disabled{% endif %}>{{ item.name }}</option>
                         {% endfor %}
 
                     </select>
@@ -125,7 +125,7 @@
         form.on('select(patrolType)', function(data){
             changtaskNo()
             var selectedVal = data.value
-            if(selectedVal=='5' | selectedVal==''){
+            if(selectedVal=='05' | selectedVal==''){
                 document.getElementById('patrolReasonLabel').style.display='block'
                 document.getElementById('patrolReasonInput').style.display='block'
             }else{
@@ -139,9 +139,8 @@
             changtaskNo()
         });
 
-        $("#patroDate").keypress(function(event) {
+        $("#patroDate").on('input',function(event){
             changtaskNo()
-
         });
 
         function changtaskNo(){
@@ -149,6 +148,9 @@
             var selectObj  = document.getElementById('runways')
             var runways = selectObj.options[selectObj.selectedIndex].getAttribute("otherVal");
             var patrolType = $("#patrolType").val()
+            if (patrolType=='05'){
+                patrolType+='_{{ tzPatroCount }}'
+            }
             var taskNo_ls = patrolDate+runways+patrolType
             document.getElementById('taskNo').value=taskNo_ls
 {#            $("#taskNo").value=taskNo_ls#}
