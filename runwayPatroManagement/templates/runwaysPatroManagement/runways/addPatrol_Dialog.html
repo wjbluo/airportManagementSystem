@@ -142,14 +142,14 @@
         $("#patroDate").on('input',function(event){
             changtaskNo()
         });
-
+        tzPatroCount = {{ tzPatroCount }}
         function changtaskNo(){
             var patrolDate = $("#patroDate").val()
             var selectObj  = document.getElementById('runways')
             var runways = selectObj.options[selectObj.selectedIndex].getAttribute("otherVal");
             var patrolType = $("#patrolType").val()
             if (patrolType=='05'){
-                patrolType+='_{{ tzPatroCount }}'
+                patrolType+='_'+tzPatroCount
             }
             var taskNo_ls = patrolDate+runways+patrolType
             document.getElementById('taskNo').value=taskNo_ls
