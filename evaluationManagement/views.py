@@ -700,9 +700,9 @@ def lookAllPic(request,surveyPlanCode,areaId):
     currentArea = AreaTab.objects.get(id=areaId)
     curentPlan = surveyPlan.objects.get(surveyPlanCode=surveyPlanCode)
     if request.method == 'POST':
-        pathdir = os.path.join(settings.MEDIA_ROOT, 'damageData_pic', surveyPlanCode, currentArea.areaCode).replace(
+        pathdir = os.path.join(settings.MEDIA_ROOT, 'damageData_pic', surveyPlanCode, currentArea.getDisplayAreaCode()).replace(
             '\\', '/')
-        static_root = os.path.join('/static', 'damageData_pic', surveyPlanCode, currentArea.areaCode).replace(
+        static_root = os.path.join('/static', 'damageData_pic', surveyPlanCode, currentArea.getDisplayAreaCode()).replace(
             '\\', '/')
         list = os.listdir(pathdir)
         for i in range(0, len(list)):
