@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import datetime
 from .models import *
-from main.models import runway_baseData
+from main.models import runway_baseData,roleTab,user_roleTab
 from evaluationManagement.models import parameterTab
 
 # Create your views here.
@@ -21,6 +21,8 @@ def addPatrolRecord(request):
     patroData = runwaysPatroData.objects.filter(patroDate__contains=patroDate)
     tzPatroCount = patroData.filter(patroCount='05').count()+1
     patrolTypeData = patrolTypeDic()
+    # 巡视人员
+    # role = User .objects.filter(ro)
     for type in patrolTypeData:
         for item in patroData:
             if item.patroCount==type['code']:
