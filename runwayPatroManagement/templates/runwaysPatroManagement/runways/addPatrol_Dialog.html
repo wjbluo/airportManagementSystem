@@ -91,13 +91,13 @@
                 <label class="layui-form-label">主车人员</label>
                 <div class="layui-input-inline" style="width: 210px;">
                     <select name="mainCarPerson" lay-filter="mainCarPerson">
-                            {% if patrolTypeData %}
+                        {% if patrolUserIds %}
                             <option value="">请选择</option>
                         {% else %}
                             <option value="">请联系管理员添加参数信息</option>
                         {% endif %}
-                        {% for item in patrolTypeData %}
-                            <option value="{{ item.code }}" {% if item.flag == 'false' %}disabled{% endif %}>{{ item.name }}</option>
+                        {% for item in patrolUserIds %}
+                            <option value="{{ item.user.id }}">{{ item.user.first_name }}{{ item.user.last_name }}</option>
                         {% endfor %}
 
                     </select>
@@ -127,12 +127,14 @@
 {#                  <input type="text" name="sideCarPerson" id="sideCarPerson" autocomplete="off"#}
 {#                         class="layui-input" placeholder="有则填写" onclick="showMenu_fu();" readonly>#}
                     <select name="sideCarPerson" lay-filter="sideCarPerson">
-                        <option value="">可多选</option>
-                        <option value="0">北京</option>
-                        <option value="1">上海</option>
-                        <option value="2">广州</option>
-                        <option value="3">深圳</option>
-                        <option value="4">杭州</option>
+                        {% if patrolUserIds %}
+                            <option value="">请选择</option>
+                        {% else %}
+                            <option value="">请联系管理员添加参数信息</option>
+                        {% endif %}
+                        {% for item in patrolUserIds %}
+                            <option value="{{ item.user.id }}">{{ item.user.first_name }}{{ item.user.last_name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
 

@@ -3,6 +3,7 @@ import datetime
 from .models import *
 from main.models import runway_baseData,roleTab,user_roleTab
 from evaluationManagement.models import parameterTab
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -22,6 +23,7 @@ def addPatrolRecord(request):
     tzPatroCount = patroData.filter(patroCount='05').count()+1
     patrolTypeData = patrolTypeDic()
     # 巡视人员
+    patrolUserIds= user_roleTab.objects.filter(role__roleName__contains='巡视')
     # role = User .objects.filter(ro)
     for type in patrolTypeData:
         for item in patroData:
@@ -31,7 +33,8 @@ def addPatrolRecord(request):
         'patroDate':patroDate,
         'allrunways':allrunways,
         'patrolTypeData':patrolTypeData,
-        'tzPatroCount':tzPatroCount
+        'tzPatroCount':tzPatroCount,
+        'patrolUserIds':patrolUserIds
     }
     return render(request, 'runwaysPatroManagement/runways/addPatrol_Dialog.html',context)
 

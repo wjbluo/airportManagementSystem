@@ -45,12 +45,12 @@ def selectObject(request):
     if currentAirport:
         allPart = currentAirport.parttab_set.all()
         for part in allPart:
-            Nodes.append({"id":part.id,"pId":0,"name":part.airCode+'('+part.partName+')',"open":"true"})
-            parentNodes.append({"id":part.id,"pId":0,"name":part.airCode+'('+part.partName+')',"open":"true"})
+            Nodes.append({"id":'p'+str(part.id),"pId":0,"name":part.airCode+'('+part.partName+')',"open":"true"})
+            parentNodes.append({"id":'p'+str(part.id),"pId":0,"name":part.airCode+'('+part.partName+')',"open":"true"})
             Areas = part.areatab_set.all()
             for area in Areas:
-                Nodes.append({"id": area.id, "pId": area.part.id, "name": area.getDisplayAreaCode() +'('+ area.areaDis+')', "open": "true"})
-                parentNodes.append({"id": area.id, "pId": area.part.id, "name": area.getDisplayAreaCode() + '(' + area.areaDis + ')',
+                Nodes.append({"id": area.id, "pId": 'p'+str(area.part.id), "name": area.getDisplayAreaCode() +'('+ area.areaDis+')', "open": "true"})
+                parentNodes.append({"id": area.id, "pId": 'p'+str(area.part.id), "name": area.getDisplayAreaCode() + '(' + area.areaDis + ')',
                               "open": "true","nocheck":"true"})
     context={
         'Nodes':Nodes,
