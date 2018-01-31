@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>巡视台账</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+<body class="x-body" style="padding-top: 10px">
+	<div class="container" style="padding-left: 0px;width: 98%">
+		<div class="content">
+            <div class="column"><span class="current">机坪路面巡视台账<{{ taskNo }}></span>
+                <a class="iconfont" style='cursor:pointer;font-size: small;float: right;padding-right: 20px' href="{% url 'sysManage:runwayPatroManagement:savaAspdf_xsBook' taskNo 'jp' %}" name="savaAspdf_xsBook" title="保存为pdf"><i class="iconfont">&#xe600;</i></a>
+            </div>
+            <iframe class="page-iframe" src="standBook/" frameborder="0" border="no" id="standBook" width="100%" onload="this.height=100"></iframe>
+        </div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+function reinitIframe(){
+    var iframe = document.getElementById("standBook");
+    try{
+        var bHeight = iframe.contentWindow.document.body.scrollHeight;
+        var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+        var height = Math.max(bHeight, dHeight);
+        iframe.height = height;
+        console.log(height);
+    }catch (ex){
+
+    }
+}
+window.setInterval("reinitIframe()", 200);
+
+</script>

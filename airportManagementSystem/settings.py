@@ -25,7 +25,7 @@ SECRET_KEY = '5ql7ww6q#)wk$7sp1w6b_0y@m^89!o)s$uy^#wjj$1b6bxmfl$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','tongkejt.tpddns.cn']
 
 
 # Application definition
@@ -142,3 +142,8 @@ MEDIA_URL = "/upload/"
 
 
 # LOGIN_URL = "/component/"
+WKHTMLTOPDF_CMD = 'C:\\Program Files (x86)\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'
+WKHTMLTOPDF_CMD_OPTIONS = {
+    'quiet': True,
+    'disable-smart-shrinking':True
+}

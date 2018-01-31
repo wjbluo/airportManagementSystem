@@ -2,138 +2,208 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94e8aa56-8fe5-4e24-bbf9-6ef8c28f0d9f" name="Default" comment="下拉多选">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/css/layui.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/css/layui.mobile.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/css/modules/code.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/css/modules/layer/default/icon-ext.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/css/modules/layer/default/icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/css/modules/layer/default/layer.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/css/modules/layer/default/loading-0.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/css/modules/layer/default/loading-1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/css/modules/layer/default/loading-2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/font/iconfont.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/0.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/10.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/11.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/12.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/13.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/14.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/15.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/16.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/17.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/18.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/19.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/20.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/21.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/22.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/23.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/24.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/25.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/26.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/27.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/28.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/29.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/3.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/30.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/31.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/32.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/33.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/34.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/35.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/36.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/37.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/38.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/39.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/4.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/40.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/41.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/42.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/43.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/44.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/45.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/46.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/47.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/48.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/49.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/5.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/50.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/51.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/52.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/53.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/54.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/55.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/56.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/57.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/58.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/59.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/6.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/60.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/61.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/62.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/63.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/64.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/65.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/66.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/67.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/68.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/69.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/7.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/70.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/71.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/8.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/images/face/9.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/code.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/element.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/flow.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/form.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/laydate.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/layedit.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/layer.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/laypage.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/laytpl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/mobile.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/table.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/tree.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/upload.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/util.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/layui.all.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/layui.js" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/css/modules/laydate/default/laydate.css" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/modules/laydate/default/laydate.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/font/iconfont.eot" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/font/iconfont.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/font/iconfont.svg" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/font/iconfont.svg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/font/iconfont.ttf" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/font/iconfont.ttf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/darkgrey/js/lib/layui/lay/modules/carousel.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/carousel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/font/iconfont.woff" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/font/iconfont.woff" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/darkgrey/images/main/main_logo.png" afterPath="$PROJECT_DIR$/static/darkgrey/images/main/main_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/.editorconfig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/.eslintignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/.eslintrc.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/.github/ISSUE_TEMPLATE.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/.github/PULL_REQUEST_TEMPLATE.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/.npmignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/.travis.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/CHANGELOG.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/CONTRIBUTING.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/component.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/010-default.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/020-navigation.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/030-pagination.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/040-pagination-dynamic.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/050-pagination-progress.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/060-pagination-fraction.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/070-pagination-custom.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/080-scrollbar.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/090-vertical.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/100-space-between.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/110-slides-per-view.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/120-slides-per-view-auto.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/130-centered.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/140-centered-auto.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/150-freemode.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/160-scroll-container.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/170-slides-per-column.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/180-nested.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/190-grab-cursor.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/200-infinite-loop.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/210-infinite-loop-with-slides-per-group.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/220-effect-fade.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/230-effect-cube.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/240-effect-coverflow.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/250-effect-flip.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/260-keyboard-control.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/270-mousewheel-control.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/270-mousewheel-control.html.bak" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/280-autoplay.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/290-dynamic-slides.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/300-thumbs-gallery.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/310-thumbs-gallery-loop.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/320-multiple-swipers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/330-hash-navigation.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/340-history.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/350-rtl.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/360-parallax.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/370-lazy-load-images.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/380-responsive-breakpoints.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/390-autoheight.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/400-zoom.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/410-virtual-slides.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/420-custom-plugin.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/demos/430-slideable-menu.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/dist/css/swiper.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/dist/css/swiper.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/dist/js/swiper.esm.bundle.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/dist/js/swiper.esm.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/dist/js/swiper.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/dist/js/swiper.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/dist/js/swiper.min.js.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/gulpfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/package-lock.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/package.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/playground/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/scripts/banner.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/scripts/build-config.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/scripts/build-js.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/scripts/build-less.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/scripts/gulpfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/a11y/a11y.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/a11y/a11y.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/autoplay/autoplay.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/controller/controller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/controller/controller.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/breakpoints/getBreakpoint.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/breakpoints/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/breakpoints/setBreakpoint.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/check-overflow/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/classes/addClasses.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/classes/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/classes/removeClasses.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/core-class.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/core.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/defaults.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/events/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/events/onClick.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/events/onResize.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/events/onTouchEnd.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/events/onTouchMove.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/events/onTouchStart.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/grab-cursor/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/grab-cursor/setGrabCursor.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/grab-cursor/unsetGrabCursor.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/images/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/images/loadImage.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/images/preloadImages.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/loop/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/loop/loopCreate.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/loop/loopDestroy.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/loop/loopFix.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/manipulation/appendSlide.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/manipulation/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/manipulation/prependSlide.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/manipulation/removeAllSlides.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/manipulation/removeSlide.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/slide/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/slide/slideNext.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/slide/slidePrev.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/slide/slideReset.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/slide/slideTo.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/slide/slideToClickedSlide.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/transition/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/transition/setTransition.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/transition/transitionEnd.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/transition/transitionStart.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/translate/getTranslate.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/translate/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/translate/maxTranslate.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/translate/minTranslate.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/translate/setTranslate.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/update/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/update/updateActiveIndex.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/update/updateAutoHeight.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/update/updateClickedSlide.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/update/updateProgress.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/update/updateSize.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/update/updateSlides.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/update/updateSlidesClasses.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/update/updateSlidesOffset.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/core/update/updateSlidesProgress.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/effect-coverflow/effect-coverflow.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/effect-coverflow/effect-coverflow.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/effect-cube/effect-cube.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/effect-cube/effect-cube.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/effect-fade/effect-fade.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/effect-fade/effect-fade.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/effect-flip/effect-flip.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/effect-flip/effect-flip.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/hash-navigation/hash-navigation.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/history/history.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/keyboard/keyboard.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/lazy/lazy.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/lazy/lazy.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/mousewheel/mousewheel.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/navigation/navigation.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/navigation/navigation.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/pagination/pagination.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/pagination/pagination.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/parallax/parallax.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/scrollbar/scrollbar.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/scrollbar/scrollbar.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/virtual/virtual.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/zoom/zoom.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/components/zoom/zoom.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/less/mixins.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/modules/browser/browser.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/modules/device/device.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/modules/observer/observer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/modules/resize/resize.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/modules/resize/resize.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/modules/support/support.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/swiper.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/swiper.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/utils/browser.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/utils/class.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/utils/device.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/utils/document.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/utils/dom.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/utils/support.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/utils/utils.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/utils/window.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/addApronPatrol_Dialog.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/addDamage_Dialog.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/apronPatroRecord.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/printStandBook.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/standBook.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/addDamage_Dialog.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/damageDetail.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/damageSider.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/printStandBook.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/standBook.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/runwayPatroManagement/migrations/0001_initial.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/runwayPatroManagement/migrations/0002_runwaysdamagedata_damagepic.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/upload/lsDir/out.pdf" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airportManagementSystem/settings.py" afterPath="$PROJECT_DIR$/airportManagementSystem/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/layui.css" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/layui.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/layui.mobile.css" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/layui.mobile.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/modules/code.css" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/modules/code.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/modules/layer/default/layer.css" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/modules/layer/default/layer.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/code.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/code.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/element.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/element.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/flow.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/flow.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/form.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/form.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/jquery.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/jquery.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/laydate.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/laydate.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/layedit.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/layedit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/layer.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/layer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/laypage.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/laypage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/laytpl.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/laytpl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/mobile.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/mobile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/table.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/table.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/tree.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/tree.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/upload.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/upload.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/util.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/lay/modules/util.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/layui.all.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/layui.all.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/layui.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/layui.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/comm_static/darkgrey/js/main.js" afterPath="$PROJECT_DIR$/comm_static/darkgrey/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluationManagement/models.py" afterPath="$PROJECT_DIR$/evaluationManagement/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/main.html" afterPath="$PROJECT_DIR$/main/templates/main.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runwayPatroManagement/models.py" afterPath="$PROJECT_DIR$/runwayPatroManagement/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/addPatrol_Dialog.html" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/addPatrol_Dialog.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwayPatroRecord.html" afterPath="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwayPatroRecord.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runwayPatroManagement/urls.py" afterPath="$PROJECT_DIR$/runwayPatroManagement/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runwayPatroManagement/views.py" afterPath="$PROJECT_DIR$/runwayPatroManagement/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/commUtil.py" afterPath="$PROJECT_DIR$/utils/commUtil.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -162,11 +232,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="runwayPatroRecord.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwayPatroRecord.html">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airportManagementSystem/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="142" selection-end-column="19" />
+            <state relative-caret-position="212">
+              <caret line="25" column="12" lean-forward="true" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -175,8 +245,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/runwayPatroManagement/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1254">
-              <caret line="74" column="34" lean-forward="false" selection-start-line="74" selection-start-column="34" selection-end-line="74" selection-end-column="34" />
+            <state relative-caret-position="184">
+              <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
               </folding>
@@ -184,21 +254,53 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/templates/main.html">
+      <file leaf-file-name="standBook.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/standBook.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="60">
+              <caret line="43" column="79" lean-forward="false" selection-start-line="43" selection-start-column="67" selection-end-line="43" selection-end-column="79" />
+              <folding>
+                <element signature="n#style#0;n#span#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="printStandBook.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/printStandBook.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="16" column="183" lean-forward="false" selection-start-line="16" selection-start-column="183" selection-end-line="16" selection-end-column="183" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addPatrol_Dialog.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/addPatrol_Dialog.html">
+      <file leaf-file-name="printStandBook.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/printStandBook.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="454" column="33" lean-forward="false" selection-start-line="454" selection-start-column="33" selection-end-line="454" selection-end-column="33" />
+            <state relative-caret-position="190">
+              <caret line="16" column="163" lean-forward="true" selection-start-line="16" selection-start-column="163" selection-end-line="16" selection-end-column="163" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="standBook.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/standBook.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="76" column="60" lean-forward="true" selection-start-line="76" selection-start-column="60" selection-end-line="76" selection-end-column="60" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addDamage_Dialog.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/addDamage_Dialog.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="246" column="74" lean-forward="false" selection-start-line="246" selection-start-column="74" selection-end-line="246" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -207,68 +309,29 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/runwayPatroManagement/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="8" column="66" lean-forward="false" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
+            <state relative-caret-position="152">
+              <caret line="9" column="109" lean-forward="false" selection-start-line="9" selection-start-column="109" selection-end-line="9" selection-end-column="109" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/runwayPatroManagement/models.py">
+      <file leaf-file-name="apronPatroRecord.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/apronPatroRecord.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="17" column="74" lean-forward="false" selection-start-line="17" selection-start-column="74" selection-end-line="17" selection-end-column="74" />
+            <state relative-caret-position="216">
+              <caret line="186" column="44" lean-forward="false" selection-start-line="186" selection-start-column="30" selection-end-line="186" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/evaluationManagement/urls.py">
+      <file leaf-file-name="addApronPatrol_Dialog.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/addApronPatrol_Dialog.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="28" column="14" lean-forward="false" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+            <state relative-caret-position="-362">
+              <caret line="451" column="83" lean-forward="false" selection-start-line="451" selection-start-column="83" selection-end-line="451" selection-end-column="83" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/evaluationManagement/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12331">
-              <caret line="661" column="4" lean-forward="false" selection-start-line="661" selection-start-column="4" selection-end-line="661" selection-end-column="4" />
-              <folding>
-                <element signature="e#0#48#0" expanded="true" />
-                <marker date="1515659470612" expanded="true" signature="40633:41637" ph="SELECT AVG(m... D3" />
-                <marker date="1515659470612" expanded="true" signature="40774:41610" ph="SELECT D3 / evaluationmanagement_deflectdata" />
-                <marker date="1515659470612" expanded="true" signature="41831:51086" ph="select avg_1... avg" />
-                <marker date="1515659470612" expanded="true" signature="42569:45500" ph="SELECT avg(D... sum" />
-                <marker date="1515659470612" expanded="true" signature="43179:45363" ph="SELECT sum(D... plateCode" />
-                <marker date="1515659470612" expanded="true" signature="43623:45171" ph="select plate... plateCode" />
-                <marker date="1515659470612" expanded="true" signature="44398:45099" ph="SELECT plate... evaluationmanagement_deflectdata" />
-                <marker date="1515659470612" expanded="true" signature="45583:50944" ph="select COALE... plateCode" />
-                <marker date="1515659470612" expanded="true" signature="46661:50843" ph="select plate... plateCode" />
-                <marker date="1515659470612" expanded="true" signature="49044:50763" ph="select plate... plateCode" />
-                <marker date="1515659470612" expanded="true" signature="49801:50587" ph="SELECT plate... evaluationmanagement_deflectdata" />
-                <marker date="1515659470612" expanded="true" signature="71119:72580" ph="select id,li... id" />
-                <marker date="1515659470612" expanded="true" signature="71547:72556" ph="SELECT b.id,... evaluationmanagement_planenessdata_ls" />
-                <marker date="1515659470612" expanded="true" signature="74088:74563" ph="SELECT @rown... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2508">
-              <caret line="132" column="68" lean-forward="false" selection-start-line="132" selection-start-column="13" selection-end-line="132" selection-end-column="68" />
-              <folding>
-                <marker date="1514862534601" expanded="true" signature="8771:8779" ph="..." />
-                <marker date="1514862534601" expanded="true" signature="10779:10802" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -285,18 +348,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Count</find>
-      <find>addPlan</find>
-      <find>assessmentItems</find>
-      <find>uploadDeflectData</find>
-      <find>deflectionData</find>
-      <find>xlrd_read_excel</find>
-      <find>cellArea['sumArea']</find>
-      <find>addAreaSubmit</find>
-      <find>roadSurfacePartitionInformation.html</find>
-      <find>pciCalData</find>
-      <find>showLayerPic</find>
-      <find>initContent_plate</find>
       <find>initleftMenu</find>
       <find>showStruct</find>
       <find>damageData</find>
@@ -315,6 +366,18 @@
       <find>save_patrolInfo</find>
       <find>testList</find>
       <find>receivePic</find>
+      <find>layui-btn-primary</find>
+      <find>layui-laypage-em</find>
+      <find>storage_patrolInfo</find>
+      <find>datetime</find>
+      <find>StreamingHttpResponse</find>
+      <find>layui-btn-normal</find>
+      <find>layui-badge</find>
+      <find>runwaysPatroData</find>
+      <find>addPlanBtn</find>
+      <find>addPatrolRecord</find>
+      <find>runways</find>
+      <find>searchApronPatrolRecord</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -323,29 +386,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/deflection/deflectionMenu.html" />
-        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/deflection/initDeflectionFrame.html" />
-        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/deflection/deflectData_analy.html" />
-        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/planeness/planenessData_sureOper.html" />
-        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/planeness/planenessData.html" />
-        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/planeness/initPlanenessFrame.html" />
-        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/planeness/planenessMenu.html" />
-        <option value="$PROJECT_DIR$/evaluationManagement/models.py" />
-        <option value="$PROJECT_DIR$/comm_static/darkgrey/js/lib/Highcharts-6.0.3/examples/line-ajax/index.htm" />
-        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/planeness/planenessData_analy.html" />
-        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/initdamageStatisticsFrame.html" />
-        <option value="$PROJECT_DIR$/login/templates/login.html" />
-        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/pciCal.html" />
-        <option value="$PROJECT_DIR$/login/views.py" />
-        <option value="$PROJECT_DIR$/evaluationManagement/urls.py" />
-        <option value="$PROJECT_DIR$/main/templates/baseData/structure/pavementStructureType.html" />
         <option value="$PROJECT_DIR$/main/templates/baseData/structure/structrueMenu.html" />
         <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/damageData.html" />
         <option value="$PROJECT_DIR$/main/templates/baseData/cellList.html" />
         <option value="$PROJECT_DIR$/main/templates/baseData/plateList.html" />
         <option value="$PROJECT_DIR$/main/models.py" />
         <option value="$PROJECT_DIR$/main/templates/baseData/addArea_Dialog.html" />
-        <option value="$PROJECT_DIR$/main/templates/baseData/roadSurfacePartitionInformation.html" />
         <option value="$PROJECT_DIR$/main/templates/baseData/part_areaList.html" />
         <option value="$PROJECT_DIR$/main/templates/baseData/part_area_plateList.html" />
         <option value="$PROJECT_DIR$/main/templates/baseData/addPart_Dialog.html" />
@@ -355,7 +401,6 @@
         <option value="$PROJECT_DIR$/main/templates/index.html" />
         <option value="$PROJECT_DIR$/main/views.py" />
         <option value="$PROJECT_DIR$/main/urls.py" />
-        <option value="$PROJECT_DIR$/airportManagementSystem/settings.py" />
         <option value="$PROJECT_DIR$/main/templates/pageIndex.html" />
         <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runways/runwaysRecordFrame.html" />
         <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/damageData_sureOper.html" />
@@ -363,17 +408,35 @@
         <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwaysMenu.html" />
         <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwaysRecordFrame.html" />
         <option value="$PROJECT_DIR$/comm_static/darkgrey/js/menu.js" />
-        <option value="$PROJECT_DIR$/runwayPatroManagement/models.py" />
         <option value="$PROJECT_DIR$/comm_static/darkgrey/js/lib/zTree_v3/css/demo.css" />
         <option value="$PROJECT_DIR$/comm_static/darkgrey/js/extraJs/formSelects.js" />
         <option value="$PROJECT_DIR$/comm_static/darkgrey/js/extraJs/formSelects2.js" />
         <option value="$PROJECT_DIR$/comm_static/darkgrey/js/lib/zTree_v3/demo/cn/super/select_menu_checkbox.html" />
         <option value="$PROJECT_DIR$/evaluationManagement/views.py" />
-        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwayPatroRecord.html" />
         <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/uploadpicDialog.html" />
-        <option value="$PROJECT_DIR$/runwayPatroManagement/urls.py" />
-        <option value="$PROJECT_DIR$/runwayPatroManagement/views.py" />
+        <option value="$PROJECT_DIR$/comm_static/darkgrey/js/main.js" />
+        <option value="$PROJECT_DIR$/evaluationManagement/models.py" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/addDamage_Dialog.html" />
+        <option value="$PROJECT_DIR$/utils/commUtil.py" />
+        <option value="$PROJECT_DIR$/airportManagementSystem/settings.py" />
+        <option value="$PROJECT_DIR$/main/templates/main.html" />
+        <option value="$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/layui.css" />
+        <option value="$PROJECT_DIR$/main/templates/baseData/roadSurfacePartitionInformation.html" />
         <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/addPatrol_Dialog.html" />
+        <option value="$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/initdamageFrame.html" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/damageSider.html" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/damageDetail.html" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwayPatroRecord.html" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/addDamage_Dialog.html" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/models.py" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/standBook.html" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/addApronPatrol_Dialog.html" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/apronPatroRecord.html" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/printStandBook.html" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/urls.py" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/printStandBook.html" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/views.py" />
+        <option value="$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/standBook.html" />
       </list>
     </option>
   </component>
@@ -405,6 +468,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -465,116 +529,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="airportManagementSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="airportManagementSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkgrey" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="airportManagementSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="airportManagementSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkgrey" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="airportManagementSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="airportManagementSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkgrey" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="airportManagementSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="airportManagementSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkgrey" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="airportManagementSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="airportManagementSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="runwayPatroManagement" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -619,6 +573,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="runwaysPatroManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="apron" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="airportManagementSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="airportManagementSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="runwayPatroManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="migrations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -633,22 +613,17 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="comm_static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkgrey" />
+              <option name="myItemId" value="airportManagementSystem" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Eva" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -662,11 +637,11 @@
       <recent name="C:\Users\dell\PycharmProjects\airportManagementSystem\comm_static\darkgrey\js\lib" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dell\PycharmProjects\airportManagementSystem\runwayPatroManagement\templates\runwaysPatroManagement\apron" />
+      <recent name="C:\Users\dell\PycharmProjects\airportManagementSystem\comm_static\darkgrey\js\lib" />
       <recent name="C:\Users\dell\PycharmProjects\airportManagementSystem\comm_static\darkgrey\js\extraJs" />
       <recent name="C:\Users\dell\PycharmProjects\airportManagementSystem\runwayPatroManagement" />
       <recent name="C:\Users\dell\PycharmProjects\airportManagementSystem\upload\Temple_forExcel" />
-      <recent name="C:\Users\dell\PycharmProjects\airportManagementSystem\comm_static\darkgrey\js\lib" />
-      <recent name="C:\Users\dell\PycharmProjects\airportManagementSystem\upload" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1013,7 +988,21 @@
       <option name="project" value="LOCAL" />
       <updated>1515721746296</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="layui版本升级">
+      <created>1516156238556</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1516156238556</updated>
+    </task>
+    <task id="LOCAL-00006" summary="layui升级">
+      <created>1516158108738</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1516158108738</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1029,26 +1018,26 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22879177" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.49485862" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.50906736" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.068766065" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32345015" sideWeight="0.49093264" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="manage.py@airportManagementSystem" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31940702" sideWeight="0.4922879" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32469305" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29110512" sideWeight="0.51349616" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32345015" sideWeight="0.49093264" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28746593" sideWeight="0.4974293" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32345015" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23586118" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.068766065" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="manage.py@airportManagementSystem" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31940702" sideWeight="0.4922879" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29110512" sideWeight="0.48650387" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28746593" sideWeight="0.4974293" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970026" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21428572" sideWeight="0.48714653" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1080,20 +1069,17 @@
     <MESSAGE value="跑滑行道日志新增" />
     <MESSAGE value="下拉多选" />
     <MESSAGE value="修复bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复bug" />
+    <MESSAGE value="layui版本升级" />
+    <MESSAGE value="layui升级" />
+    <option name="LAST_COMMIT_MESSAGE" value="layui升级" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main/views.py</url>
-          <line>503</line>
-          <option name="timeStamp" value="117" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main/views.py</url>
-          <line>742</line>
-          <option name="timeStamp" value="455" />
+          <url>file://$PROJECT_DIR$/runwayPatroManagement/views.py</url>
+          <line>321</line>
+          <option name="timeStamp" value="487" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -1103,328 +1089,67 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="470" />
+      <option name="time" value="505" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Python.DjangoServer">
-        <watch expression="Nodes" language="Python" />
+        <watch expression="runwaysDamageData.objects.all()" language="Python" />
+        <watch expression="this_User.first_name+this_User.last_name+';'" language="Python" />
+        <watch expression="post_data_dict['mainCarPerson'][0]['val']" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/damageData_sureOper.html">
+    <entry file="file://$PROJECT_DIR$/main/templates/authorization/userManage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4674">
-          <caret line="246" column="29" lean-forward="false" selection-start-line="246" selection-start-column="29" selection-end-line="246" selection-end-column="29" />
+        <state relative-caret-position="-779">
+          <caret line="79" column="53" lean-forward="true" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/authorization/addUserDialog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="74" column="25" lean-forward="false" selection-start-line="74" selection-start-column="25" selection-end-line="81" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="39" column="78" lean-forward="false" selection-start-line="39" selection-start-column="78" selection-end-line="39" selection-end-column="78" />
+        <state relative-caret-position="347">
+          <caret line="65" column="83" lean-forward="false" selection-start-line="65" selection-start-column="83" selection-end-line="65" selection-end-column="83" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/damageData.html">
+    <entry file="file://$PROJECT_DIR$/main/templates/pageIndex.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="18" column="11" lean-forward="false" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+        <state relative-caret-position="110">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/planeness/planenessData_analy.html">
+    <entry file="file://$PROJECT_DIR$/utils/strTrans.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-40">
+          <caret line="12" column="18" lean-forward="true" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/commUtil.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
-          <caret line="157" column="22" lean-forward="false" selection-start-line="157" selection-start-column="22" selection-end-line="157" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/damageStat.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="194" column="46" lean-forward="false" selection-start-line="194" selection-start-column="46" selection-end-line="194" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/baseData/roadSurfacePartitionInformation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="639">
-          <caret line="289" column="46" lean-forward="false" selection-start-line="289" selection-start-column="46" selection-end-line="289" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/baseData/runwayBasicInfomation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="37" column="24" lean-forward="true" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwaysMenu.html" />
-    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwaysRecord.html" />
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/plan/showPlan.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="6" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/plan/planMenu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-94">
-          <caret line="22" column="53" lean-forward="true" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="1764" column="35" lean-forward="false" selection-start-line="1764" selection-start-column="35" selection-end-line="1764" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/baseData/structure/layer_Dialog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="14" column="31" lean-forward="true" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="261" column="6" lean-forward="false" selection-start-line="261" selection-start-column="6" selection-end-line="261" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/baseData/structure/structureCombine_Dialog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/layui.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/lib/zTree_v3/css/demo.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="133" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5928">
-          <caret line="423" column="33" lean-forward="false" selection-start-line="423" selection-start-column="33" selection-end-line="423" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/extraJs/formSelects.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="32" lean-forward="false" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/extraJs/formSelects2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="49" lean-forward="true" selection-start-line="1" selection-start-column="49" selection-end-line="1" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/jsLibraryMappings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/lib/zTree_v3/demo/cn/super/select_menu_checkbox.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1007">
-          <caret line="34" column="37" lean-forward="false" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/plan/setObject_Dialog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="13" column="6" lean-forward="true" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/plan/plan_Dialog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3743">
-          <caret line="197" column="8" lean-forward="false" selection-start-line="197" selection-start-column="8" selection-end-line="218" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/images/main/left_list.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/images/main/main_logo1.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/darkgrey/images/main/main_logo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/images/main/main_logo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/login/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="38" column="33" lean-forward="true" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/plan/surveyPlan.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="53" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/jquery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="35" lean-forward="false" selection-start-line="1" selection-start-column="35" selection-end-line="1" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/jquery.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/lib/zTree_v3/js/jquery-1.4.4.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2837">
-          <caret line="1" column="35" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/darkgrey/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1178">
-          <caret line="226" column="10" lean-forward="true" selection-start-line="226" selection-start-column="10" selection-end-line="226" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airportManagementSystem/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1371">
-          <caret line="133" column="0" lean-forward="true" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/initdamageStatisticsFrame.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="182" lean-forward="false" selection-start-line="21" selection-start-column="178" selection-end-line="21" selection-end-column="182" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/damageMenu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="30" column="170" lean-forward="false" selection-start-line="30" selection-start-column="157" selection-end-line="30" selection-end-column="170" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2508">
-          <caret line="132" column="68" lean-forward="false" selection-start-line="132" selection-start-column="13" selection-end-line="132" selection-end-column="68" />
-          <folding>
-            <marker date="1514862534601" expanded="true" signature="8771:8779" ph="..." />
-            <marker date="1514862534601" expanded="true" signature="10779:10802" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwayPatroRecord.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="142" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/uploadpicDialog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="43" column="25" lean-forward="false" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="17" column="74" lean-forward="false" selection-start-line="17" selection-start-column="74" selection-end-line="17" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluationManagement/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="28" column="14" lean-forward="false" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
-          <folding />
+          <caret line="13" column="8" lean-forward="false" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/evaluationManagement/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12331">
-          <caret line="661" column="4" lean-forward="false" selection-start-line="661" selection-start-column="4" selection-end-line="661" selection-end-column="4" />
+        <state relative-caret-position="147">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="45" />
           <folding>
-            <element signature="e#0#48#0" expanded="true" />
             <marker date="1515659470612" expanded="true" signature="40633:41637" ph="SELECT AVG(m... D3" />
             <marker date="1515659470612" expanded="true" signature="40774:41610" ph="SELECT D3 / evaluationmanagement_deflectdata" />
             <marker date="1515659470612" expanded="true" signature="41831:51086" ph="select avg_1... avg" />
@@ -1443,44 +1168,368 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="38" column="74" lean-forward="false" selection-start-line="38" selection-start-column="59" selection-end-line="38" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/damageData_sureOper.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5402">
+          <caret line="321" column="51" lean-forward="true" selection-start-line="321" selection-start-column="51" selection-end-line="321" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="264" column="17" lean-forward="false" selection-start-line="264" selection-start-column="4" selection-end-line="264" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="127" column="108" lean-forward="false" selection-start-line="127" selection-start-column="79" selection-end-line="127" selection-end-column="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/initdamageStatisticsFrame.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="24" column="14" lean-forward="true" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/plan/planMenu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="12" column="6" lean-forward="true" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/plan/showPlan.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-664">
+          <caret line="19" column="48" lean-forward="true" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/plan/surveyPlan.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="23" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/baseData/roadSurfacePartitionInformation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="288" column="58" lean-forward="true" selection-start-line="288" selection-start-column="58" selection-end-line="288" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14516">
+          <caret line="1523" column="84" lean-forward="true" selection-start-line="1523" selection-start-column="84" selection-end-line="1523" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/lib/Swiper-4.1.0/src/less/mixins.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/css/layui.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6209">
+          <caret line="1" column="50686" lean-forward="false" selection-start-line="1" selection-start-column="50675" selection-end-line="1" selection-end-column="50686" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/addDamage_Dialog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-266">
+          <caret line="133" column="10" lean-forward="false" selection-start-line="133" selection-start-column="10" selection-end-line="133" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/initdamageFrame.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="39" lean-forward="true" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/templates/evaluationManagement/damage/damageData.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="37" column="20" lean-forward="true" selection-start-line="18" selection-start-column="12" selection-end-line="37" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-76">
+          <caret line="32" column="69" lean-forward="false" selection-start-line="32" selection-start-column="69" selection-end-line="32" selection-end-column="69" />
+          <folding>
+            <marker date="1516241877663" expanded="true" signature="8773:8781" ph="..." />
+            <marker date="1516241877663" expanded="true" signature="10781:10804" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2318">
+          <caret line="122" column="11" lean-forward="true" selection-start-line="122" selection-start-column="11" selection-end-line="122" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/damageDetail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1210">
+          <caret line="79" column="36" lean-forward="true" selection-start-line="79" selection-start-column="36" selection-end-line="79" selection-end-column="36" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/damageSider.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/addPatrol_Dialog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6109">
+          <caret line="360" column="63" lean-forward="false" selection-start-line="360" selection-start-column="63" selection-end-line="360" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="89" column="6" lean-forward="false" selection-start-line="89" selection-start-column="6" selection-end-line="89" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/migrations/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airportManagementSystem/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airportManagementSystem/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/migrations/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluationManagement/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airportManagementSystem/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="28" lean-forward="true" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/migrations/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="19" column="114" lean-forward="true" selection-start-line="19" selection-start-column="114" selection-end-line="19" selection-end-column="114" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="87" column="87" lean-forward="false" selection-start-line="87" selection-start-column="87" selection-end-line="87" selection-end-column="87" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/runwayPatroRecord.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1616">
+          <caret line="91" column="28" lean-forward="false" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airportManagementSystem/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="25" column="12" lean-forward="true" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/addDamage_Dialog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="246" column="74" lean-forward="false" selection-start-line="246" selection-start-column="74" selection-end-line="246" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/addApronPatrol_Dialog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-362">
+          <caret line="451" column="83" lean-forward="false" selection-start-line="451" selection-start-column="83" selection-end-line="451" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/apronPatroRecord.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="186" column="44" lean-forward="false" selection-start-line="186" selection-start-column="30" selection-end-line="186" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/standBook.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="43" column="79" lean-forward="false" selection-start-line="43" selection-start-column="67" selection-end-line="43" selection-end-column="79" />
+          <folding>
+            <element signature="n#style#0;n#span#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/printStandBook.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="16" column="183" lean-forward="false" selection-start-line="16" selection-start-column="183" selection-end-line="16" selection-end-column="183" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/printStandBook.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="16" column="163" lean-forward="true" selection-start-line="16" selection-start-column="163" selection-end-line="16" selection-end-column="163" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/runwayPatroManagement/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="8" column="66" lean-forward="false" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
+        <state relative-caret-position="152">
+          <caret line="9" column="109" lean-forward="false" selection-start-line="9" selection-start-column="109" selection-end-line="9" selection-end-column="109" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/runwayPatroManagement/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1254">
-          <caret line="74" column="34" lean-forward="false" selection-start-line="74" selection-start-column="34" selection-end-line="74" selection-end-column="34" />
+        <state relative-caret-position="184">
+          <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
           <folding>
             <element signature="e#0#48#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/comm_static/darkgrey/js/lib/layui/layui.js">
+    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/apron/standBook.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="37" lean-forward="false" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/darkgrey/js/lib/layui/layui.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="519" lean-forward="false" selection-start-line="1" selection-start-column="519" selection-end-line="1" selection-end-column="519" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/runwayPatroManagement/templates/runwaysPatroManagement/runways/addPatrol_Dialog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="454" column="33" lean-forward="false" selection-start-line="454" selection-start-column="33" selection-end-line="454" selection-end-column="33" />
+        <state relative-caret-position="304">
+          <caret line="76" column="60" lean-forward="true" selection-start-line="76" selection-start-column="60" selection-end-line="76" selection-end-column="60" />
           <folding />
         </state>
       </provider>

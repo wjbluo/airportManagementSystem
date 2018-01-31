@@ -1,0 +1,106 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>损害展示</title>
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+    <link href="{% static 'darkgrey/css/basic_info.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+{#    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css' %}" type="text/css">#}
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+{#    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/demo.css' %}" type="text/css">#}
+</head>
+<body style="background-color: white">
+	<div class="container" style="padding-left: 0px">
+		<div class="content">
+                <div class="layui-row">
+                    <div class="layui-col-xs4" style="padding-top: 30px">
+                        <div class="column"><span class="current">异常附件</span>
+                            <span class="layui-badge-rim">当前病害编号编号：{{ currentTask.taskNo }}{{ currentDamage.damageNo }}</span>
+                        </div>
+                        <table class="kv-table" >
+                            <tbody id="damageBaseData_Tab">
+                                <tr>
+                                    <td class="kv-label">异常编号</td>
+                                    <td class="kv-content">{{ currentTask.taskNo }}{{ currentDamage.damageNo }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">设施类别</td>
+                                    <td class="kv-content">{{ currentDamage.showRunwaysType }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">异常内容</td>
+                                    <td class="kv-content">{{ currentDamage.showDamageType }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">分区编号</td>
+                                    <td class="kv-content">{{ currentDamage.partitionCode }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">行编号</td>
+                                    <td class="kv-content">{{ currentDamage.X }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">列编号</td>
+                                    <td class="kv-content">{{ currentDamage.Y }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">位置区域</td>
+                                    <td class="kv-content">{{ currentDamage.location }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">异常长度</td>
+                                    <td class="kv-content">{{ currentDamage.showLength }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">异常宽度</td>
+                                    <td class="kv-content">{{ currentDamage.showWidth }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">异常面积</td>
+                                    <td class="kv-content">{{ currentDamage.showArea }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="kv-label">备注</td>
+                                    <td class="kv-content">{{ currentDamage.desc }}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layui-col-xs8">
+                        <div class="layui-carousel" id="pic" style="margin-top: 65px;margin-left: 5px">
+                              <div carousel-item>
+                                  {% for pic in currentDamage.damagePicDir %}
+                                      <div><img height="410px" width="100%" src="/static/{{ pic }}"  ></div>
+                                  {% endfor %}
+                              </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+	</div>
+
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript">
+
+     layui.use(['layer','carousel'], function() {
+         var $ = layui.jquery
+         var layer = layui.layer;
+         var carousel = layui.carousel;
+          carousel.render({
+            elem: '#pic'
+            ,height:'410px'
+            ,width: '100%' //设置容器宽度
+            ,arrow: 'none' //始终显示箭头
+          });
+
+    });
+</script>

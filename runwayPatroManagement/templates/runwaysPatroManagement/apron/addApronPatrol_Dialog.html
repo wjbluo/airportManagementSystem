@@ -1,0 +1,489 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增机坪巡视记录</title>
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+
+
+{#    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/demo.css' %}" type="text/css">#}
+	<link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css' %}" type="text/css">
+	<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery-1.4.4.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.core.js' %}"></script>
+	<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.excheck.js' %}"></script>
+</head>
+<body>
+<div class="container" style="padding-left: 0px">
+    <div class="content">
+        <form class="layui-form" method="post" style="padding-top: 20px;width: 100%" >
+            <div class="column" style="width: 95%"><span class="current">巡视基本信息</span></div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">巡视日期</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                  <input type="text" name="patroDate" id="patroDate" placeholder="请输入" autocomplete="off"
+                         class="layui-input" value="{{ patroDate }}" required lay-verify="required">
+                </div>
+
+                <label class="layui-form-label">天气情况</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                  <input type="text" name="weather" id="weather" placeholder="请输入" autocomplete="off"
+                          class="layui-input">
+                </div>
+
+                <label class="layui-form-label">任务编号</label><span id="patrolCount" style="display: none"></span>
+                <div class="layui-input-inline" style="width: 200px;">
+                  <input type="text" name="taskNo" id="taskNo" value="JP{{ patroDate }}" autocomplete="off"
+                         class="layui-input" disabled>
+                </div>
+
+
+                <label class="layui-form-label">巡视类型</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <select name="patrolType" lay-verify="required" id="patrolType" lay-filter='patrolType'>
+                        {% if patrolTypeData %}
+                            <option value="">请选择</option>
+                        {% else %}
+                            <option value="">请联系管理员添加参数信息</option>
+                        {% endif %}
+                        {% for item in patrolTypeData %}
+                            <option value="{{ item.code }}" {% if item.flag == 'false' %}disabled{% endif %}>{{ item.name }}</option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+
+
+                <label class="layui-form-label" id="patrolReasonLabel" style="display: none;font-size: smaller">通知巡视原因</label>
+                <div class="layui-input-inline" style="width: 200px;display: none" id="patrolReasonInput">
+                  <input type="text" name="patrolReason" id="patrolReason" autocomplete="off"
+                         class="layui-input">
+                </div>
+
+
+
+                <label class="layui-form-label">巡视车辆</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <select name="patroMainCar" id="patroMainCar" lay-filter="patroMainCar">
+                        <option value="">有则填写</option>
+                        <option value="民航5678">民航5678</option>
+                    </select>
+                </div>
+
+                <label class="layui-form-label">巡视人员</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <select name="mainCarPerson" lay-filter="mainCarPerson">
+                        {% if patrolUserIds %}
+                            <option value="">请选择</option>
+                        {% else %}
+                            <option value="">请联系管理员添加参数信息</option>
+                        {% endif %}
+                        {% for item in patrolUserIds %}
+                            <option value="{{ item.user.id }}">{{ item.user.first_name }}{{ item.user.last_name }}</option>
+                        {% endfor %}
+
+                    </select>
+{#                  <input type="text" name="mainCarPerson" id="mainCarPerson" autocomplete="off"#}
+{#                         class="layui-input" placeholder="有则填写" onclick="showMenu();" readonly>#}
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">巡视物品</label>
+                <div class="layui-input-block">
+                     <input name="tools" title="对讲机" type="checkbox" value="1">
+                     <input name="tools" title="照相机" type="checkbox"  value="2">
+                     <input name="tools" title="卷尺" type="checkbox"  value="3">
+                     <input name="tools" title="榔头" type="checkbox"  value="4">
+                     <input name="tools" title="凿子" type="checkbox"  value="5">
+                     <input name="tools" title="螺丝刀" type="checkbox"  value="6">
+
+                </div>
+            </div>
+            <div class="column" style="width: 95%"><span class="current">巡视时间记录</span></div>
+            <div class="layui-form-item">
+
+                <label class="layui-form-label">进入巡视</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                  <input type="text" name="entryTime" id="entryTime" placeholder="请输入" autocomplete="off"
+                          class="layui-input">
+                </div>
+
+
+                <label class="layui-form-label">结束巡视</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                  <input type="text" name="exitTime" id="exitTime" placeholder="请输入" autocomplete="off"
+                          class="layui-input">
+                </div>
+            </div>
+
+            <div class="column" style="width: 95%"><span class="current">视频文件上传</span></div>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn layui-anim-scale  layui-btn-primary" id="selectRadios">选择多视频</button>
+                    <div class="layui-upload-list" style="width: 95%">
+                        <table class="layui-table">
+                            <thead>
+                                <tr>
+                                    <th width="100px">文件名</th>
+                                    <th width="100px">大小</th>
+                                    <th width="100px">状态</th>
+                                    <th width="100px">操作</th>
+                                    <th>预览</th>
+                                </tr>
+                            </thead>
+                            <tbody id="radioList"></tbody>
+                        </table>
+                    </div>
+                <button type="button" class="layui-btn layui-anim-scale  layui-btn-primary" id="uploadRadios" name="uploadRadios">开始上传</button>
+            </div>
+
+            <div class="column" style="width: 95%"><span class="current">巡视异常记录</span></div>
+            <div class="layui-form-item" style="padding-left: 25px">
+                <div class="layui-btn-container">
+                    <div class="layui-btn layui-anim-scale  layui-btn-primary" name="addDamageRecord">新增异常记录</div>
+                    <div class="layui-btn layui-anim-scale  layui-btn-primary" name="damageScatter">异常记录分布</div>
+                    <div class="layui-btn layui-anim-scale  layui-btn-primary" id="search" name="search" style="display: none">搜索</div>
+                </div>
+                <table class="layui-table" id="contentTab" lay-filter='contentTab'></table>
+            </div>
+            <div class="layui-btn-container" style="text-align: center">
+                <div class="layui-btn layui-anim-scale  layui-btn-primary" id="save_patrolInfo" name="save_patrolInfo">保存</div>
+                <div class="layui-btn layui-anim-scale  layui-btn-primary" id="storage_patrolInfo" name="storage_patrolInfo">暂存</div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/extraJs/formSelects.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/extraJs/formSelects2.js' %}"></script>
+<script>
+    layui.use(['form','laydate','table','upload'], function(){
+        var layer = layui.layer,
+         $ = layui.jquery,
+         form = layui.form,
+         table = layui.table,
+         upload = layui.upload,
+         laydate = layui.laydate;
+         var sftj = true
+         var pathStr = ''
+        //时间选择器
+        laydate.render({
+          elem: '#entryTime'
+          ,type: 'time'
+        });
+        laydate.render({
+          elem: '#exitTime'
+          ,type: 'time'
+        });
+
+        form.on('submit(addPlanBtn)', function(data){
+            return false;
+         });
+        form.on('select(patrolType)', function(data){
+            changtaskNo()
+            var selectedVal = data.value
+            if(selectedVal=='05'){
+                document.getElementById('patrolReasonLabel').style.display='block'
+                document.getElementById('patrolReasonInput').style.display='block'
+            }else{
+                document.getElementById('patrolReasonLabel').style.display='none'
+                document.getElementById('patrolReasonInput').style.display='none'
+            }
+
+        });
+
+        form.on('select(runways)', function(data){
+            changtaskNo()
+        });
+
+        $("#patroDate").on('input',function(event){
+            changtaskNo()
+        });
+        tzPatroCount = {{ tzPatroCount }}
+        function changtaskNo(){
+            var patrolDate = $("#patroDate").val()
+{#            var selectObj  = document.getElementById('runways')#}
+{#            var runways = selectObj.options[selectObj.selectedIndex].getAttribute("otherVal");#}
+            var patrolType = $("#patrolType").val()
+            if (patrolType=='05'){
+                patrolType+='_'+tzPatroCount
+            }
+            var taskNo_ls = 'JP'+patrolDate+patrolType
+            document.getElementById('taskNo').value=taskNo_ls
+{#            $("#taskNo").value=taskNo_ls#}
+        }
+
+        var main1 = formSelects.on({
+            layFilter: 'mainCarPerson',	//绑定select lay-filter
+            left: '',			//显示的符号left
+            right: '',			//显示的符号right
+            separator: ',',		//多选分隔符
+        });
+
+
+        $("div[name='addDamageRecord']").on('click',function(){
+            var winHeight =$(window).height()+'px'
+            var winWidth =$(window).width()*0.8+'px'
+            layer.open({
+                type: 2,
+                title :'新增机坪异常记录',
+                area: [winWidth,winHeight],
+                shade: [0.8, '#393D49'],
+                shadeClose:true,
+                maxmin: true,
+                offset: 'r',
+                content: 'addDamageRecord/',
+                id:"add-DamageRecord-dialog",
+                end:function(){
+                    document.getElementById('search').click();
+                }
+            });
+        })
+
+
+
+        var contentTab = table.render({
+            elem: '#contentTab' //指定原始表格元素选择器（推荐id选择器）,
+             ,height:250
+             ,width: 1250
+             ,cols: [[
+                {field: 'location',title:'发现位置区域',width:150}
+                ,{field: 'partitionCode',title:'单元/区域编号',width:150}
+                ,{field: 'runwayType',title:'设施类别',width:150}
+                ,{field: 'damageType',title:'病害类别',width:150}
+                ,{field: 'row_col',title:'坐标',width:150}
+                ,{field: 'damageLength',title:'损坏量(长度)',width:150}
+                ,{field: 'damageWidth',title:'损坏量(宽度)',width:150}
+                ,{field: 'damageArea',title:'损坏量(面积)',width:150}
+                ,{field: 'opera',title:'操作',toolbar: '#bars',align:'center',width:150,fixed:'right'}
+              ]]
+            ,limits: [5,10,20,30,40,50]
+            ,limit: 5
+            ,size: 'sm'
+            ,loading: true
+            ,page:true
+            ,where: {csrf_token: '{{ csrf_token }}'}
+
+            ,url: '{% url 'sysManage:runwayPatroManagement:searchPatrolDamage' %}'
+            ,method: 'post'
+              //request: {} //如果无需自定义请求参数，可不加该参数
+                //response: {} //如果无需自定义数据响应名称，可不加该参数
+        });
+
+        table.on('tool(contentTab)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+            var datajson = []
+            if(layEvent === 'damagePic'){ //查看图片
+                var dis = data.damagePic_dis.split(';')
+                for(var i=0;i<dis.length-1;i++){
+                    datajson.push({
+{#                              "alt": data.location+'_',#}
+                              "src": '/static/'+dis[i], //原图地址
+                            })
+                }
+                var json = {
+                  "title": "损害图片", //相册标题
+                  "start": 0, //初始显示的图片序号，默认0
+                  "data": datajson
+                }
+                  layer.photos({
+                    photos: json //格式见API文档手册页
+                    ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机
+                  });
+            }else if (layEvent === 'position') { //查看图片
+                 layer.msg('该功能暂未开通'+"[3s后自动关闭]", {
+                            time: 3000, //3s后自动关闭
+                            btn: [ '知道了']
+                        });
+            }
+        });
+
+        $("div[name='search']").on('click',function(){
+            contentTab.reload({
+                where: { //设定异步数据接口的额外参数，任意设
+                    searchStr:''
+                  }
+            });
+        });
+
+        $("div[name='save_patrolInfo']").on('click',function(){
+            submitPatrolData(1)
+        });
+
+        $("div[name='storage_patrolInfo']").on('click',function(){
+            submitPatrolData(0)
+        });
+
+    var demoListView = $('#radioList')
+    ,uploadListIns = upload.render({
+        elem: '#selectRadios'
+        ,url: 'receiveRadio/'
+        ,multiple: true
+        ,accept: 'file' //视频
+        ,auto: false
+        ,bindAction: '#uploadRadios'
+        ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+            layer.load(); //上传loading
+        }
+        ,choose: function(obj){
+         var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+      //读取本地文件
+        obj.preview(function(index, file, result){
+            var tr = $(['<tr id="upload-'+ index +'">'
+              ,'<td>'+ file.name +'</td>'
+              ,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
+              ,'<td>等待上传</td>'
+              ,'<td>'
+                ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+                ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+              ,'</td>'
+              ,'<td><embed allowscriptaccess="always" autostart="false" loop=1 allowfullscreen="true" wmode="opaque" width="480" height="380" id="yl"></embed></td>'
+            ,'</tr>'].join(''));
+
+            //单个重传
+            tr.find('.demo-reload').on('click', function(){
+              obj.upload(index, file);
+            });
+
+            //删除
+            tr.find('.demo-delete').on('click', function(){
+              delete files[index]; //删除对应的文件
+              tr.remove();
+              uploadListIns.config.elem.next()[0].value = '';
+            });
+             //预览
+            tr.find('#yl').attr('src', result);
+
+            demoListView.append(tr);
+         });
+    }
+    ,allDone: function(obj){ //当文件全部被提交后，才触发
+        layer.closeAll('loading'); //关闭loading
+        if(obj.aborted==0){
+            sftj = true
+        }else{
+            sftj = false
+        }
+
+    }
+    ,done: function(res, index, upload){
+
+        if(res.code == 0){ //上传成功
+            var tr = demoListView.find('tr#upload-'+ index)
+            ,tds = tr.children();
+            tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+            tds.eq(3).html(''); //清空操作
+            pathStr+=res.path+';'
+            return delete this.files[index]; //删除文件队列已经上传成功的文件
+        }
+
+        this.error(index, upload);
+    }
+
+    ,error: function(index, upload,res){
+        layer.closeAll('loading'); //关闭loading
+        var tr = demoListView.find('tr#upload-'+ index)
+         ,tds = tr.children();
+        tds.eq(2).html('<span style="color: #FF5722;">'+res.msg+'</span>');
+        tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+    }
+  });
+        function submitPatrolData(choose) {
+{#            # 数据库服务更新插入#}
+            if(sftj==true){
+                var choose = choose
+                var patroDate = $("#patroDate").val()
+                var weather = $("#weather").val()
+                var runwaysCode = $("#runways").val()
+                var patrolType = $("#patrolType").val()
+                var patrolReason = ''
+                if(patrolType=='05'){
+                    patrolReason=$("#patrolReason").val()
+                }
+                var taskNo = $("#taskNo").val()
+                var patroMainCar = $("#patroMainCar").val()
+                var mainCarPerson = formSelects.arr
+                var mainCarDirection = $("#mainCarDirection").val()
+                var sideCar = $("#sideCar").val()
+                var sideCarPerson = formSelects2.arr
+                var sideCarDirection = $("#sideCarDirection").val()
+                var tools_value =[];
+                $('input[name="tools"]:checked').each(function(){
+                    tools_value.push($(this).val());
+                });
+    {#            #Time#}
+                var notifiedTowerTime = $("#notifiedTowerTime").val()
+                var notifiedFlyingTime = $("#notifiedFlyingTime").val()
+                var entryTime = $("#entryTime").val()
+                var exitNotifiedTowerTime = $("#exitNotifiedTowerTime").val()
+                var exitNotifiedFlyingTime = $("#exitNotifiedFlyingTime").val()
+                var exitTime = $("#exitTime").val()
+                var noPatroReason =''
+                if(entryTime==''){
+                    noPatroReason = $("#noPatroReason").val()
+                }
+
+
+                var post_data_dict = {choose:choose,pathStr:pathStr,patrolReason:patrolReason,patroDate:patroDate,weather:weather,runwaysCode:runwaysCode,patrolType:patrolType
+                ,taskNo:taskNo,patroMainCar:patroMainCar,mainCarPerson:mainCarPerson,mainCarDirection:mainCarDirection,sideCar:sideCar
+                ,sideCarPerson:sideCarPerson,sideCarDirection:sideCarDirection,tools_value:tools_value,notifiedTowerTime:notifiedTowerTime
+                ,notifiedFlyingTime:notifiedFlyingTime,entryTime:entryTime,exitNotifiedTowerTime:exitNotifiedTowerTime,exitNotifiedFlyingTime:exitNotifiedFlyingTime
+                ,exitTime:exitTime,noPatroReason:noPatroReason};
+                var post_data_str = JSON.stringify(post_data_dict);
+                $.ajax({
+                    url: '{% url 'sysManage:runwayPatroManagement:patrolRecordSubmit_apron' %}',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                    dataType: 'json',
+                    success: function (arg) {
+                        if(arg.status){
+                            var index = {{ count }}-1
+                            var Parenttabs = window.parent.$('.easyui-tabs1[arrindex='+ index +']')
+                            Parenttabs.tabs('close', '新增机坪巡视日志');
+                            Parenttabs.tabs('select', '机坪及附属设施日常巡视');
+                            var current_tab = Parenttabs.tabs('getTab','机坪及附属设施日常巡视').find('iframe')
+                            var iframeContent = current_tab[0].contentWindow
+                            iframeContent.document.getElementById("searchApronPatrolRecord").click()
+{#                            #关闭操作#}
+                        }else{
+                            layer.msg(arg.message+"[3s后自动关闭]", {
+                                time: 3000, //3s后自动关闭
+                                btn: [ '知道了']
+                            });
+                        }
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                             alert(XMLHttpRequest.status);
+                             alert(XMLHttpRequest.readyState);
+                             alert(textStatus);
+                             alert(errorThrown)
+                               },
+
+                })
+            }else{
+                layer.msg('存在提交错误的视频文件，无法提交'+"[3s后自动关闭]", {
+                    time: 3000, //3s后自动关闭
+                    btn: [ '知道了']
+                });
+            }
+        }
+    });
+</script>
+<script type="text/html" id="bars">
+{% verbatim %}{{#  if(d.damagePic_dis !=''){ }}
+  <a class="layui-icon" style='cursor:pointer' lay-event="damagePic" title="图片附件">&#xe64a;</a>
+{{#  } }}{% endverbatim %}
+{% verbatim %}{{#  if(d.row !='' || d.col != ''){ }}
+  <a class="layui-icon" style='cursor:pointer' lay-event="position" title="地图位置">&#xe715;</a>
+{{#  } }}{% endverbatim %}
+</script>
+</body>
+</html>

@@ -9,6 +9,7 @@ var mainPlatform = {
 	bindEvent: function(){
 		var self = this;
 		// 顶部大菜单单击事件
+
 		$(document).on('click', '.pf-nav-item', function() {
             $('.pf-nav-item').removeClass('current');
             $(this).addClass('current');
@@ -100,6 +101,7 @@ var mainPlatform = {
 
 			e.stopPropagation();
         });
+
 
         //左侧菜单收起
         $(document).on('click', '.toggle-icon', function() {

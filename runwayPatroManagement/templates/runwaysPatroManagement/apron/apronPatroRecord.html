@@ -1,0 +1,203 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>机坪巡视数据列表</title>
+
+<link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+</head>
+
+<body class="x-body">
+<div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+
+        <form class="layui-form" style="display: inline-block;position: relative;margin-bottom: 0;width: 100%;" action="">
+            <div class="layui-form-item">
+              <div class="layui-input-block"  style="vertical-align: middle">
+                        <div class="layui-btn layui-anim-scale  layui-btn-primary" lay-submit lay-filter="addApronPatrolRecord" name="addApronPatrolRecord" id="addApronPatrolRecord">
+                            <i class="layui-icon">&#xe608;</i> 新增记录
+                        </div>
+                </div>
+            </div>
+            <a id="selectRecordDate" name="selectRecordDate" class="iconfont"
+                               style='cursor:pointer;padding-left: 10px;font-size: smaller;font-weight: normal' title="Tips:日期表上小圆点标注日期为已巡视日期">&#xe615;&nbsp;按日期时间段检索</a>
+            <span id="selectedDate" style="display: none"></span>
+{#            <div class="layui-form-item">#}
+{#                <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">#}
+{#                  <input type="text" value="" name="searchStr" id="searchStr"  lay-verify="value" placeholder="搜索字段" autocomplete="off" class="layui-input">#}
+{#                </div>#}
+{#            </div>#}
+            <div class="layui-form-item">
+                <div class="layui-input-block"  style="vertical-align: middle">
+                        <button style="box-shadow: 1px 1px 2px gray;" class="layui-btn layui-btn-normal" lay-submit lay-filter="searchApronPatrolRecord" name="searchApronPatrolRecord" id="searchApronPatrolRecord">
+                            <i class="layui-icon">&#xe615;</i> 查询
+                        </button>
+                </div>
+            </div>
+            <span class="layui-badge layui-bg-gray">当前查询日期:<span class="layui-badge layui-bg-gray" id="dataStr">{{ currentDate }} ~ {{ currentDate }}</span></span>
+        </form>
+        <table class="layui-table" id="apronPatrolTable" lay-filter='apronPatrolTable'></table>
+    </div>
+</div>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+    <script>
+    layui.use(['table','form','layer','laydate'], function(){
+        var $ = layui.jquery,
+         form = layui.form,
+         table = layui.table,
+         layer = layui.layer,
+         laydate = layui.laydate;
+
+        form.on('submit(searchApronPatrolRecord)', function(data){
+            return false;
+         });
+        form.on('submit(addApronPatrolRecord)', function(data){
+            return false;
+         });
+
+        $("a[name='selectRecordDate']").on('click',function(){
+             laydate.render({
+                elem: '#selectedDate'
+                ,show: true
+{#                ,showBottom: false#}
+                ,closeStop: '#selectRecordDate'
+                ,lang: 'cn'
+                ,theme: 'grid'
+                ,format: 'yyyyMMdd'
+                ,range: '~'
+                ,mark: {{ patrolDate | safe }}
+                ,done: function(value, date, endDate){
+                     document.getElementById('dataStr').innerText=value
+                     $("button[name='searchApronPatrolRecord']").click()
+                }
+             });
+         });
+
+        $(document).on('click','table tbody tr td a[name="abnormal"]',function(){
+            var taskNo =  $(this).prev().prev().html();
+            var count = $(this).prev().html();
+            var winHeight =$(window).height()+'px'
+            if(count>0){
+                layer.open({
+                    type: 2,
+                    title :'查看异常附件',
+                    area: ['900px', winHeight],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+{#                    maxmin: true,#}
+                    offset: 'auto',
+                    anim: 2,
+                    content: '/component/runwayPatroManagement/showPatrolRecord/'+taskNo+'/showPatrolDamage/',
+                    id:"show-PatrolDamage-dialog",
+                });
+            }else{
+                layer.msg('该项无损害。', {icon: 6});
+            }
+
+        });
+
+        //执行渲染
+        var apronPatrolTable = table.render({
+            elem: '#apronPatrolTable' //指定原始表格元素选择器（推荐id选择器）
+             ,height: 'full-120' //容器高度
+             ,cols: [[
+                {field: 'taskNo',title:'任务编号',width:150,fixed:'left',sort: true} //其它参数在此省略
+                ,{field: 'abnormal',title:'异常',width:80}
+{#                ,{field: 'runwaysCode',title:'跑道编号',width:100}#}
+{#                ,{field: 'lastname',title:'名',width:50}#}
+                ,{field: 'patroCount',title:'巡视类型',width:150}
+{#                ,{field: 'direction',title:'巡视方向',width:200}#}
+{#                ,{field: 'notifiedTowerTime',title:'通报塔台时间',width:120}#}
+                ,{field: 'entryTime',title:'开始时间',width:100}
+                ,{field: 'exitTime',title:'结束时间',width:100}
+                ,{field: 'patroMainCar',title:'车牌号',width:200}
+                ,{field: 'mainCarPerson',title:'巡视人',width:150}
+{#                ,{field: 'noPatroReason',title:'未巡视原因',width:150}#}
+                ,{field: 'opera',title:'操作',toolbar: '#bars',align:'center',width:350,fixed:'right'}
+              ]]
+            ,limits: [1,10,20,30,40,50]
+            ,limit: 10
+            ,loading: true
+            ,page:true
+            ,size: 'sm'
+            ,where: {csrf_token: '{{ csrf_token }}',searchStr:$("#dataStr")[0].innerHTML}
+            ,url: '{% url 'sysManage:runwayPatroManagement:searchApronPatrolData' %}'
+            ,method: 'post'
+              //request: {} //如果无需自定义请求参数，可不加该参数
+                //response: {} //如果无需自定义数据响应名称，可不加该参数
+        });
+        $("button[name='searchApronPatrolRecord']").on('click',function(){
+            var searchStr = $("#dataStr")[0].innerHTML;
+            apronPatrolTable.reload({
+              where: { //设定异步数据接口的额外参数，任意设
+                searchStr:searchStr
+              }
+            });
+        });
+
+        $("div[name='addApronPatrolRecord']").on('click',function(){
+            var titleName = '新增机坪巡视日志'
+            var index = {{ count }}-1
+            if(window.parent.$('.easyui-tabs1[arrindex='+ index +']').tabs('exists', titleName)){
+                window.parent.$('.easyui-tabs1[arrindex='+ index +']:visible').tabs('close',titleName);
+        	}
+
+            window.parent.$('.easyui-tabs1[arrindex='+ index +']').tabs('add',{
+                title:titleName,
+                content: '<iframe class="page-iframe" src="runwayPatroManagement/showApronRecord/addApronPatrolRecord/" frameborder="no" border="no" height="100%" width="100%" scrolling="auto"></iframe>',
+                closable: true
+            });
+{#            var winHeight =$(window).height()+'px'#}
+{#            var winWidth =$(window).width()*0.8+'px'#}
+{#            layer.open({#}
+{#                type: 2,#}
+{#                title :'新增跑滑巡视日志',#}
+{#                area: [winWidth,winHeight],#}
+{#                shade: [0.8, '#393D49'],#}
+{#                shadeClose:true,#}
+{#                maxmin: true,#}
+{#                offset: 'r',#}
+{#                content: 'addPatrolRecord/',#}
+{#                id:"add-patrolRecord-dialog",#}
+{#            });#}
+        });
+
+        table.on('tool(apronPatrolTable)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'trail'){ //巡视轨迹
+
+            } else if(layEvent === 'standBook'){ //电子台账
+                var taskNo = data.taskNo
+                var winHeight =$(window).height()+'px'
+                var winWidth =$(window).width()*0.7+'px'
+                layer.open({
+                    type: 2,
+                    title :'机坪路面巡视台账',
+                    area: [winWidth,winHeight],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+                    maxmin: true,
+                    offset: 'r',
+                    content: 'printStandBook/'+taskNo+'/',
+                    id:"show-apron-standBook-dialog",
+                });
+            }
+        });
+
+    });
+    </script>
+
+    <script type="text/html" id="bars">
+      <a class="layui-icon" style='cursor:pointer' lay-event="trail" title="巡视轨迹">&#xe715;</a>
+      {% verbatim %}{{#  if(d.entryTime !=''){ }}
+        <a class="iconfont" style='cursor:pointer' lay-event="standBook" title="电子台账">&#xe6f0;</a>
+      {{#  } }}{% endverbatim %}
+    </script>
+</body>
+</html>

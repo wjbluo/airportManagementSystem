@@ -1,0 +1,52 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>DamageSider</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/Swiper-4.1.0/dist/css/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+
+
+{#    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/demo.css' %}" type="text/css">#}
+	<link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css' %}" type="text/css">
+	<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery-1.4.4.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.core.js' %}"></script>
+	<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.excheck.js' %}"></script>
+    <!-- Demo styles -->
+</head>
+<body>
+   <div class="layui-carousel" id="damages" style="text-align: center">
+      <div carousel-item="">
+          {% for item in damagesList %}
+              <div>
+                    <iframe class="page-iframe" src="showDamage/{{ item.damageNo }}/" frameborder="no" border="no" height="100%" width="100%" scrolling="no"></iframe>
+              </div>
+          {% endfor %}
+      </div>
+    </div>
+</body>
+</html>
+    <script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script>
+    layui.use(['carousel', 'form'], function(){
+      var carousel = layui.carousel
+      ,form = layui.form;
+
+    var winHeight =$(window).height()*0.965+'px'
+    var winWidth =$(window).width()*0.98+'px'
+        //图片轮播
+      carousel.render({
+            elem: '#damages'
+            ,width: winWidth
+            ,height:winHeight
+            ,autoplay:false
+          });
+    });
+</script>

@@ -25,14 +25,14 @@
             <a id="selectRecordDate" name="selectRecordDate" class="iconfont"
                                style='cursor:pointer;padding-left: 10px;font-size: smaller;font-weight: normal' title="Tips:日期表上小圆点标注日期为已巡视日期">&#xe615;&nbsp;按日期时间段检索</a>
             <span id="selectedDate" style="display: none"></span>
-            <div class="layui-form-item">
-                <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">
-                  <input type="text" value="" name="searchStr" id="searchStr"  lay-verify="value" placeholder="搜索字段" autocomplete="off" class="layui-input">
-                </div>
-            </div>
+{#            <div class="layui-form-item">#}
+{#                <div class="layui-input-block" style="vertical-align: middle;padding-left: 10px">#}
+{#                  <input type="text" value="" name="searchStr" id="searchStr"  lay-verify="value" placeholder="搜索字段" autocomplete="off" class="layui-input">#}
+{#                </div>#}
+{#            </div>#}
             <div class="layui-form-item">
                 <div class="layui-input-block"  style="vertical-align: middle">
-                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="searchPatrolRecord" name="searchPatrolRecord" id="searchPatrolRecord">
+                        <button style="box-shadow: 1px 1px 2px gray;" class="layui-btn layui-btn-normal" lay-submit lay-filter="searchPatrolRecord" name="searchPatrolRecord" id="searchPatrolRecord">
                             <i class="layui-icon">&#xe615;</i> 查询
                         </button>
                 </div>
@@ -68,30 +68,51 @@
                 ,theme: 'grid'
                 ,format: 'yyyyMMdd'
                 ,range: '~'
-                ,mark: {
-                    '2017-12-19': ''
-                    ,'2017-12-20': ''
-                    ,'2017-12-21': ''
-                 }
+                ,mark: {{ patrolDate | safe }}
                 ,done: function(value, date, endDate){
                      document.getElementById('dataStr').innerText=value
+                     $("button[name='searchPatrolRecord']").click()
                 }
              });
          });
+
+        $(document).on('click','table tbody tr td a[name="abnormal"]',function(){
+            var taskNo =  $(this).prev().prev().html();
+            var count = $(this).prev().html();
+            var winHeight =$(window).height()+'px'
+            if(count>0){
+                layer.open({
+                    type: 2,
+                    title :'查看异常附件',
+                    area: ['900px', winHeight],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+{#                    maxmin: true,#}
+                    offset: 'auto',
+                    anim: 2,
+                    content: '/component/runwayPatroManagement/showPatrolRecord/'+taskNo+'/showPatrolDamage/',
+                    id:"show-PatrolDamage-dialog",
+                });
+            }else{
+                layer.msg('该项无损害。', {icon: 6});
+            }
+
+        });
+
         //执行渲染
         var patrolTable = table.render({
             elem: '#patrolTable' //指定原始表格元素选择器（推荐id选择器）
              ,height: 'full-120' //容器高度
              ,cols: [[
-                {field: 'taskNo',title:'任务编号',width:120,fixed:'left',sort: true} //其它参数在此省略
-                ,{field: 'manage',title:'异常',width:110}
-{#                ,{field: 'name',title:'跑道编号',width:100}#}
+                {field: 'taskNo',title:'任务编号',width:150,fixed:'left',sort: true} //其它参数在此省略
+                ,{field: 'abnormal',title:'异常',width:80}
+                ,{field: 'runwaysCode',title:'跑道编号',width:100}
 {#                ,{field: 'lastname',title:'名',width:50}#}
                 ,{field: 'patroCount',title:'巡视类型',width:150}
-                ,{field: 'direction',title:'巡视方向',width:200,sort: true}
-                ,{field: 'notifiedTowerTime',title:'通报塔台时间',width:200,sort: true}
-                ,{field: 'entryTime',title:'进入时间',width:200}
-                ,{field: 'exitTime',title:'退出时间',width:150}
+                ,{field: 'direction',title:'巡视方向',width:200}
+                ,{field: 'notifiedTowerTime',title:'通报塔台时间',width:120}
+                ,{field: 'entryTime',title:'进入时间',width:100}
+                ,{field: 'exitTime',title:'退出时间',width:100}
                 ,{field: 'patroMainCar',title:'主车车牌号',width:200}
                 ,{field: 'mainCarPerson',title:'主车人员',width:150}
                 ,{field: 'noPatroReason',title:'未巡视原因',width:150}
@@ -102,35 +123,46 @@
             ,loading: true
             ,page:true
             ,size: 'sm'
-            ,where: {csrf_token: '{{ csrf_token }}'}
-            ,url: '{% url 'sysManage:searchUser' %}'
+            ,where: {csrf_token: '{{ csrf_token }}',searchStr:$("#dataStr")[0].innerHTML}
+            ,url: '{% url 'sysManage:runwayPatroManagement:searchPatrolData' %}'
             ,method: 'post'
               //request: {} //如果无需自定义请求参数，可不加该参数
                 //response: {} //如果无需自定义数据响应名称，可不加该参数
         });
         $("button[name='searchPatrolRecord']").on('click',function(){
-            var serchStr = $("#searchStr").val();
+            var searchStr = $("#dataStr")[0].innerHTML;
             patrolTable.reload({
               where: { //设定异步数据接口的额外参数，任意设
-                searchStr:serchStr
+                searchStr:searchStr
               }
             });
         });
 
         $("div[name='addPatrolRecord']").on('click',function(){
-            var winHeight =$(window).height()+'px'
-            var winWidth =$(window).width()*0.85+'px'
-            layer.open({
-                type: 2,
-                title :'新增跑滑巡视日志',
-                area: [winWidth,winHeight],
-                shade: [0.8, '#393D49'],
-                shadeClose:true,
-                maxmin: true,
-                offset: 'r',
-                content: 'addPatrolRecord/',
-                id:"add-patrolRecord-dialog",
+            var titleName = '新增跑滑巡视日志'
+            var index = {{ count }}-1
+            if(window.parent.$('.easyui-tabs1[arrindex='+ index +']').tabs('exists', titleName)){
+                window.parent.$('.easyui-tabs1[arrindex='+ index +']:visible').tabs('close',titleName);
+        	}
+
+            window.parent.$('.easyui-tabs1[arrindex='+ index +']').tabs('add',{
+                title:titleName,
+                content: '<iframe class="page-iframe" src="runwayPatroManagement/showPatrolRecord/addPatrolRecord/" frameborder="no" border="no" height="100%" width="100%" scrolling="auto"></iframe>',
+                closable: true
             });
+{#            var winHeight =$(window).height()+'px'#}
+{#            var winWidth =$(window).width()*0.8+'px'#}
+{#            layer.open({#}
+{#                type: 2,#}
+{#                title :'新增跑滑巡视日志',#}
+{#                area: [winWidth,winHeight],#}
+{#                shade: [0.8, '#393D49'],#}
+{#                shadeClose:true,#}
+{#                maxmin: true,#}
+{#                offset: 'r',#}
+{#                content: 'addPatrolRecord/',#}
+{#                id:"add-patrolRecord-dialog",#}
+{#            });#}
         });
 
         table.on('tool(patrolTable)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -141,7 +173,20 @@
             if(layEvent === 'trail'){ //巡视轨迹
 
             } else if(layEvent === 'standBook'){ //电子台账
-
+                var taskNo = data.taskNo
+                var winHeight =$(window).height()+'px'
+                var winWidth =$(window).width()*0.7+'px'
+                layer.open({
+                    type: 2,
+                    title :'跑滑路面巡视台账',
+                    area: [winWidth,winHeight],
+                    shade: [0.8, '#393D49'],
+                    shadeClose:true,
+                    maxmin: true,
+                    offset: 'r',
+                    content: 'printStandBook/'+taskNo+'/',
+                    id:"show-standBook-dialog",
+                });
             }
         });
 
@@ -150,7 +195,9 @@
 
     <script type="text/html" id="bars">
       <a class="layui-icon" style='cursor:pointer' lay-event="trail" title="巡视轨迹">&#xe715;</a>
-      <a class="iconfont" style='cursor:pointer' lay-event="standBook" title="电子台账">&#xe6f0;</a>
+      {% verbatim %}{{#  if(d.entryTime !=''){ }}
+        <a class="iconfont" style='cursor:pointer' lay-event="standBook" title="电子台账">&#xe6f0;</a>
+      {{#  } }}{% endverbatim %}
     </script>
 </body>
 </html>

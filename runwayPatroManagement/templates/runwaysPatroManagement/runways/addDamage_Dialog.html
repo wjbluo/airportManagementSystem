@@ -1,0 +1,293 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增跑滑异常记录</title>
+    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'darkgrey/css/basic_info.css' %}" type="text/css">
+    <link href="{% static 'darkgrey/css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'darkgrey/uimaker/easyui.css' %}">
+
+
+{#    <link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/demo.css' %}" type="text/css">#}
+	<link rel="stylesheet" href="{% static 'darkgrey/js/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css' %}" type="text/css">
+	<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery-1.4.4.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.core.js' %}"></script>
+	<script type="text/javascript" src="{% static 'darkgrey/js/lib/zTree_v3/js/jquery.ztree.excheck.js' %}"></script>
+</head>
+<body>
+<div class="container" style="padding-left: 0px">
+    <div class="content">
+        <form class="layui-form" method="post" style="padding-top: 20px;width: 100%" >
+            <div class="column" style="width: 95%"><span class="current">巡视异常基本信息</span></div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">设施类别</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <select name="facility" required lay-verify="required" id="facility" lay-filter='facility' lay-search>
+                        <option value="" otherVal="">请选择</option>
+                        {% for item in groups %}
+                        <optgroup label="{{ item.extra }}">
+                            {% for type in patrolDamgeTypes %}
+                                {% if type.extra == item.extra %}
+                                <option value="{{ type.parameterCode }}">{{ type.parameterName }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </optgroup>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <label class="layui-form-label">异常类型</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <select name="damageType" required lay-verify="required" id="damageType" lay-filter='damageType'>
+                        <option value="" otherVal="">请选择</option>
+                        <option value="1" otherVal="">纵横裂缝</option>
+                    </select>
+                </div>
+
+                <label class="layui-form-label">分区编号</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <input type="text" name="cellCode" id="cellCode" autocomplete="off"
+                         class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">行列编号</label>
+                <div class="layui-input-inline" style="width: 76px;">
+                    <input type="text" name="x" id="x" autocomplete="off"
+                         class="layui-input">
+                </div>
+                <div class="layui-form-mid">,</div>
+                <div class="layui-input-inline" style="width: 76px;">
+                    <input type="text" name="y" id="y" autocomplete="off"
+                         class="layui-input">
+                </div>
+                <div class="layui-form-mid"><a class="layui-icon" style='cursor:pointer'title="地图位置">&#xe715;</a></div>
+
+
+
+                <label class="layui-form-label">位置区域</label>
+                <div class="layui-input-inline" style="width: 200px">
+                  <input type="text" name="position" id="position" autocomplete="off"
+                         class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">异常长度</label>
+                <div class="layui-input-inline" style="width: 172px">
+                  <input type="text" name="damage_length" id="damage_length" autocomplete="off"
+                         class="layui-input">
+                </div>
+                <div class="layui-form-mid">cm</div>
+
+                <label class="layui-form-label">异常宽度</label>
+                <div class="layui-input-inline" style="width: 172px">
+                  <input type="text" name="damage_width" id="damage_width" autocomplete="off"
+                         class="layui-input">
+                </div>
+                <div class="layui-form-mid">cm</div>
+
+                <label class="layui-form-label">异常面积</label>
+                <div class="layui-input-inline" style="width: 172px">
+                  <input type="text" name="damage_width" id="damage_area" autocomplete="off"
+                         class="layui-input">
+                </div>
+                <div class="layui-form-mid">m&sup2;</div>
+
+            </div>
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">备注说明</label>
+                <div class="layui-input-block">
+                          <textarea placeholder="请输入内容" class="layui-textarea" id="Dis" name="Dis" style="width: 820px"></textarea>
+                        </div>
+            </div>
+
+            <div class="column" style="width: 95%"><span class="current">巡视异常图片</span></div>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn layui-anim-scale  layui-btn-primary" id="selectpics">选择多损害图片</button>
+                    <div class="layui-upload-list" style="width: 95%">
+                        <table class="layui-table">
+                            <thead>
+                                <tr>
+                                    <th width="100px">文件名</th>
+                                    <th width="100px">大小</th>
+                                    <th width="100px">状态</th>
+                                    <th width="100px">操作</th>
+                                    <th>预览</th>
+                                </tr>
+                            </thead>
+                            <tbody id="picList"></tbody>
+                        </table>
+                    </div>
+                <div class="layui-btn layui-anim-scale  layui-btn-primary" id="save" name="save">上传图片</div>
+{#                <button type="button" class="layui-btn layui-anim-scale  layui-btn-primary" id="uploadRadios" name="uploadRadios">开始上传</button>#}
+            </div>
+
+            <div class="layui-btn-container" style="text-align: center">
+
+                <div class="layui-btn layui-anim-scale  layui-btn-primary" id="save_patrolInfo" name="save_damageInfo">保存并退出</div>
+                <div class="layui-btn layui-anim-scale  layui-btn-primary" id="storage_patrolInfo" name="storage_damageInfo">保存，并填写下一项</div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'darkgrey/js/lib/layui/layui.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/extraJs/formSelects.js' %}"></script>
+<script type="text/javascript" src="{% static 'darkgrey/js/extraJs/formSelects2.js' %}"></script>
+<script>
+    layui.use(['form','laydate','table','upload'], function(){
+        var layer = layui.layer,
+         $ = layui.jquery,
+         form = layui.form,
+         table = layui.table,
+         upload = layui.upload;
+
+        PicpathStr=''
+
+        form.on('submit(addPlanBtn)', function(data){
+            return false;
+         });
+
+        form.on('select(runways)', function(data){
+            changtaskNo()
+        });
+
+        var demoListView = $('#picList')
+        ,uploadListIns = upload.render({
+            elem: '#selectpics'
+            ,url: 'receiveDamagePic/'
+            ,multiple: true
+            ,auto: false
+            ,bindAction: '#save'
+            ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                layer.load(); //上传loading
+            }
+            ,choose: function(obj){
+             var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+          //读取本地文件
+            obj.preview(function(index, file, result){
+                var tr = $(['<tr id="upload-'+ index +'">'
+                  ,'<td>'+ file.name +'</td>'
+                  ,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
+                  ,'<td>等待上传</td>'
+                  ,'<td>'
+                    ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+                    ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+                  ,'</td>'
+                  ,'<td><embed allowscriptaccess="always" autostart="false" loop=1 allowfullscreen="true" wmode="opaque" width="200" height="150" id="yl"></embed></td>'
+                ,'</tr>'].join(''));
+
+                //单个重传
+                tr.find('.demo-reload').on('click', function(){
+                  obj.upload(index, file);
+                });
+
+                //删除
+                tr.find('.demo-delete').on('click', function(){
+                  delete files[index]; //删除对应的文件
+                  tr.remove();
+                  uploadListIns.config.elem.next()[0].value = '';
+                });
+                 //预览
+                tr.find('#yl').attr('src', result);
+
+                demoListView.append(tr);
+             });
+        }
+        ,allDone: function(obj){ //当文件全部被提交后，才触发
+            layer.closeAll('loading'); //关闭loading
+            if(obj.aborted==0){
+    {#            # 数据库服务更新插入#}
+
+    {#            #}
+
+            }else{
+                layer.msg('存在提交错误的图片文件，无法提交'+"[3s后自动关闭]", {
+                    time: 3000, //3s后自动关闭
+                    btn: [ '知道了']
+                });
+            }
+
+        }
+        ,done: function(res, index, upload){
+
+            if(res.code == 0){ //上传成功
+                var tr = demoListView.find('tr#upload-'+ index)
+                ,tds = tr.children();
+                tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                tds.eq(3).html(''); //清空操作
+                PicpathStr+=res.path+';'
+                return delete this.files[index]; //删除文件队列已经上传成功的文件
+            }
+
+            this.error(index, upload);
+        }
+
+        ,error: function(index, upload,res){
+            layer.closeAll('loading'); //关闭loading
+            var tr = demoListView.find('tr#upload-'+ index)
+             ,tds = tr.children();
+            tds.eq(2).html('<span style="color: #FF5722;">'+res.msg+'</span>');
+            tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+        }
+      });
+        var  frameindex= parent.layer.getFrameIndex(window.name);
+         function submitData(flag) {
+            var pathStr = PicpathStr
+            var facility = $("#facility").val()
+            var damageType = $("#damageType").val()
+            var cellCode = $("#cellCode").val()
+            var x = $("#x").val()
+            var y = $("#y").val()
+            var position = $("#position").val()
+            var damage_length = $("#damage_length").val()
+            var damage_width = $("#damage_width").val()
+            var damage_area = $("#damage_area").val()
+            var Dis = $("#Dis").val()
+
+            var post_data_dict = {pathStr:pathStr,facility:facility,damageType:damageType,cellCode:cellCode,x:x
+            ,y:y,position:position,damage_length:damage_length,damage_width:damage_width,damage_area:damage_area
+            ,Dis:Dis};
+            var post_data_str = JSON.stringify(post_data_dict);
+            $.ajax({
+                url: '{% url 'sysManage:runwayPatroManagement:patrolDamageSubmit' %}',
+                type: 'POST',
+                data: {csrfmiddlewaretoken:'{{ csrf_token }}','post_data': post_data_str },
+                dataType: 'json',
+                success: function (arg) {
+                    if(arg.status){
+                        if(flag==1){
+                            location.href = '/component/runwayPatroManagement/showPatrolRecord/addPatrolRecord/addDamageRecord/'
+                        }else{
+                            parent.layer.close(frameindex)
+                        }
+{#                             parent.layer.close(frameindex)#}
+{#                             parent.document.getElementById('searchUser').click();#}
+                    }else{
+                        layer.msg(arg.message+"[3s后自动关闭]", {
+                            time: 3000, //3s后自动关闭
+                            btn: [ '知道了']
+                        });
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                         alert(XMLHttpRequest.status);
+                         alert(XMLHttpRequest.readyState);
+                         alert(textStatus);
+                         alert(errorThrown)
+                           },
+
+            })
+        }
+        $("div[name='storage_damageInfo']").on('click',function(){
+            submitData(1)
+        });
+        $("div[name='save_damageInfo']").on('click',function(){
+            submitData(2)
+        });
+    });
+</script>
+</body>
+</html>
